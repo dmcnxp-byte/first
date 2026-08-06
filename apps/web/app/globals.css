@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/*
+ * Font family tokens only, wired to next/font variables set in app/layout.tsx.
+ * Brand colour/spacing/radius tokens (DOC/REQUIREMENTS_ANALYSIS.md § 12) are
+ * deliberately not added yet — they land with the component library in Phase 3.
+ */
+@theme inline {
+  --font-display: var(--font-poppins);
+  --font-sans: var(--font-inter);
+  --font-voice: var(--font-lora);
+}
+
+body {
+  font-family: var(--font-sans);
+}

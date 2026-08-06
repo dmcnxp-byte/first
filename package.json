@@ -1,0 +1,35 @@
+{
+  "name": "distance-mba-college",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Distance MBA College — lead-generation advisory platform for private-university Distance/Online/Executive/Correspondence MBA programmes. See /DOC for architecture.",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web",
+    "start": "npm run start --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/web",
+    "lint:fix": "npm run lint:fix --workspace=apps/web",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "npm run typecheck --workspace=apps/web",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11"
+  },
+  "lint-staged": {
+    "apps/web/**/*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --config apps/web/eslint.config.mjs --fix"
+    ],
+    "apps/web/**/*.{json,css,md}": [
+      "prettier --write"
+    ]
+  }
+}

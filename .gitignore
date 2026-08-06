@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# Env files — never committed, see DOC/GIT_WORKFLOW.md § 5
+.env
+.env*.local
+.env.development
+.env.staging
+.env.production
+!.env.example
+
+# Sanity
+.sanity/
+
+# Testing / coverage
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+.pnpm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Vercel
+.vercel/
+
+# Misc
+*.pem

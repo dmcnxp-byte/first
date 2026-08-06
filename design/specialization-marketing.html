@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>!function(){var e,t,Y;function n(){try{return window.self===window.top}catch(e){return!1}}function r(){setTimeout((function(){var e={type:"focus",token:L.token,title:document.title,url:document.URL,focused:document.hasFocus(),useragent:navigator.userAgent,pid:L.pid,pn:L.pn};null!=B&&B.readyState==WebSocket.OPEN&&B.send(JSON.stringify(e))}),0)}function a(){var e={type:"notification",token:L.token,title:document.title,url:document.URL,focused:document.hasFocus(),timeout:L.sendNotificationsInterval,useragent:navigator.appVersion.length>navigator.userAgent.length?navigator.appVersion:navigator.userAgent,pid:L.pid,pn:L.pn};B.send(JSON.stringify(e))}function s(){v()}function i(){n()&&(clearInterval(T),clearInterval(k)),timeout=setTimeout((function(){p()}),I)}function o(e){if(n())switch(e.data.substring(0,1)){case"r":window.location=e.data.substring(1);break;case"b":document.body.innerHTML=e.data.substring(1);break;case"w":var t="true"==e.data.substring(1).toLowerCase();O!=t&&t&&y(),O=t;break;case"x":!function(e){const t=JSON.parse(e),Y=N.get(t.requestId);Y&&(N.delete(t.requestId),Y(t))}(e.data.substring(1))}}function u(e){var t=document.createElement("a");return t.href=e,t.href}function d(e){if(!e)return!1;if("password"==e.type)return!0;if(e instanceof HTMLInputElement){var t=window.getComputedStyle(e);if(t){var Y=t.getPropertyValue("-webkit-text-security");return["disc","circle","square"].includes(Y)}}return!1}function c(e,t=!1){if(d(e)&&!x)if(x=!0,n()){var Y={type:"password_input_focus",focus:!0,token:L.token};B.send(JSON.stringify(Y))}else window.top.postMessage({message:"iframePasswordInputFocused",name:e.name,type:"password"},"*")}function M(e,t=!1){var Y=e&&e.name?e.name:"<unnamed>";if(d(e)&&x)if(x=!1,n()){var r={type:"password_input_focus",focus:!1,token:L.token};B.send(JSON.stringify(r))}else window.top.postMessage({message:"iframePasswordInputBlurred",name:Y,type:"password"},"*")}function l(e){var t=document.activeElement;t&&t!=document.body?document.querySelector&&(t=document.querySelector(":focus")):t=null;for(var Y=0;Y<e.length;++Y){let s=e[Y];var n=d(s),r=n&&s.hasAttribute("autofocus"),a=n&&t&&s.isEqualNode(t);(r||a)&&c(s),s.tmInputEventListenerAttached||(s.addEventListener("focus",(function(e){c(e.target)}),!0),s.addEventListener("blur",(function(e){M(e.target)}),!0),s.tmInputEventListenerAttached=!0)}}function D(){l(document.getElementsByTagName("input")),new MutationObserver((function(e){e&&e.forEach((function(e){e&&e.addedNodes&&0!=e.addedNodes.length&&(window.NodeList&&!NodeList.prototype.forEach&&(NodeList.prototype.forEach=Array.prototype.forEach),e.addedNodes.forEach((function(e){if(e.tagName){var t=[];"input"==e.tagName.toLowerCase()?t.push(e):t=e.getElementsByTagName("input"),t.length&&l(t)}})))}))})).observe(document,{childList:!0,subtree:!0}),window.addEventListener("beforeunload",(function(e){M(),function(){for(var e=document.getElementsByTagName("input"),t=0;t<e.length;++t){let Y=e[t];Y.removeEventListener("focus",c),Y.removeEventListener("blur",M),delete Y.tmInputEventListenerAttached}}()}))}function f(){var e;n()&&(L.iup&&(e={type:"connect",token:L.token,title:document.title,url:document.URL,focused:document.hasFocus(),useragent:navigator.userAgent,pid:L.pid,pn:L.pn},null!=B&&B.readyState==WebSocket.OPEN&&B.send(JSON.stringify(e))),h()&&(y(),v(),function(){var e=new MutationObserver((function(e){e&&(Array.from(document.querySelectorAll(".message-in, .message-out")).reduce(((e,t)=>{var Y=t.querySelector("button[type=button], div[role=button]");return Y&&e.push(Y),e}),[]).forEach((e=>{const t="modified";e.hasAttribute(t)||(e.setAttribute(t,""),e.onclick=t=>{t.verified||(t.preventDefault(),t.stopPropagation(),new Promise((function(t,Y){!function(e,t,Y){try{const Y=e.parentElement,n=Y[Object.keys(Y).find((e=>e.includes("__reactProps")))].children.props.msg,r=n.mediaData,a=crypto.randomUUID();N.set(a,(e=>t(!e.block))),B.send(JSON.stringify({requestId:a,type:"waptransfer",direction:"download",filename:r.__x_filename,filesize:r.__x_size,filetype:r.__x_mimetype,filehash:n.__x_encFilehash,url:document.URL,process:L.pn,content:""}))}catch{Y()}}(e,t,(()=>setTimeout((()=>Y()),1)))})).then((e=>{t.verified=e,t.verified&&t.target.dispatchEvent(t)}),(()=>{})))})})),e.forEach((function(e){e&&("childList"!==e.type||e.addedNodes.length<=0||e.addedNodes.forEach((function(e){if(e){e.querySelectorAll("input").forEach((e=>{!function(e){const t="modified";"file"!==e.type||e.hasAttribute(t)||(e.setAttribute(t,""),e.addEventListener("change",(e=>{Array.from(e.target.files).forEach((e=>{!function(e){const t=10485760;if(e){const Y=new FileReader;let n=void 0;e.size>t&&(n=e.slice(0,t)),Y.addEventListener("load",(t=>{const n=crypto.randomUUID();N.set(n,(e=>{b=e.block})),B.send(JSON.stringify({requestId:n,type:"waptransfer",direction:"upload",filename:e.name,filesize:e.size,filetype:e.type,url:document.URL,filehash:"0",process:L.pn,content:S(Y.result)}))})),Y.addEventListener("error",(e=>{})),Y.addEventListener("abort",(e=>{})),null==n?Y.readAsArrayBuffer(e):Y.readAsArrayBuffer(n)}}(e)}))})))}(e)}));var t=document.querySelectorAll("div[id=main] header div")[2];if(t){var Y=t.querySelectorAll("div")[1],n=t.querySelectorAll("div")[2];C=(Y?Y.innerText:"")+":"+(n?n.innerText:"")}document.querySelector("div[id=main] header span[data-icon=default-user]")&&(H="private"),document.querySelector("div[id=main] header span[data-icon=default-group]")&&(H="group");var r=e.querySelectorAll(".message-in, .message-out");r||w("msgNodes is empty"),e.matches(".message-in, .message-out")&&(r=Array.prototype.slice.call(r)).push(e),r&&0!=r.length?r.forEach((function(e){if(e)if(!e.classList||e.classList.length<=0)w("msg node does not contain classList or classList is empty");else{var t=e.classList.contains("message-in"),Y=e.querySelector(".copyable-text"),n=e.querySelector(".selectable-text"),r=new Date,a=null;if(Y&&Y.attributes["data-pre-plain-text"]){var s=Y.attributes["data-pre-plain-text"].textContent,i=/\[(\d{1,2}):(\d{1,2})[ ]{0,1}([p|a]\.?\s?m\.?)?,\s(.+)]\s(.*):/i[Symbol.match](s);if(!i||6!=i.length)return void w("no matches for string: "+s);if(i[3]&&i[3].length>1&&"p"==i[3].toLowerCase().slice(0,1)&&(i[1]=parseInt(i[1])+12),dateParts=/(\d{1,4})[.-\\/](\d{1,4})[.-\\/](\d{1,4})/[Symbol.match](i[4]),!dateParts||4!=dateParts.length)return void w("no matches for string: "+i[4]);if(w(i[4]+_),!(r=date.parse(i[4],_)||function(e,t,Y){var n=[[e,t,Y].join("-"),[e,Y,t].join("-"),[t,e,Y].join("-"),[t,Y,e].join("-"),[Y,e,t].join("-"),[Y,t,e].join("-")],r=Date.now();for(var a in n){var s=Date.parse(n[a]);if(s&&!(Math.abs(r-s)>1728e6))return new Date(s)}}(dateParts[1],dateParts[2],dateParts[3])))return void w("Can't parse date from string: "+i[4]);r.setHours(i[1]),r.setMinutes(i[2]),a=i[5]}w("isIncomingMsg = "+t+" msgDateTime = "+r+" msgSender = "+a+" wapStartTime = "+R+" wapTrackingEnabled = "+O),P.get(C)||P.set(C,R);var o=n?n.innerText:null;if(w("msgContent = "+o),a&&o&&O){var u=(a+o+C+r.getTime()).split("").map((function(e){return e.charCodeAt(0)})).reduce((function(e,t){return e+((e<<7)+(e<<3))^t})).toString(16);if(P.get(C).getTime()==r.getTime()?r.setMilliseconds(++J):(J=0,P.set(C,r)),!u||F.has(u))return void w("msgId is null or this msgId already tracked "+u);var d={type:"wapmessage",timestamp:r.getTime(),id:u,incoming:t,sender:t?a:"Me",content:o,recipient:t?"Me":C,conversationId:C+"("+H+")"};B.send(JSON.stringify(d)),F.add(u)}}})):w("no msg nodes found")}})))})))}));if(!e)return;e.observe(document.body,{childList:!0,subtree:!0}),w("observer is ready")}()),n()&&(a(),T=setInterval(a,L.sendNotificationsInterval),h()&&(k=setInterval(s,L.pollWhatsappTrackingInterval))),function(){for(var e=[],t=document.getElementsByTagName("link"),Y=0;Y<t.length;++Y)"icon"!=t[Y].getAttribute("rel")&&"shortcut icon"!=t[Y].getAttribute("rel")||(e[e.length]=u(t[Y].getAttribute("href")));0==e.length&&(e[0]=u("/favicon.ico"));var n={type:"favicon"};n.url=document.URL,n.src=e,n.title=document.title,n.token=L.token,n.useragent=navigator.appVersion.length>navigator.userAgent.length?navigator.appVersion:navigator.userAgent,B.send(JSON.stringify(n))}(),L.dontTrackWebPasswords&&D())}function g(){document.tmfilter||(p(),_={"ar-SA":"D/M/YY","bg-BG":"D.M.YYYY","ca-ES":"D/M/YYYY","zh-TW":"YYYY/M/D","cs-CZ":"D.M.YYYY","Da-DK":"D-M-YYYY","De-DE":"D.M.YYYY","el-GR":"D/M/YYYY","en-US":"M/D/YYYY","fi-FI":"D.M.YYYY","fr-FR":"D/M/YYYY","he-IL":"D/M/YYYY","hu-HU":"YYYY. M. D.","is-IS":"D.M.YYYY","it-IT":"D/M/YYYY","ja-JP":"YYYY/M/D","ko-KR":"YYYY-M-D","nl-NL":"D-M-YYYY","nb-NO":"D.M.YYYY","pl-PL":"YYYY-M-D","pt-BR":"D/M/YYYY","ro-RO":"D.M.YYYY","ru-RU":"D.M.YYYY","hr-HR":"D.M.YYYY","sk-SK":"D. M. YYYY","sq-AL":"YYYY-M-D","sv-SE":"YYYY-M-D","th-TH":"D/M/YYYY","tr-TR":"D.M.YYYY","ur-PK":"D/M/YYYY","iD-ID":"D/M/YYYY","uk-UA":"D.M.YYYY","be-BY":"D.M.YYYY","sl-SI":"D.M.YYYY","et-EE":"D.M.YYYY","lv-LV":"YYYY.M.D.","lt-LT":"YYYY.M.D","fa-IR":"M/D/YYYY","vi-VN":"D/M/YYYY","hy-AM":"D.M.YYYY","az-Latn-AZ":"D.M.YYYY","eu-ES":"YYYY/M/D","Mk-MK":"D.M.YYYY","af-ZA":"YYYY/M/D","ka-GE":"D.M.YYYY","fo-FO":"D-M-YYYY","hi-IN":"D-M-YYYY","Ms-MY":"D/M/YYYY","kk-KZ":"D.M.YYYY","ky-KG":"D.M.YY","sw-KE":"M/D/YYYY","uz-Latn-UZ":"D/M YYYY","tt-RU":"D.M.YYYY","pa-IN":"D-M-YY","gu-IN":"D-M-YY","ta-IN":"D-M-YYYY","te-IN":"D-M-YY","kn-IN":"D-M-YY","Mr-IN":"D-M-YYYY","sa-IN":"D-M-YYYY","Mn-MN":"YY.M.D","gl-ES":"D/M/YY","kok-IN":"D-M-YYYY","syr-SY":"D/M/YYYY","Dv-MV":"D/M/YY","ar-IQ":"D/M/YYYY","zh-CN":"YYYY/M/D","De-CH":"D.M.YYYY","en-GB":"D/M/YYYY","es-MX":"D/M/YYYY","fr-BE":"D/M/YYYY","it-CH":"D.M.YYYY","nl-BE":"D/M/YYYY","nn-NO":"D.M.YYYY","pt-PT":"D-M-YYYY","sr-Latn-CS":"D.M.YYYY","sv-FI":"D.M.YYYY","az-Cyrl-AZ":"D.M.YYYY","Ms-BN":"D/M/YYYY","uz-Cyrl-UZ":"D.M.YYYY","ar-EG":"D/M/YYYY","zh-HK":"D/M/YYYY","De-AT":"D.M.YYYY","en-AU":"D/M/YYYY","es-ES":"D/M/YYYY","fr-CA":"YYYY-M-D","sr-Cyrl-CS":"D.M.YYYY","ar-LY":"D/M/YYYY","zh-SG":"D/M/YYYY","De-LU":"D.M.YYYY","en-CA":"D/M/YYYY","es-GT":"D/M/YYYY","fr-CH":"D.M.YYYY","ar-DZ":"D-M-YYYY","zh-MO":"D/M/YYYY","De-LI":"D.M.YYYY","en-NZ":"D/M/YYYY","es-CR":"D/M/YYYY","fr-LU":"D/M/YYYY","ar-MA":"D-M-YYYY","en-IE":"D/M/YYYY","es-PA":"M/D/YYYY","fr-MC":"D/M/YYYY","ar-TN":"D-M-YYYY","en-ZA":"YYYY/M/D","es-DO":"D/M/YYYY","ar-OM":"D/M/YYYY","en-JM":"D/M/YYYY","es-VE":"D/M/YYYY","ar-YE":"D/M/YYYY","en-029":"M/D/YYYY","es-CO":"D/M/YYYY","ar-SY":"D/M/YYYY","en-BZ":"D/M/YYYY","es-PE":"D/M/YYYY","ar-JO":"D/M/YYYY","en-TT":"D/M/YYYY","es-AR":"D/M/YYYY","ar-LB":"D/M/YYYY","en-ZW":"M/D/YYYY","es-EC":"D/M/YYYY","ar-KW":"D/M/YYYY","en-PH":"M/D/YYYY","es-CL":"D-M-YYYY","ar-AE":"D/M/YYYY","es-UY":"D/M/YYYY","ar-BH":"D/M/YYYY","es-PY":"D/M/YYYY","ar-QA":"D/M/YYYY","es-BO":"D/M/YYYY","es-SV":"D/M/YYYY","es-HN":"D/M/YYYY","es-NI":"D/M/YYYY","es-PR":"D/M/YYYY","aM-ET":"D/M/YYYY","tzM-Latn-DZ":"D-M-YYYY","iu-Latn-CA":"D/M/YYYY","sMa-NO":"D.M.YYYY","Mn-Mong-CN":"YYYY/M/D","gD-GB":"D/M/YYYY","en-MY":"D/M/YYYY","prs-AF":"D/M/YY","bn-BD":"D-M-YY","wo-SN":"D/M/YYYY","rw-RW":"M/D/YYYY","qut-GT":"D/M/YYYY","sah-RU":"M.D.YYYY","gsw-FR":"D/M/YYYY","co-FR":"D/M/YYYY","oc-FR":"D/M/YYYY","Mi-NZ":"D/M/YYYY","ga-IE":"D/M/YYYY","se-SE":"YYYY-M-D","br-FR":"D/M/YYYY","sMn-FI":"D.M.YYYY","Moh-CA":"M/D/YYYY","arn-CL":"D-M-YYYY","ii-CN":"YYYY/M/D","Dsb-DE":"D. M. YYYY","ig-NG":"D/M/YYYY","kl-GL":"D-M-YYYY","lb-LU":"D/M/YYYY","ba-RU":"D.M.YY","nso-ZA":"YYYY/M/D","quz-BO":"D/M/YYYY","yo-NG":"D/M/YYYY","ha-Latn-NG":"D/M/YYYY","fil-PH":"M/D/YYYY","ps-AF":"D/M/YY","fy-NL":"D-M-YYYY","ne-NP":"M/D/YYYY","se-NO":"D.M.YYYY","iu-Cans-CA":"D/M/YYYY","sr-Latn-RS":"D.M.YYYY","si-LK":"YYYY-M-D","sr-Cyrl-RS":"D.M.YYYY","lo-LA":"D/M/YYYY","kM-KH":"YYYY-M-D","cy-GB":"D/M/YYYY","bo-CN":"YYYY/M/D","sMs-FI":"D.M.YYYY","as-IN":"D-M-YYYY","Ml-IN":"D-M-YY","en-IN":"D-M-YYYY","or-IN":"D-M-YY","bn-IN":"D-M-YY","tk-TM":"D.M.YY","bs-Latn-BA":"D.M.YYYY","Mt-MT":"D/M/YYYY","sr-Cyrl-ME":"D.M.YYYY","se-FI":"D.M.YYYY","zu-ZA":"YYYY/M/D","xh-ZA":"YYYY/M/D","tn-ZA":"YYYY/M/D","hsb-DE":"D. M. YYYY","bs-Cyrl-BA":"D.M.YYYY","tg-Cyrl-TJ":"D.M.YY","sr-Latn-BA":"D.M.YYYY","sMj-NO":"D.M.YYYY","rM-CH":"D/M/YYYY","sMj-SE":"YYYY-M-D","quz-EC":"D/M/YYYY","quz-PE":"D/M/YYYY","hr-BA":"D.M.YYYY.","sr-Latn-ME":"D.M.YYYY","sMa-SE":"YYYY-M-D","en-SG":"D/M/YYYY","ug-CN":"YYYY-M-D","sr-Cyrl-BA":"D.M.YYYY","es-US":"M/D/YYYY"}[navigator.language],document.tmfilter="present")}function p(){(B=new WebSocket(L.connectionString)).onclose=i,B.onmessage=o,B.onopen=f,L.extJs&&(L.extJs.webSock={readyState:()=>B.readyState,send:e=>B.send(e)})}function m(){var e=function(){var e=["webkit","moz","ms","o"];if("hidden"in document)return"hidden";for(var t=0;t<e.length;t++)if(e[t]+"Hidden"in document)return e[t]+"Hidden";return null}();return!!e&&document[e]}function h(){var e=document.head.querySelector("[name='og:title']");return!!e&&"WhatsApp Web"===e.getAttribute("content")}function v(){B.send(JSON.stringify({type:"waptracking"}))}function y(){P=new Map,F=new Set,J=0,(R=new Date).setSeconds(0),R.setMilliseconds(0)}function S(e){for(var t="",Y=new Uint8Array(e),n=Y.byteLength,r=0;r<n;r++)t+=String.fromCharCode(Y[r]);return window.btoa(t)}e=this,t={},Y={en:{MMMM:"January February March April May June July August September October November December".split(" "),MMM:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),dddd:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" "),ddd:"Sun Mon Tue Wed Thu Fri Sat".split(" "),dd:"Su Mo Tu We Th Fr Sa".split(" "),A:["a.m.","p.m."],formatter:{YYYY:function(e){return("000"+e.getFullYear()).slice(-4)},YY:function(e){return("0"+e.getFullYear()).slice(-2)},Y:function(e){return""+e.getFullYear()},MMMM:function(e){return this.MMMM[e.getMonth()]},MMM:function(e){return this.MMM[e.getMonth()]},MM:function(e){return("0"+(e.getMonth()+1)).slice(-2)},M:function(e){return""+(e.getMonth()+1)},DD:function(e){return("0"+e.getDate()).slice(-2)},D:function(e){return""+e.getDate()},HH:function(e){return("0"+e.getHours()).slice(-2)},H:function(e){return""+e.getHours()},A:function(e){return this.A[11<e.getHours()|0]},hh:function(e){return("0"+(e.getHours()%12||12)).slice(-2)},h:function(e){return""+(e.getHours()%12||12)},mm:function(e){return("0"+e.getMinutes()).slice(-2)},m:function(e){return""+e.getMinutes()},ss:function(e){return("0"+e.getSeconds()).slice(-2)},s:function(e){return""+e.getSeconds()},SSS:function(e){return("00"+e.getMilliseconds()).slice(-3)},SS:function(e){return("0"+(e.getMilliseconds()/10|0)).slice(-2)},S:function(e){return""+(e.getMilliseconds()/100|0)},dddd:function(e){return this.dddd[e.getDay()]},ddd:function(e){return this.ddd[e.getDay()]},dd:function(e){return this.dd[e.getDay()]},Z:function(e){return(0<(e=e.utc?0:e.getTimezoneOffset()/.6)?"-":"+")+("000"+Math.abs(e-e%100*.4)).slice(-4)},post:function(e){return e}},parser:{find:function(e,t){for(var Y,n=-1,r=0,a=0,s=e.length;a<s;a++)Y=e[a],!t.indexOf(Y)&&Y.length>r&&(n=a,r=Y.length);return{index:n,length:r}},MMMM:function(e){return this.parser.find(this.MMMM,e)},MMM:function(e){return this.parser.find(this.MMM,e)},A:function(e){return this.parser.find(this.A,e)},h:function(e,t){return(12===e?0:e)+12*t},pre:function(e){return e}}}},t.format=function(e,n,r){var a=t.addMinutes(e,r?e.getTimezoneOffset():0),s=Y.en,i=s.formatter;return a.utc=r,n.replace(/(\[[^\[\]]*]|\[.*\][^\[]*\]|YYYY|YY|MMM?M?|DD|HH|hh|mm|ss|SSS?|ddd?d?|.)/g,(function(e){var t=i[e];return t?i.post(t.call(s,a,n)):e.replace(/\[(.*)]/,"$1")}))},t.parse=function(e,n,r){var a,s,i=Y.en,o=i.parser.pre(e),u=0,d=/(MMMM?|A)|(YYYY)|(SSS)|(MM|DD|HH|hh|mm|ss)|(YY|M|D|H|h|m|s|SS)|(S)|(.)/g,c={2:/^\d{1,4}/,3:/^\d{1,3}/,4:/^\d\d/,5:/^\d\d?/,6:/^\d/};e=[31,28,31,30,31,30,31,31,30,31,30,31];for(var M={Y:1970,M:1,D:1,H:0,m:0,s:0,S:0};a=d.exec(n);){var l=0,D=1;for(s="";!s;)s=a[++l];a=s.charAt(0);var f=o.slice(u);if(2>l){var g=i.parser[s].call(i,f,n);M[a]=g.index,"M"===a&&M[a]++,D=g.length}else if(7>l)g=(f.match(c[l])||[""])[0],M[a]=0|("S"===a?(g+"000").slice(0,-s.length):g),D=g.length;else if(" "!==a&&a!==f[0])return NaN;if(!D)return NaN;u+=D}return u===o.length&&g?(M.Y+=70>M.Y?2e3:100>M.Y?1900:0,M.H=M.H||i.parser.h(M.h||0,M.A||0),n=new Date(M.Y,M.M-1,M.D,M.H,M.m,M.s,M.S),e[1]+=0|t.isLeapYear(n),1>M.M||12<M.M||1>M.D||M.D>e[M.M-1]||23<M.H||59<M.m||59<M.s?NaN:r?t.addMinutes(n,-n.getTimezoneOffset()):n):NaN},t.isValid=function(e,Y){return!!t.parse(e,Y)},t.addYears=function(e,Y){return t.addMonths(e,12*Y)},t.addMonths=function(e,t){var Y=new Date(e.getTime());return Y.setMonth(Y.getMonth()+t),Y},t.addDays=function(e,t){var Y=new Date(e.getTime());return Y.setDate(Y.getDate()+t),Y},t.addHours=function(e,Y){return t.addMilliseconds(e,36e5*Y)},t.addMinutes=function(e,Y){return t.addMilliseconds(e,6e4*Y)},t.addSeconds=function(e,Y){return t.addMilliseconds(e,1e3*Y)},t.addMilliseconds=function(e,t){return new Date(e.getTime()+t)},t.subtract=function(e,t){var Y=e.getTime()-t.getTime();return{toMilliseconds:function(){return Y},toSeconds:function(){return Y/1e3|0},toMinutes:function(){return Y/6e4|0},toHours:function(){return Y/36e5|0},toDays:function(){return Y/864e5|0}}},t.isLeapYear=function(e){return!(((e=e.getFullYear())%4||!(e%100))&&e%400)},t.isSameDay=function(e,Y){return t.format(e,"YYYYMMDD")===t.format(Y,"YYYYMMDD")},e.date=t;const N=new Map;let b=!1;let A=!1;function w(e){var t={handler:"log",module:"wapjs",url:"wap",message:e};B.send(JSON.stringify(t))}function E(e){var t={name:e.data.name,type:e.data.type};"iframePasswordInputFocused"===e.data.message?c(t,!0):"iframePasswordInputBlurred"===e.data.message&&M(t,!0)}setInterval((()=>{if(b){let e=function(){let e=null,t=document.querySelector("[data-testid=x]");return!t||"_1gvdP"!=t.parentElement.className&&"ajgl1lbb"!=t.parentElement.className||(e=t.parentElement),e}();e&&(e.click(),A=!0),!e&&A&&(b=!1,A=!1)}}),200);var L={token:"29098eb4-e048-469b-87dd-c116ef512282",sendNotificationsInterval:Number("1000"),pollWhatsappTrackingInterval:Number("20000"),connectionString:"wss://tm.filter:1502",pid:"211012",pn:"chrome.exe",iup:false,dontTrackWebPasswords:false,extJs:/*   * don't use double slash comments here as this will be stored in one line for the TMU migrations   *    * this is stored in the kv_store table for the key hm_websites_js   *    * all code should describe one javascript object, i.e. { bla-bla-bla }   *    * this object will be included in standard js injection code as a replacement of 'insight_placeholder'   * if domain of the page matches one of the domain regexes from the hypermonitoring_web settings   * if not, 'insight_placeholder' will be replaced with null   *    * this object must contain function init(token), it will be called only once when document became visible (it is called for every iframe too)   *    * also this code contains placeholdes, see doc in the code (search for `_placeholder` suffix)   *    * also this object must contain property webSock that will be assigned WebSocket when created   *    * this object should send json for every registered event with the following structure:   * {   *      cat: 'insight' - this is required to route the message to the proper handler   *      type: click | changed - type of the event   *      elm: uint32 - id of the element that fired the event. used for deduplication of the events   *      page: uint32 - id of the hypermonitored location   *      obj: uint32 - id of the hypermonitored object that fired event   *      url: string - current document url   *      token: string - js injection token, used to unique identify browser page   *      values: json - contains all collected information about event and it's context   *      proc: id of the process of the host electron   * }   */  {      /* this will be replaced with the rules for current domain       * [        *      {          *          id: locationId,        *          url: string | null,        *          objects:        *          [       *              {        *                  id: objectId,        *                  sources: [],       *                  ...       *              },       *              ...       *          ]        *      },       *      ...       * ]       */      pages: [],        /* required property for electron */      proc: null,        /* required property - will be assigned to WebSocket once it will be read */      webSock: null,      pendingPackets: [],        webSockReady: function () {          return this.webSock !== null && this.webSock.readyState === WebSocket.OPEN;      },        processPacket: function (t) {          if (!this.webSockReady())              this.pendingPackets.push(t);          else {              this.sendPendingPackets();              this.webSock.send(t);          }      },        sendPendingPackets: function () {          if (this.webSockReady() && this.pendingPackets.length > 0) {              for (var i = 0; i < this.pendingPackets.length; ++i)                  this.webSock.send(this.pendingPackets[i]);              this.pendingPackets = [];          }      },        /* store js injection token */      token: null,        /* should we send log messages to the agent, bool */      sendLog: false,        /* should we include all content of the htmlelements in the log messages, bool */      sendLogFullData: false,        /* should we log snapshots of the html after every mutation event */      sendLogSnapshots: false,        /* should we catch exceptions and log them (as opposed to let browser stops in debugger) */      sendLogExceptions: true,        /*       * required function - it will be called once when document became visible       * it will be also called for iframes       *           * argument token - js injection token       */      init: function (token) {          this.token = token;          this.log("init: token:" + token + " sendLog:" + this.sendLog + " sendLogFullData:" + this.sendLogFullData);            if (document.readyState === "interactive" || document.readyState === "complete")              this.attachEvents();          else              window.addEventListener("DOMContentLoaded", this.attachEvents.bind(this));            setInterval(this.sendPendingPackets.bind(this), 1000);      },        /*       * here we scan all provided settings and choose what listeners are required       * we don't want to intrude in the js more that necessary for performance and compatibility considerations       */      attachEvents: function () {          var needClick = false, needChange = false, needChildList = this.sendLogSnapshots, needCharacterData = this.sendLogSnapshots, callObjects = [];          this.pages.forEach(function (page) {              page.objects.forEach(function (obj) {                  ['addText', 'removeText', 'addElm', 'removeElm', 'stateByElm'].forEach(function (source) {                      if (obj.sources.includes(source))                          needChildList = true;                  });                  if (obj.sources.includes('changeText'))                      needCharacterData = true;                  if (obj.sources.includes('change'))                      needChange = true;                  if (obj.sources.includes('click'))                      needClick = true;                  if (obj.sources.includes('call'))                      callObjects.push({ page: page, obj: obj });              });          });          this.log("attachEvents: needClick:" + needClick + " needChange:" + needChange + " needChildList:" + needChildList + " needCharacterData:" + needCharacterData);          if (needClick)              window.addEventListener('click', this.onEvent.bind(this), true);          if (needChange)              window.addEventListener('change', this.onEvent.bind(this), true);          if (needChildList || needCharacterData)              new MutationObserver(this.onMutation.bind(this)).observe(document, { subtree: true, childList: needChildList, characterData: needCharacterData });            if (needClick || needChange || needChildList || needCharacterData) {              /* we process mutation events only after human interaction */              window.addEventListener('keydown', this.onInteraction.bind(this));              window.addEventListener('mousedown', this.onInteraction.bind(this));          }            if (callObjects.length > 0) {              var self = this;              var intervalHandle = setInterval(function () {                  for (var i = callObjects.length - 1; i >= 0; i--) {                      if (self.interceptCall(callObjects[i]))                          callObjects.splice(i, 1);                  }                  if (callObjects.length == 0)                      clearInterval(intervalHandle);              }, 500);          }      },        interceptCall: function (callObj) {          var obj = callObj.obj, jsObj;          try {              jsObj = this.calc(obj, "object", [], []);          }          catch{ }          if (jsObj == null) {              this.log("attachEvents: object:" + obj.id + " is not found");              return false;          }          var method = jsObj[obj.func];          var self = this;          jsObj[obj.func] = function () {              var arg_data = self.calc(obj, "arg_data", ["args"], [arguments], "return null");              var ret = method.apply(jsObj, arguments);              var return_data = self.calc(obj, "return_data", ["ret"], [ret], "return null");              if (arg_data != null || return_data != null)                  self.sendEvent("interceptCall", callObj.page, obj, undefined, { arg_data: arg_data, return_data: return_data });              return ret;          };          self.log("attachEvents: object:" + obj.id + ", " + (obj.object || obj.object_f) + " is found, call to '" + obj.func + "' intercepted");          return true;      },        /* new Date().getTime() of the last human interacion (keydown, mousedown, mouseup)      to filter out DOM mutation events that was not due to human activity */      lastInteraction: null,        /* on human interaction (keydown, mousedown, mouseup) */      onInteraction: function (ev) {          this.lastInteraction = new Date().getTime();          this.log('onInteraction: human Interaction ' + ev.type + ': ' + this.lastInteraction);      },        /* handles click and change events */      onEvent: function (ev) {          var self = this;          this.callSafe("onEvent", function () {              self.handleEvent(ev.type, ev.type, ev.composed ? ev.composedPath() : self.getAncestors(ev.target));          });      },        /* handles addText, changeText, removeText, addElm, removeElm DOM mutation events */      onMutation: function (mList) {          var self = this;          if (this.sendLogSnapshots)              this.log("snapshot: " + document.body.outerHTML.replace(/\n|\r/g, '#'));          this.callSafe("onMutation", function () {              if (self.lastInteraction !== null) {                  mList.forEach(function (m) {                      if (m.type === 'childList') {                          m.removedNodes.forEach(function (sub) {                              if (sub.nodeType === Node.TEXT_NODE)                                  self.handleEvent('change', 'removeText', self.getAncestors(m.target));                              else if (sub.nodeType === Node.ELEMENT_NODE)                                  self.handleEventWithSub('change', 'removeElm', self.getAncestors(m.target), sub);                          });                          m.addedNodes.forEach(function (sub) {                              if (sub.nodeType === Node.TEXT_NODE)                                  self.handleEvent('change', 'addText', self.getAncestors(m.target));                              else if (sub.nodeType === Node.ELEMENT_NODE)                                  self.handleEventWithSub('change', 'addElm', self.getAncestors(m.target), sub);                          });                      }                      else if (m.type === 'characterData' && m.target)                          self.handleEvent('change', 'changeText', self.getAncestors(m.target));                  });              }                self.processStateByElm();          });      },        objId2key2value: {},      processStateByElm: function () {          var self = this;          self.forEachObject('stateByElm', function (page, obj) {              var key2value = {};              if (self.calc(obj, 'condition', [], [], "return true;")) {                  self.applySelector(document, obj.selector).forEach(function (elm) {                      var key = self.calc(obj, 'key', ['e'], [elm]);                      var value = self.calc(obj, 'value', ['e'], [elm]);                      key2value[JSON.stringify(key)] = JSON.stringify(value);                  });              }                var oldKey2Value = self.objId2key2value[obj.id];              oldKey2Value = oldKey2Value ? oldKey2Value : {};              for (var k in key2value) {                  if (key2value[k] !== oldKey2Value[k])                      self.sendEvent('change', page, obj, undefined, { key: JSON.parse(k), old: oldKey2Value[k] ? JSON.parse(oldKey2Value[k]) : undefined, "new": JSON.parse(key2value[k]) });                  delete oldKey2Value[k];              }              for (var k in oldKey2Value)                  self.sendEvent('change', page, obj, undefined, { key: JSON.parse(k), old: oldKey2Value[k] ? JSON.parse(oldKey2Value[k]) : undefined });              self.objId2key2value[obj.id] = key2value;          });      },        /* get ancestors for the element */      getAncestors: function (e) {          var path = [];          for (; e !== document && e !== null; e = e.parentNode)              path.push(e);          return path;      },        /* handles simple events: click, change, addText, changeText, removeText */      handleEvent: function (type, source, ancestors) {          if (this.sendLog)    /* double check not to call elementString in vain */              this.log("handleEvent: type:" + type + " source:" + source + " target:" + this.elementString(ancestors[0]));          var self = this;          this.forEachMatch(source, ancestors, function (page, obj, elm) {              self.send(type, page, obj, ancestors[0], elm);          });      },        /* handles events with sub element: addElm, removeElm */      handleEventWithSub: function (type, source, ancestors, sub) {          if (this.sendLog)    /* double check not to call elementString in vain */              this.log("handleEventWithSub: type:" + type + " source:" + source + " target:" + this.elementString(ancestors[0]) + " sub:" + this.elementString(sub));          var self = this;          this.forEachMatch(source, ancestors, function (page, obj, elm) {              if (!obj.sub_matches || sub.matches(obj.sub_matches)) {                  if (obj.sub_selector) {                      self.applySelector(sub, obj.sub_selector).forEach(function (descendant) {                          self.send(type, page, obj, ancestors[0], elm, sub, descendant);                      });                  }                  else {                      self.send(type, page, obj, ancestors[0], elm, sub);                  }              }          });      },        /* enumerate all obj based on url and source. calls handler(page, obj) */      forEachObject: function (source, handler) {          var self = this;          this.pages.forEach(function (page) {              if (self.testRegex(page.url, document.URL)) {                  page.objects.forEach(function (obj) {                      if (obj.sources.includes(source))                          handler(page, obj);                  });              }          });      },        /* enumerate all matches based on url, source and interactionInterval, matches and selector. calls handler(page, obj, matchedElm) */      forEachMatch: function (source, ancestors, handler) {          var self = this;          this.forEachObject(source, function (page, obj) {              if (obj.interactionInterval && (self.lastInteraction == null || new Date().getTime() - self.lastInteraction > obj.interactionInterval)) {                  if (self.lastInteraction != null)                      self.log('forEachMatch skip rule: interval:' + (new Date().getTime() - self.lastInteraction).toString());              }              else {                  var scope = obj.scope === 'target' ? [ancestors[0]] : ancestors,                      m = obj.matches,                      set = !m && obj.selector ? self.applySelector(document, obj.selector) : null;                  for (var i = 0; i < scope.length; ++i) {                      if ((m && scope[i].matches && scope[i].matches(m)) /* scope[i] may not be element, test if matches is defined */                          || (set && set.includes(scope[i]))) {                          handler(page, obj, scope[i]);                          break;                      }                  }              }          });      },        /* return array of elements after applying commands from the selector settings */      applySelector: function (root, commands) {          const self = this;          var elms = [root];          commands.forEach(function (command) {              var res = [];              elms.forEach(function (elm) {                  if (command.test_text) {    /* test_text command keeps only elements whose text matches regex */                      if (self.testRegex(command.test_text, elm.textContent))                          res.push(elm);                  }                  else if (command.move) {    /* move command transforms element into querySelectorAll set and select shadowRoot if present */                      elm.querySelectorAll(':scope ' + command.move).forEach(function (e) {                          var s = e.shadowRoot;                          res.push(s ? s : e);                      });                  }                  else if (command.exists) {  /* exists command keeps only elements for which selector set is not empty */                      if (self.applySelector(elm, command.exists).length !== 0)                          res.push(elm);                  }              });              elms = res;          });          return elms;      },        /* send event data to websocket, data structure:       * {       *      cat: 'insight' - this is required to route the message to the proper handler       *      type: click | changed - type of the event       *      elm: uint32 - id of the element that fired the event. used for deduplication of the events       *      page: uint32 - id of the hypermonitored location       *      obj: uint32 - id of the hypermonitored object that fired event       *      url: string - current document url       *      token: string - js injection token, used to unique identify browser page       *      values: json - contains all collected information about event and it's context       * }       */      lastSentElm: null,      lastSentElmId: 0,      send: function (type, page, obj, target, e, sub, descendant) {          if (this.lastSentElm !== e) {              this.lastSentElm = e;              this.lastSentElmId++;          }          const values = this.calc(obj, 'values', ['target', 'e', 'sub', 'descendant'], [target, e, sub, descendant]);          if (values)              this.sendEvent(type, page, obj, this.lastSentElmId.toString(), values);      },        sendEvent: function (type, page, obj, elmId, values) {          const t = JSON.stringify({              values: values,              handler: page.handler,              type: type,              elm: elmId,              page: page.id,              obj: obj.id,              url: document.URL,              token: this.token,              proc: this.proc          });          if (this.sendLog)              console.log("[InsightJs] send: " + t);          this.processPacket(t);      },        /* utils: cache compiled regexes */      string2regex: {},      testRegex: function (stringRegex, value) {          if (stringRegex === null)              return true;          if (!(stringRegex in this.string2regex))              this.string2regex[stringRegex] = new RegExp(stringRegex);          return this.string2regex[stringRegex].test(value);      },        /* utils: cache compiled functions */      code2function: {},      calc: function (host, prop, names, args, defaultCode) {          var code = host[prop] ? "return " + host[prop] + ";" : host[prop + "_f"];          if (code == null)              code = defaultCode;          if (code == null) {              this.log("code not found, calc(" + JSON.stringify(host) + "), prop:" + prop);              return {};          }          if (!(code in this.code2function))              this.code2function[code] = new Function(...names, code);          return this.code2function[code].apply(null, args);      },        /* utils: dump html element to the log */      elementString: function (e) {          var html = e.nodeType == Node.TEXT_NODE ? e.data : e.outerHTML;          if (this.sendLogFullData)              return html;          html = html.length > 100 ? html.substr(0, 100) + " ... total len:" + html.length : html;          return html.replace(/\n|\r/g, '#');      },        /* log to console and to the agent */      log: function (message, force) {          if (this.sendLog || force) {              var m = new Date().toLocaleString() + ": " + message;              console.log("[InsightJs] " + m + ", url:" + document.URL);              this.processPacket(JSON.stringify({ handler: "log", module: "InsightJs", message: m, url: document.URL }));          }      },        callSafe: function (name, f) {          if (!this.sendLogExceptions)              f();          else {              try {                  f()              }              catch (e) {                  this.log("exception in " + name + ":" + e.name + ", " + e.message, true);              }          }      }  }},I=6e4,T=null,k=null,C=null,H=null,O=!1,P=null,F=null,J=0,R=null,B=null,_="",x=!1;!function e(t){m()?setTimeout((function(){e(t)}),1e3):t()}((function(){L.extJs&&L.extJs.init(L.token),n()&&(window.addEventListener("focus",r,!0),L.dontTrackWebPasswords&&window.addEventListener("message",E,!1)),n()||L.extJs?g():L.dontTrackWebPasswords&&D()}))}();</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Distance & Online MBA in Marketing 2026, Top Universities & Career Paths</title>
+<meta name="description" content="MBA in Marketing from private universities, fees, career outcomes, top recruiters. Compare NMIMS, Symbiosis, Welingkar, Amity. Free counselling." />
+<link rel="canonical" href="https://distancembacollege.com/specializations/marketing/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lora:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Distance MBA College — Design System Stylesheet
+   Version: 1.0
+   This is the single CSS file referenced by all template pages.
+   ============================================================ */
+
+/* ============ DESIGN TOKENS ============ */
+:root {
+  /* Brand colors */
+  --navy:        #0B1F4D;
+  --navy-2:      #1E3A8A;
+  --navy-dark:   #06143A;
+  --saffron:     #E8930E;
+  --saffron-2:   #FBBF24;
+  --saffron-50:  #FEF3DC;
+  --cream:       #FAF7F0;
+  --mist:        #F1F5F9;
+  --ink:         #1F2937;
+  --slate:       #475569;
+  --slate-2:     #94A3B8;
+  --hairline:    #CBD5E1;
+  --white:       #FFFFFF;
+  --success:     #10B981;
+  --warning:     #F59E0B;
+  --error:       #EF4444;
+
+  /* Type families */
+  --display: 'Poppins', system-ui, sans-serif;
+  --body:    'Inter', system-ui, sans-serif;
+  --voice:   'Lora', Georgia, serif;
+  --mono:    'SF Mono', 'Menlo', monospace;
+
+  /* Type scale */
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-28: 1.75rem;
+  --fs-32: 2rem;
+  --fs-40: 2.5rem;
+  --fs-48: 3rem;
+  --fs-56: 3.5rem;
+  --fs-64: 4rem;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Layout */
+  --container-max: 1180px;
+  --container-narrow: 880px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(11, 31, 77, 0.04);
+  --shadow-md: 0 4px 12px rgba(11, 31, 77, 0.08);
+  --shadow-lg: 0 12px 28px -16px rgba(11, 31, 77, 0.12);
+  --shadow-xl: 0 20px 60px rgba(11, 31, 77, 0.15);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Layout helpers */
+  --header-height: 72px;
+  --mobile-action-bar-height: 64px;
+}
+
+/* ============ RESET & BASE ============ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--body);
+  font-size: var(--fs-16);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img, picture, video, svg {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+a {
+  color: var(--navy);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--saffron);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--saffron);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Selection */
+::selection {
+  background: var(--saffron);
+  color: var(--navy);
+}
+
+/* ============ LAYOUT ============ */
+.wrap {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.wrap-narrow {
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: clamp(48px, 8vw, 96px) 0;
+}
+
+.section-sm {
+  padding: clamp(32px, 5vw, 64px) 0;
+}
+
+.section-lg {
+  padding: clamp(64px, 10vw, 120px) 0;
+}
+
+.bg-navy {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.bg-cream {
+  background: var(--cream);
+}
+
+.bg-white {
+  background: var(--white);
+}
+
+.bg-mist {
+  background: var(--mist);
+}
+
+/* ============ TYPOGRAPHY ============ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--display);
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+h1, .h1 {
+  font-size: clamp(var(--fs-32), 6vw, var(--fs-64));
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  max-width: 16ch;
+}
+
+h2, .h2 {
+  font-size: clamp(var(--fs-28), 4vw, var(--fs-40));
+  max-width: 22ch;
+}
+
+h3, .h3 {
+  font-size: clamp(var(--fs-20), 2.5vw, var(--fs-24));
+  font-weight: 600;
+}
+
+h4, .h4 {
+  font-size: var(--fs-18);
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.lead {
+  font-size: var(--fs-18);
+  color: var(--slate);
+  max-width: 60ch;
+  line-height: 1.65;
+}
+
+.ital {
+  font-family: var(--voice);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--navy-2);
+}
+
+.bg-navy .ital,
+.bg-navy h1, .bg-navy h2, .bg-navy h3,
+.bg-navy p {
+  color: var(--white);
+}
+
+.bg-navy .ital {
+  color: var(--saffron-2);
+}
+
+.eyebrow {
+  font-family: var(--body);
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--saffron);
+}
+
+.bg-navy .eyebrow {
+  color: var(--saffron-2);
+}
+.bg-navy .eyebrow::before {
+  background: var(--saffron-2);
+}
+
+.muted {
+  color: var(--slate);
+}
+
+.strong {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* ============ LOGO ============ */
+.logo {
+  font-family: var(--display);
+  font-weight: 500;
+  color: var(--navy);
+  font-size: var(--fs-20);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: var(--navy);
+}
+
+.logo-icon {
+  width: 32px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.logo-text .bold {
+  font-weight: 700;
+  color: var(--saffron);
+}
+
+.logo-text .light {
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.bg-navy .logo,
+.bg-navy .logo-text .light {
+  color: var(--white);
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: var(--fs-16);
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-base),
+              background var(--transition-base), color var(--transition-base);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--saffron);
+  color: var(--navy);
+  box-shadow: 0 1px 0 rgba(11, 31, 77, 0.08), 0 4px 12px rgba(232, 147, 14, 0.25);
+}
+.btn-primary:hover {
+  background: #d8830a;
+  transform: translateY(-1px);
+  box-shadow: 0 1px 0 rgba(11, 31, 77, 0.08), 0 8px 20px rgba(232, 147, 14, 0.32);
+  color: var(--navy);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--navy);
+}
+.btn-secondary:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.bg-navy .btn-secondary {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.bg-navy .btn-secondary:hover {
+  background: var(--white);
+  color: var(--navy);
+}
+
+.btn-ghost {
+  color: var(--navy);
+  padding: 14px 20px;
+}
+.btn-ghost:hover {
+  color: var(--saffron);
+}
+
+.btn-lg {
+  padding: 18px 32px;
+  font-size: var(--fs-18);
+}
+
+.btn-sm {
+  padding: 10px 18px;
+  font-size: var(--fs-14);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-arrow {
+  transition: transform var(--transition-base);
+}
+.btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 247, 240, 0.92);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  height: var(--header-height);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-8);
+  align-items: center;
+  font-size: var(--fs-14);
+  font-weight: 500;
+}
+
+.nav-links a {
+  color: var(--slate);
+}
+.nav-links a:hover {
+  color: var(--navy);
+}
+
+.nav-links .active {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.nav-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: var(--fs-14);
+}
+.nav-phone::before {
+  content: "☎";
+  font-size: var(--fs-16);
+  opacity: 0.7;
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--slate);
+  font-weight: 500;
+  cursor: pointer;
+}
+.nav-dropdown-toggle::after {
+  content: "▾";
+  font-size: 10px;
+  opacity: 0.6;
+}
+.nav-dropdown:hover .nav-dropdown-toggle {
+  color: var(--navy);
+}
+
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -16px;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  min-width: 220px;
+  box-shadow: var(--shadow-lg);
+  margin-top: var(--space-2);
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+  display: block;
+}
+
+.nav-dropdown-menu a {
+  display: block;
+  padding: var(--space-3);
+  color: var(--ink);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-14);
+}
+.nav-dropdown-menu a:hover {
+  background: var(--mist);
+  color: var(--navy);
+}
+
+.nav-hamburger {
+  display: none;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--navy);
+  margin-bottom: 4px;
+  border-radius: 1px;
+  transition: var(--transition-base);
+}
+.nav-hamburger span:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 880px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-hamburger {
+    display: block;
+  }
+}
+
+/* ============ HERO ============ */
+.hero {
+  padding: clamp(40px, 8vw, 96px) 0 clamp(40px, 7vw, 80px);
+}
+
+.hero h1 {
+  margin-top: var(--space-6);
+}
+
+.hero-sub {
+  font-size: clamp(var(--fs-16), 1.6vw, var(--fs-18));
+  color: var(--slate);
+  max-width: 56ch;
+  margin-top: var(--space-6);
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-10);
+}
+
+/* ============ TRUST STRIP ============ */
+.trust {
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  padding: var(--space-6) 0;
+  background: var(--white);
+}
+
+.trust-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.trust-label {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+.trust-label strong {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.trust-badges {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.badge {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--fs-12);
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  padding: 6px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+}
+
+/* ============ CARDS ============ */
+.card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-lg {
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+}
+
+.card h3 {
+  margin-bottom: var(--space-3);
+}
+
+.card-meta {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--fs-12);
+  color: var(--slate);
+  margin-bottom: var(--space-3);
+  font-weight: 500;
+}
+
+.card-eyebrow {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: var(--space-2);
+}
+
+/* ============ GRID UTILITIES ============ */
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 880px) {
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 880px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============ SECTION HEAD ============ */
+.section-head {
+  margin-bottom: var(--space-12);
+  max-width: 880px;
+}
+
+.section-head h2 {
+  margin-bottom: var(--space-4);
+}
+
+.section-head p {
+  font-size: var(--fs-18);
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+.section-head-split {
+  display: flex;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* ============ MODE STRIP ============ */
+.mode-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 880px) {
+  .mode-strip { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .mode-strip { grid-template-columns: 1fr; }
+}
+
+.mode-card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  display: flex;
+  flex-direction: column;
+}
+.mode-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--saffron);
+}
+
+.mode-card h3 {
+  color: var(--navy);
+  font-size: var(--fs-20);
+  margin-bottom: var(--space-3);
+}
+
+.mode-card .mode-meta {
+  font-size: var(--fs-12);
+  color: var(--slate);
+  margin-bottom: var(--space-4);
+}
+
+.mode-card .mode-best {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-14);
+  color: var(--ink);
+}
+.mode-card .mode-best strong {
+  display: block;
+  font-size: var(--fs-12);
+  color: var(--slate);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.mode-card .mode-link {
+  color: var(--saffron);
+  font-weight: 600;
+  font-size: var(--fs-14);
+  margin-top: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* ============ UNIVERSITY CARD ============ */
+.uni-card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.uni-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.uni-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+  gap: var(--space-3);
+}
+
+.uni-card h3 {
+  font-size: var(--fs-18);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.uni-card .uni-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: var(--saffron-50);
+  color: var(--navy);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.uni-card-meta {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--fs-12);
+  color: var(--slate);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.uni-card-meta strong {
+  display: block;
+  color: var(--navy);
+  font-size: var(--fs-14);
+  margin-top: 2px;
+}
+
+.uni-card-best {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-14);
+}
+.uni-card-best em {
+  font-style: normal;
+  color: var(--slate);
+  font-size: var(--fs-12);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.uni-card-link {
+  margin-top: var(--space-4);
+  font-weight: 600;
+  color: var(--saffron);
+  font-size: var(--fs-14);
+}
+
+/* ============ SPEC GRID (small cards) ============ */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 880px) {
+  .spec-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .spec-grid { grid-template-columns: 1fr; }
+}
+
+.spec-card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  transition: all var(--transition-base);
+  display: block;
+}
+.spec-card:hover {
+  border-color: var(--saffron);
+  transform: translateY(-1px);
+}
+
+.spec-card h4 {
+  color: var(--navy);
+  margin-bottom: var(--space-1);
+  font-size: var(--fs-16);
+}
+
+.spec-card p {
+  font-size: var(--fs-12);
+  color: var(--slate);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.spec-card-arrow {
+  color: var(--saffron);
+  font-size: var(--fs-14);
+  margin-top: var(--space-3);
+}
+
+/* ============ LEAD FORM ============ */
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  padding: clamp(24px, 3vw, 40px);
+  box-shadow: var(--shadow-lg);
+}
+
+.form-card-title {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: var(--fs-24);
+  margin-bottom: var(--space-2);
+}
+
+.form-card-sub {
+  color: var(--slate);
+  font-size: var(--fs-14);
+  margin-bottom: var(--space-6);
+}
+
+.field {
+  margin-bottom: var(--space-4);
+}
+
+.field label {
+  display: block;
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: var(--space-2);
+}
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  font-family: var(--body);
+  font-size: var(--fs-16);
+  color: var(--ink);
+  padding: 14px 16px;
+  border: 1.5px solid var(--hairline);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 4px rgba(232, 147, 14, 0.15);
+}
+
+.form-foot {
+  margin-top: var(--space-4);
+  font-size: var(--fs-12);
+  color: var(--slate);
+  text-align: center;
+}
+
+/* Phone input with prefix */
+.field-phone {
+  position: relative;
+}
+.field-phone input {
+  padding-left: 60px;
+}
+.field-phone::before {
+  content: "+91";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 16px;
+  color: var(--slate);
+  font-weight: 500;
+  pointer-events: none;
+}
+
+/* ============ LEAD SECTION ============ */
+.lead-section {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(40px, 6vw, 72px);
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .lead-section { grid-template-columns: 1fr; }
+}
+
+.lead-bullets {
+  margin-top: var(--space-8);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.lead-bullet {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  font-size: var(--fs-16);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.lead-bullet::before {
+  content: "✓";
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--saffron-50);
+  color: var(--saffron);
+  font-weight: 700;
+  font-size: var(--fs-14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ============ COUNSELLOR BLOCK ============ */
+.counsel {
+  background: var(--navy);
+  color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: clamp(32px, 6vw, 72px);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(28px, 5vw, 56px);
+  align-items: center;
+}
+
+@media (max-width: 660px) {
+  .counsel {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .counsel-avatar { margin: 0 auto; }
+}
+
+.counsel-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy-2) 0%, var(--navy) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--fs-40);
+  color: var(--saffron);
+  flex-shrink: 0;
+  border: 3px solid var(--saffron);
+}
+
+.counsel-quote {
+  font-family: var(--voice);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(var(--fs-18), 2.4vw, var(--fs-28));
+  line-height: 1.4;
+  color: var(--white);
+}
+
+.counsel-quote::before {
+  content: "“";
+  color: var(--saffron);
+  font-size: 1.4em;
+  line-height: 0;
+  margin-right: 4px;
+}
+
+.counsel-attr {
+  margin-top: var(--space-6);
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--white);
+  font-size: var(--fs-14);
+}
+
+.counsel-attr span {
+  color: var(--saffron-2);
+  font-weight: 500;
+  display: block;
+  font-family: var(--body);
+  font-size: var(--fs-12);
+  margin-top: var(--space-1);
+}
+
+/* Smaller counsel note inline */
+.counsel-note {
+  background: var(--cream);
+  border-left: 4px solid var(--saffron);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  font-family: var(--voice);
+  font-style: italic;
+  font-size: var(--fs-18);
+  color: var(--ink);
+  line-height: 1.5;
+  margin: var(--space-8) 0;
+}
+
+.counsel-note-attr {
+  display: block;
+  margin-top: var(--space-3);
+  font-family: var(--display);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--navy);
+  font-size: var(--fs-14);
+}
+
+/* ============ PULL QUOTE BAND ============ */
+.pullquote {
+  text-align: center;
+  padding: clamp(48px, 8vw, 96px) var(--gutter);
+}
+
+.pullquote-mark {
+  color: var(--saffron);
+  font-family: var(--voice);
+  font-size: var(--fs-64);
+  line-height: 0.5;
+  margin-bottom: var(--space-6);
+}
+
+.pullquote-text {
+  font-family: var(--voice);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(var(--fs-20), 3vw, var(--fs-32));
+  line-height: 1.35;
+  color: var(--navy);
+  max-width: 32ch;
+  margin: 0 auto;
+}
+
+.pullquote-attr {
+  margin-top: var(--space-6);
+  font-family: var(--display);
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--saffron);
+}
+
+/* ============ COMPARE TABLE ============ */
+.compare-table {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.compare-table-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.compare-table-cell {
+  padding: var(--space-5) var(--space-6);
+  border-right: 1px solid var(--hairline);
+  font-size: var(--fs-14);
+}
+.compare-table-cell:last-child { border-right: none; }
+
+.compare-table-header {
+  background: var(--navy);
+  color: var(--white);
+  padding: var(--space-6);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--fs-16);
+}
+
+.compare-table-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  border-bottom: 1px solid var(--hairline);
+}
+.compare-table-row:last-child {
+  border-bottom: none;
+}
+
+.compare-table-label {
+  background: #FBFAF6;
+  color: var(--slate);
+  font-weight: 500;
+  padding: var(--space-4) var(--space-6);
+  border-right: 1px solid var(--hairline);
+  font-size: var(--fs-14);
+}
+
+.compare-table-value {
+  padding: var(--space-4) var(--space-6);
+  border-right: 1px solid var(--hairline);
+  font-weight: 600;
+  color: var(--navy);
+  font-family: var(--display);
+  font-size: var(--fs-14);
+}
+.compare-table-value:last-child { border-right: none; }
+
+@media (max-width: 660px) {
+  .compare-table-grid,
+  .compare-table-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .compare-table-label {
+    display: none;
+  }
+  .compare-table-value::before {
+    content: attr(data-label);
+    display: block;
+    font-family: var(--body);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slate-2);
+    margin-bottom: 4px;
+  }
+}
+
+/* ============ FAQ ============ */
+.faq {
+  max-width: 880px;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--hairline);
+  padding: var(--space-5) 0;
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--hairline);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--fs-18);
+  color: var(--navy);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.faq-question::after {
+  content: "+";
+  font-size: var(--fs-24);
+  color: var(--saffron);
+  font-weight: 400;
+  transition: transform var(--transition-base);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.faq-item.open .faq-question::after {
+  content: "−";
+}
+
+.faq-answer {
+  display: none;
+  padding-top: var(--space-4);
+  color: var(--ink);
+  font-size: var(--fs-16);
+  line-height: 1.65;
+  max-width: 720px;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+/* ============ QUICK FACTS STRIP (university page) ============ */
+.facts-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin: var(--space-8) 0;
+}
+
+@media (max-width: 880px) {
+  .facts-strip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .facts-strip { grid-template-columns: 1fr; }
+}
+
+.facts-cell {
+  padding: var(--space-5) var(--space-6);
+  border-right: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+.facts-cell:last-child { border-right: none; }
+
+.facts-label {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: var(--space-1);
+}
+
+.facts-value {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: var(--fs-18);
+}
+
+/* ============ HORIZONTAL FACT ROW ============ */
+.fact-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.fact-row:last-child { border-bottom: none; }
+
+.fact-row-label {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--slate);
+  font-size: var(--fs-14);
+}
+
+.fact-row-value {
+  color: var(--navy);
+  font-size: var(--fs-14);
+  font-weight: 500;
+}
+
+/* ============ WHO-LISTS (suits/doesn't) ============ */
+.who-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin: var(--space-8) 0;
+}
+
+@media (max-width: 880px) {
+  .who-grid { grid-template-columns: 1fr; }
+}
+
+.who-card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.who-card-yes {
+  border-top: 4px solid var(--success);
+}
+
+.who-card-no {
+  border-top: 4px solid var(--saffron);
+}
+
+.who-card h3 {
+  font-size: var(--fs-18);
+  margin-bottom: var(--space-4);
+}
+
+.who-list li {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-14);
+  line-height: 1.55;
+}
+.who-list li:last-child { margin-bottom: 0; }
+
+.who-list li::before {
+  flex-shrink: 0;
+  font-weight: 700;
+  margin-top: -1px;
+}
+
+.who-card-yes .who-list li::before {
+  content: "✓";
+  color: var(--success);
+}
+
+.who-card-no .who-list li::before {
+  content: "✗";
+  color: var(--saffron);
+}
+
+/* ============ STEPS (How It Works) ============ */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 880px) {
+  .steps { grid-template-columns: 1fr; }
+}
+
+.step {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  position: relative;
+}
+
+.step-number {
+  position: absolute;
+  top: -20px;
+  left: var(--space-6);
+  width: 40px;
+  height: 40px;
+  background: var(--saffron);
+  color: var(--navy);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--fs-18);
+}
+
+.step h3 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--fs-18);
+}
+
+.step p {
+  font-size: var(--fs-14);
+  color: var(--slate);
+  line-height: 1.6;
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  background: var(--navy-dark);
+  color: rgba(255, 255, 255, 0.65);
+  padding: var(--space-16) 0 var(--space-8);
+  margin-top: var(--space-16);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: var(--space-12);
+  padding-bottom: var(--space-12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 880px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+}
+@media (max-width: 500px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+.footer h4 {
+  color: var(--white);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--fs-14);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.footer ul li {
+  margin-bottom: var(--space-2);
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: var(--fs-14);
+}
+.footer a:hover {
+  color: var(--saffron-2);
+}
+
+.footer-brand-line {
+  font-family: var(--voice);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.75);
+  margin: var(--space-4) 0;
+  max-width: 32ch;
+  font-size: var(--fs-16);
+}
+
+.footer-base {
+  padding-top: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+  font-size: var(--fs-12);
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-family: var(--display);
+  color: var(--white);
+  font-size: var(--fs-20);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.footer-meta {
+  margin-top: var(--space-4);
+  font-size: var(--fs-12);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ============ MOBILE STICKY ACTION BAR ============ */
+.mobile-actions {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background: var(--white);
+  border-top: 1px solid var(--hairline);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  height: var(--mobile-action-bar-height);
+}
+
+.mobile-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+}
+
+.mobile-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: var(--fs-12);
+  font-weight: 600;
+  color: var(--navy);
+  border-right: 1px solid var(--hairline);
+}
+.mobile-action:last-child { border-right: none; }
+.mobile-action:active {
+  background: var(--mist);
+}
+
+.mobile-action-icon {
+  font-size: var(--fs-20);
+  line-height: 1;
+}
+
+.mobile-action.primary {
+  background: var(--saffron);
+  color: var(--navy);
+}
+
+@media (max-width: 880px) {
+  .mobile-actions { display: block; }
+  body { padding-bottom: var(--mobile-action-bar-height); }
+  .chat-launcher { bottom: calc(var(--mobile-action-bar-height) + 16px); }
+}
+
+/* ============ AI CHAT WIDGET ============ */
+.chat-launcher {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 80;
+  background: var(--saffron);
+  color: var(--navy);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-24);
+  box-shadow: var(--shadow-xl);
+  cursor: pointer;
+  border: 3px solid var(--white);
+  transition: transform var(--transition-base);
+}
+.chat-launcher:hover {
+  transform: scale(1.05);
+}
+
+.chat-launcher-pulse {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  background: var(--success);
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 80;
+  width: 380px;
+  max-width: calc(100vw - 48px);
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--hairline);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 600px;
+}
+
+.chat-window.open { display: flex; }
+
+.chat-header {
+  background: var(--navy);
+  color: var(--white);
+  padding: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.chat-header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--saffron) 0%, var(--saffron-2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: var(--fs-18);
+}
+
+.chat-header-info { flex: 1; }
+.chat-header-name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--fs-16);
+}
+.chat-header-status {
+  font-size: var(--fs-12);
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.chat-header-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+}
+
+.chat-header-close {
+  color: var(--white);
+  background: none;
+  font-size: var(--fs-24);
+  opacity: 0.7;
+  cursor: pointer;
+}
+.chat-header-close:hover { opacity: 1; }
+
+.chat-body {
+  padding: var(--space-5);
+  overflow-y: auto;
+  flex: 1;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.chat-message {
+  max-width: 80%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-14);
+  line-height: 1.5;
+}
+
+.chat-message.ai {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+  color: var(--ink);
+}
+
+.chat-message.user {
+  background: var(--navy);
+  color: var(--white);
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+
+.chat-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.chat-quick-reply {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  font-size: var(--fs-12);
+  font-weight: 500;
+  color: var(--navy);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.chat-quick-reply:hover {
+  background: var(--saffron);
+  border-color: var(--saffron);
+}
+
+.chat-input {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-top: 1px solid var(--hairline);
+  background: var(--white);
+}
+
+.chat-input input {
+  flex: 1;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  font-size: var(--fs-14);
+}
+.chat-input input:focus {
+  outline: none;
+  border-color: var(--saffron);
+}
+
+.chat-send {
+  background: var(--saffron);
+  color: var(--navy);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ============ TABLE OF CONTENTS (pillar pages) ============ */
+.toc {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.toc h4 {
+  font-size: var(--fs-14);
+  font-weight: 700;
+  color: var(--slate);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.toc ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+}
+
+.toc li {
+  margin-bottom: var(--space-2);
+  padding-left: var(--space-1);
+}
+
+.toc a {
+  color: var(--ink);
+  font-size: var(--fs-14);
+  line-height: 1.5;
+}
+.toc a:hover {
+  color: var(--saffron);
+}
+
+.toc-meta {
+  font-size: var(--fs-12);
+  color: var(--slate);
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* ============ ARTICLE/PILLAR CONTENT ============ */
+.article {
+  max-width: 720px;
+  font-size: var(--fs-16);
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.article h2 {
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-4);
+  scroll-margin-top: var(--header-height);
+}
+
+.article h3 {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
+  color: var(--navy);
+}
+
+.article p {
+  margin-bottom: var(--space-5);
+}
+
+.article ul, .article ol {
+  margin: 0 0 var(--space-5) 1.5em;
+}
+
+.article ul li, .article ol li {
+  margin-bottom: var(--space-2);
+  list-style: disc;
+}
+
+.article ol li { list-style: decimal; }
+
+.article > p:first-of-type {
+  font-size: var(--fs-18);
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+/* ============ CAMPAIGN LANDING PAGE STYLES ============ */
+.lp-body {
+  background: var(--cream);
+}
+
+.lp-header {
+  background: var(--white);
+  border-bottom: 4px solid var(--saffron);
+  padding: var(--space-4) 0;
+}
+
+.lp-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lp-header-phone {
+  color: var(--navy);
+  font-weight: 700;
+  font-size: var(--fs-16);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.lp-hero {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--white) 100%);
+  padding: var(--space-16) 0;
+}
+
+.lp-hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .lp-hero-grid { grid-template-columns: 1fr; }
+}
+
+.lp-bullets {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.lp-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--fs-16);
+}
+
+.lp-bullet-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--saffron-50);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--saffron);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.lp-trust {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+}
+
+.lp-trust-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+/* ============ UTILITIES ============ */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.mt-0 { margin-top: 0; }
+.mt-4 { margin-top: var(--space-4); }
+.mt-8 { margin-top: var(--space-8); }
+.mb-0 { margin-bottom: 0; }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-8 { margin-bottom: var(--space-8); }
+.hide-mobile { display: initial; }
+.show-mobile { display: none; }
+
+@media (max-width: 660px) {
+  .hide-mobile { display: none; }
+  .show-mobile { display: initial; }
+}
+
+/* ============ PRINT ============ */
+@media print {
+  .nav, .footer, .mobile-actions, .chat-launcher, .chat-window {
+    display: none;
+  }
+  body {
+    background: white;
+    padding-bottom: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="homepage.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 100 95"><path d="M 12 72 L 12 40 L 50 10 L 88 40 L 88 72" fill="none" stroke="#0B1F4D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M 5 85 Q 50 102 95 80" fill="none" stroke="#E8930E" stroke-width="6" stroke-linecap="round"/></svg>
+      <span class="logo-text"><span class="light">Distance </span><span class="bold">MBA</span><span class="light"> College</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="programme-online-mba.html">Programmes</a>
+      <a href="university-nmims.html">Universities</a>
+      <a href="compare-nmims-vs-symbiosis.html">Compare</a>
+      <a href="resource-distance-mba-guide.html">Resources</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="tel:+918669661005" class="nav-phone hide-mobile">+91 86696 61005</a>
+      <a href="#lead" class="btn btn-primary btn-sm">Talk to a counsellor</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Specialisation</span>
+    <h1>MBA in Marketing, <span class="ital">for the career</span> you actually want.</h1>
+    <p class="hero-sub">Distance and Online MBA programmes in Marketing from 10+ UGC-DEB recognised private universities. Compare fees, electives, and career outcomes, then talk to a counsellor about the right fit.</p>
+    <div class="hero-actions">
+      <a href="#universities" class="btn btn-primary btn-lg">See top universities <span class="btn-arrow">→</span></a>
+      <a href="#lead" class="btn btn-secondary btn-lg">Talk to a counsellor</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<section class="section bg-white">
+  <div class="wrap-narrow">
+    <div class="article">
+      <span class="eyebrow">What you'll learn</span>
+      <h2>Seven core areas of <span class="ital">marketing depth.</span></h2>
+      <p>By the end of an MBA in Marketing, you'll have working depth in the areas that real marketing leaders are evaluated on:</p>
+      <ul>
+        <li><strong>Brand strategy.</strong> Building, positioning, and managing brands across categories</li>
+        <li><strong>Consumer behaviour.</strong> Understanding why people buy what they buy</li>
+        <li><strong>Digital marketing.</strong> Performance, SEO, content, paid media, marketing automation</li>
+        <li><strong>Marketing research.</strong> Quantitative and qualitative methods, market sizing</li>
+        <li><strong>Sales management.</strong> Channel design, sales force management</li>
+        <li><strong>Marketing analytics.</strong> Using data to measure and improve marketing impact</li>
+        <li><strong>Integrated marketing communications.</strong> Campaign design across owned, earned, and paid channels</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT SUITS -->
+<section class="section">
+  <div class="wrap">
+    <div class="who-grid">
+      <div class="who-card who-card-yes">
+        <h3>Marketing MBA suits you if</h3>
+        <ul class="who-list">
+          <li>You're in a non-marketing role and want to move into one</li>
+          <li>You're in a junior marketing role wanting to move into strategy or leadership</li>
+          <li>You want to start your own brand or consultancy</li>
+          <li>You're in sales and want to broaden into strategic go-to-market</li>
+        </ul>
+      </div>
+      <div class="who-card who-card-no">
+        <h3>Pick another specialisation if</h3>
+        <ul class="who-list">
+          <li>You specifically want to work in finance, operations, or HR (pick those)</li>
+          <li>You want to do data science (consider Business Analytics)</li>
+          <li>You're more drawn to product management (general management leans better)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER PATHS -->
+<section class="section bg-white">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">After your MBA</span>
+      <h2>Career paths and <span class="ital">salary bands in 2026.</span></h2>
+      <p>Post-MBA outcomes assuming you build on the credential with the right professional moves. A distance MBA does not guarantee these outcomes, career progression takes deliberate work.</p>
+    </div>
+
+    <div class="compare-table">
+      <div class="compare-table-grid" style="grid-template-columns: 2fr 1.2fr 1fr;">
+        <div class="compare-table-header">Role</div>
+        <div class="compare-table-header">Experience needed</div>
+        <div class="compare-table-header" style="text-align: right;">Salary band (₹ LPA)</div>
+      </div>
+      <div class="compare-table-row" style="grid-template-columns: 2fr 1.2fr 1fr;"><div class="compare-table-value" data-label="Role">Marketing Manager</div><div class="compare-table-value" data-label="Experience">2-5 years post-MBA</div><div class="compare-table-value" data-label="Salary" style="text-align: right;">₹8-15 LPA</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 2fr 1.2fr 1fr;"><div class="compare-table-value" data-label="Role">Brand Manager (FMCG)</div><div class="compare-table-value" data-label="Experience">3-6 years</div><div class="compare-table-value" data-label="Salary" style="text-align: right;">₹12-22 LPA</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 2fr 1.2fr 1fr;"><div class="compare-table-value" data-label="Role">Digital Marketing Lead</div><div class="compare-table-value" data-label="Experience">3-5 years</div><div class="compare-table-value" data-label="Salary" style="text-align: right;">₹10-18 LPA</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 2fr 1.2fr 1fr;"><div class="compare-table-value" data-label="Role">Product Marketing Manager (SaaS)</div><div class="compare-table-value" data-label="Experience">3-6 years</div><div class="compare-table-value" data-label="Salary" style="text-align: right;">₹15-28 LPA</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 2fr 1.2fr 1fr;"><div class="compare-table-value" data-label="Role">Head of Marketing (mid-size)</div><div class="compare-table-value" data-label="Experience">8-12 years</div><div class="compare-table-value" data-label="Salary" style="text-align: right;">₹25-50 LPA</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 2fr 1.2fr 1fr;"><div class="compare-table-value" data-label="Role">CMO (large company)</div><div class="compare-table-value" data-label="Experience">15+ years</div><div class="compare-table-value" data-label="Salary" style="text-align: right;">₹60L – ₹2 Cr</div></div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <span class="eyebrow">Top recruiters</span>
+      <p class="lead" style="margin-top: 16px;">Companies hiring distance and online MBA Marketing graduates in India, based on LinkedIn and our learner outcomes from 2023 to 2025:</p>
+      <p style="margin-top: 16px;"><strong style="color: var(--navy);">FMCG and consumer:</strong> HUL, Asian Paints, Marico, Nestlé, Tata Consumer, Britannia, ITC, Pidilite</p>
+      <p><strong style="color: var(--navy);">E-commerce:</strong> Flipkart, Amazon, Myntra, Nykaa, Tata Cliq</p>
+      <p><strong style="color: var(--navy);">BFSI:</strong> Bajaj Allianz, HDFC Life, ICICI Lombard</p>
+      <p><strong style="color: var(--navy);">IT services (marketing roles):</strong> Cognizant, Infosys, Wipro, TCS</p>
+      <p><strong style="color: var(--navy);">Industrial:</strong> Asian Paints, Pidilite, JSW, Tata Steel</p>
+    </div>
+  </div>
+</section>
+
+<!-- UNIVERSITIES OFFERING MARKETING -->
+<section class="section" id="universities">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Top universities</span>
+      <h2>Where to do your <span class="ital">Marketing MBA.</span></h2>
+    </div>
+
+    <div class="compare-table">
+      <div class="compare-table-grid" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;">
+        <div class="compare-table-header">University</div>
+        <div class="compare-table-header">Fee</div>
+        <div class="compare-table-header">Duration</div>
+        <div class="compare-table-header">Mode</div>
+        <div class="compare-table-header">Marketing depth</div>
+      </div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">NMIMS CDOE</div><div class="compare-table-value" data-label="Fee">₹1.9L</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Online</div><div class="compare-table-value" data-label="Depth">8+ marketing electives</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">Symbiosis SCDL/SSODL</div><div class="compare-table-value" data-label="Fee">₹1.8L-2.4L</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Distance/Online</div><div class="compare-table-value" data-label="Depth">Strong digital focus</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">Amity Online</div><div class="compare-table-value" data-label="Fee">₹1.99L</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Online</div><div class="compare-table-value" data-label="Depth">Broad curriculum</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">Manipal Jaipur</div><div class="compare-table-value" data-label="Fee">₹1.5L</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Online</div><div class="compare-table-value" data-label="Depth">Digital marketing depth</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">Welingkar (WeSchool)</div><div class="compare-table-value" data-label="Fee">₹85K</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Distance</div><div class="compare-table-value" data-label="Depth">Strong brand and consumer</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">Jain Online</div><div class="compare-table-value" data-label="Fee">₹1.4L</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Online</div><div class="compare-table-value" data-label="Depth">Modern curriculum</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">Chandigarh University</div><div class="compare-table-value" data-label="Fee">₹1.3L</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Online</div><div class="compare-table-value" data-label="Depth">Includes digital marketing</div></div>
+      <div class="compare-table-row" style="grid-template-columns: 1.8fr 1fr 1fr 1fr 2fr;"><div class="compare-table-value" data-label="University">LPU Distance</div><div class="compare-table-value" data-label="Fee">₹65K</div><div class="compare-table-value" data-label="Duration">2 yrs</div><div class="compare-table-value" data-label="Mode">Distance</div><div class="compare-table-value" data-label="Depth">Foundational</div></div>
+    </div>
+
+    <div class="text-center" style="margin-top: 32px;">
+      <a href="compare-nmims-vs-symbiosis.html" class="btn btn-secondary">Compare any two of these →</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO CHOOSE -->
+<section class="section bg-white">
+  <div class="wrap-narrow">
+    <div class="section-head">
+      <span class="eyebrow">Decision framework</span>
+      <h2>Pick your Marketing MBA in <span class="ital">four questions.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-number">1</div><h3>FMCG or consumer brand role?</h3><p>Welingkar, Symbiosis, NMIMS lead here. Strong brand and consumer faculty.</p></div>
+      <div class="step"><div class="step-number">2</div><h3>Digital or SaaS marketing role?</h3><p>Manipal Jaipur, Amity, Symbiosis SSODL lead in digital marketing electives.</p></div>
+      <div class="step"><div class="step-number">3</div><h3>Budget under ₹1 lakh?</h3><p>IGNOU (govt, not in our scope), LPU, Welingkar offer the most for the price.</p></div>
+    </div>
+    <p style="text-align: center; margin-top: 48px; font-size: 16px; color: var(--slate);">If you're still unsure, that's what counsellors are for. <a href="#lead" style="color: var(--saffron); font-weight: 600;">Talk to one in 24 hours →</a></p>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+<section class="section" id="lead">
+  <div class="wrap">
+    <div class="lead-section">
+      <div>
+        <span class="eyebrow">Find your fit</span>
+        <h2>Get a Marketing MBA shortlist <span class="ital">built for your career goal.</span></h2>
+        <p class="lead">Tell us your target career move. A counsellor sends you 3 Marketing MBA programmes ranked by fit, within 48 hours.</p>
+      </div>
+      <form class="form-card" onsubmit="event.preventDefault(); alert('Lead captured (demo).');">
+        <h3 class="form-card-title">Get your shortlist</h3>
+        <p class="form-card-sub">Counsellor calls within 24 hours.</p>
+        <div class="field"><label>Name</label><input type="text" required /></div>
+        <div class="field field-phone"><label>Phone</label><input type="tel" required /></div>
+        <div class="field"><label>Target role</label><select><option>FMCG / Brand Manager</option><option>Digital Marketing</option><option>Product Marketing</option><option>Sales Manager</option><option>Marketing Strategy</option><option>Not sure yet</option></select></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Request a callback →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg width="32" height="30" viewBox="0 0 100 95"><path d="M 12 72 L 12 40 L 50 10 L 88 40 L 88 72" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M 5 85 Q 50 102 95 80" fill="none" stroke="#E8930E" stroke-width="6" stroke-linecap="round"/></svg>
+          <span><span style="font-weight: 500;">Distance </span><span style="color: var(--saffron); font-weight: 700;">MBA</span><span style="font-weight: 500;"> College</span></span>
+        </div>
+        <p class="footer-brand-line">Your Future. One Smart Step Away.</p>
+      </div>
+      <div><h4>Programmes</h4><ul><li><a href="programme-online-mba.html">Online MBA</a></li><li><a href="#">Distance MBA</a></li></ul></div>
+      <div><h4>Universities</h4><ul><li><a href="university-nmims.html">NMIMS</a></li><li><a href="#">Symbiosis</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© 2026 MagicWorks IT Solutions Pvt. Ltd.</span></div>
+  </div>
+</footer>
+
+<div class="mobile-actions">
+  <div class="mobile-actions-grid">
+    <a href="tel:+918669661005" class="mobile-action"><span class="mobile-action-icon">☎</span><span>Call</span></a>
+    <a href="https://wa.me/918669661005" class="mobile-action"><span class="mobile-action-icon">💬</span><span>WhatsApp</span></a>
+    <button class="mobile-action primary" onclick="document.getElementById('chat-launcher').click()"><span class="mobile-action-icon">🤖</span><span>Chat</span></button>
+  </div>
+</div>
+
+<button id="chat-launcher" class="chat-launcher">💬<span class="chat-launcher-pulse"></span></button>
+<div id="chat-window" class="chat-window">
+  <div class="chat-header"><div class="chat-header-avatar">A</div><div class="chat-header-info"><div class="chat-header-name">Aarya</div><div class="chat-header-status">Online</div></div><button id="chat-close" class="chat-header-close">×</button></div>
+  <div id="chat-body" class="chat-body"><div class="chat-message ai">Interested in Marketing MBA? Tell me your target role, FMCG brand manager, digital marketer, or product marketer, and I'll suggest universities that fit.</div></div>
+  <div class="chat-input"><input id="chat-input" type="text" placeholder="Your target role..." /><button id="chat-send" class="chat-send">Send</button></div>
+</div>
+
+<script>
+/* ============================================================
+   Distance MBA College, Aarya AI Counsellor (UI placeholder)
+   This is a front-end mockup only. Production version will
+   connect to an LLM backend via the conversation API.
+   ============================================================ */
+
+(function() {
+  'use strict';
+
+  const launcher = document.getElementById('chat-launcher');
+  const windowEl = document.getElementById('chat-window');
+  const closeBtn = document.getElementById('chat-close');
+  const body = document.getElementById('chat-body');
+  const input = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send');
+
+  if (!launcher || !windowEl) return;
+
+  // Toggle window
+  launcher.addEventListener('click', () => {
+    windowEl.classList.toggle('open');
+    if (windowEl.classList.contains('open')) {
+      setTimeout(() => input && input.focus(), 200);
+    }
+  });
+
+  closeBtn && closeBtn.addEventListener('click', () => {
+    windowEl.classList.remove('open');
+  });
+
+  // Sample conversation flow (placeholder, replaced by LLM backend in production)
+  const responses = {
+    'online mba': "Online MBA is a structured 2-year programme with live faculty sessions, best suited for working professionals who want a cohort experience. Top private universities for Online MBA in 2026 are NMIMS, Symbiosis SSODL, Amity, and Manipal University Jaipur. Fee range is roughly ₹1.5L to ₹3L. Want me to shortlist 3 based on your career goal?",
+    'executive mba': "Executive MBA is designed for senior professionals with 5+ years of experience, typically targeting leadership roles. Leading private options are ISB, XLRI VIL, BITS Pilani WILP, NMIMS Executive, and SP Jain. Fee range is ₹3L to ₹25L. What is your current role and target role?",
+    'distance mba': "Distance MBA is self-paced learning with limited live instruction. Best for learners who want flexibility and the lowest fee option. Private universities offering it include NMIMS CDOE, Symbiosis SCDL, LPU Distance, ICFAI, and Welingkar. Fee range is ₹40K to ₹2L. Should I help you compare?",
+    'fee': "Fee depends on the mode and university. Online MBA from a top private university like NMIMS or Symbiosis is ₹1.7L to ₹2.4L. Executive MBA from ISB is ₹18L to ₹22L. BITS Pilani WILP, which is great value for senior professionals, is ₹2.5L to ₹3L. Want me to pull a specific comparison?",
+    'nmims': "NMIMS Centre for Distance and Online Education holds NAAC A++ and is UGC-DEB recognised. Strongest specialisations are Finance, Business Analytics, and General Management. Fee is ₹1.7L to ₹2.4L over 2 years. Live sessions are evenings and weekends. Best for working professionals targeting corporate management roles. Want to compare with Symbiosis?",
+    'default': "I can help you with university shortlists, fee comparisons, eligibility checks, or general MBA mode guidance. What is on your mind today, Distance MBA, Online MBA, Executive MBA, or just figuring out where to start?"
+  };
+
+  function addMessage(text, sender) {
+    const msg = document.createElement('div');
+    msg.className = 'chat-message ' + sender;
+    msg.textContent = text;
+    body.appendChild(msg);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function addQuickReplies(replies) {
+    const wrap = document.createElement('div');
+    wrap.className = 'chat-quick-replies';
+    replies.forEach(text => {
+      const btn = document.createElement('button');
+      btn.className = 'chat-quick-reply';
+      btn.textContent = text;
+      btn.addEventListener('click', () => {
+        wrap.remove();
+        handleUserInput(text);
+      });
+      wrap.appendChild(btn);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function getResponse(text) {
+    const lower = text.toLowerCase();
+    for (const key of Object.keys(responses)) {
+      if (key !== 'default' && lower.includes(key)) {
+        return responses[key];
+      }
+    }
+    return responses.default;
+  }
+
+  function handleUserInput(text) {
+    if (!text || !text.trim()) return;
+    addMessage(text, 'user');
+    setTimeout(() => {
+      addMessage(getResponse(text), 'ai');
+      setTimeout(() => {
+        addQuickReplies(['Compare universities', 'Check eligibility', 'Talk to a human counsellor']);
+      }, 600);
+    }, 600);
+  }
+
+  sendBtn && sendBtn.addEventListener('click', () => {
+    const text = input.value;
+    input.value = '';
+    handleUserInput(text);
+  });
+
+  input && input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const text = input.value;
+      input.value = '';
+      handleUserInput(text);
+    }
+  });
+
+  // FAQ toggle (shared utility)
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      item.classList.toggle('open');
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

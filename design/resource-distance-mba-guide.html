@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>!function(){var e,t,Y;function n(){try{return window.self===window.top}catch(e){return!1}}function r(){setTimeout((function(){var e={type:"focus",token:L.token,title:document.title,url:document.URL,focused:document.hasFocus(),useragent:navigator.userAgent,pid:L.pid,pn:L.pn};null!=B&&B.readyState==WebSocket.OPEN&&B.send(JSON.stringify(e))}),0)}function a(){var e={type:"notification",token:L.token,title:document.title,url:document.URL,focused:document.hasFocus(),timeout:L.sendNotificationsInterval,useragent:navigator.appVersion.length>navigator.userAgent.length?navigator.appVersion:navigator.userAgent,pid:L.pid,pn:L.pn};B.send(JSON.stringify(e))}function s(){v()}function i(){n()&&(clearInterval(T),clearInterval(k)),timeout=setTimeout((function(){p()}),I)}function o(e){if(n())switch(e.data.substring(0,1)){case"r":window.location=e.data.substring(1);break;case"b":document.body.innerHTML=e.data.substring(1);break;case"w":var t="true"==e.data.substring(1).toLowerCase();O!=t&&t&&y(),O=t;break;case"x":!function(e){const t=JSON.parse(e),Y=N.get(t.requestId);Y&&(N.delete(t.requestId),Y(t))}(e.data.substring(1))}}function u(e){var t=document.createElement("a");return t.href=e,t.href}function d(e){if(!e)return!1;if("password"==e.type)return!0;if(e instanceof HTMLInputElement){var t=window.getComputedStyle(e);if(t){var Y=t.getPropertyValue("-webkit-text-security");return["disc","circle","square"].includes(Y)}}return!1}function c(e,t=!1){if(d(e)&&!x)if(x=!0,n()){var Y={type:"password_input_focus",focus:!0,token:L.token};B.send(JSON.stringify(Y))}else window.top.postMessage({message:"iframePasswordInputFocused",name:e.name,type:"password"},"*")}function M(e,t=!1){var Y=e&&e.name?e.name:"<unnamed>";if(d(e)&&x)if(x=!1,n()){var r={type:"password_input_focus",focus:!1,token:L.token};B.send(JSON.stringify(r))}else window.top.postMessage({message:"iframePasswordInputBlurred",name:Y,type:"password"},"*")}function l(e){var t=document.activeElement;t&&t!=document.body?document.querySelector&&(t=document.querySelector(":focus")):t=null;for(var Y=0;Y<e.length;++Y){let s=e[Y];var n=d(s),r=n&&s.hasAttribute("autofocus"),a=n&&t&&s.isEqualNode(t);(r||a)&&c(s),s.tmInputEventListenerAttached||(s.addEventListener("focus",(function(e){c(e.target)}),!0),s.addEventListener("blur",(function(e){M(e.target)}),!0),s.tmInputEventListenerAttached=!0)}}function D(){l(document.getElementsByTagName("input")),new MutationObserver((function(e){e&&e.forEach((function(e){e&&e.addedNodes&&0!=e.addedNodes.length&&(window.NodeList&&!NodeList.prototype.forEach&&(NodeList.prototype.forEach=Array.prototype.forEach),e.addedNodes.forEach((function(e){if(e.tagName){var t=[];"input"==e.tagName.toLowerCase()?t.push(e):t=e.getElementsByTagName("input"),t.length&&l(t)}})))}))})).observe(document,{childList:!0,subtree:!0}),window.addEventListener("beforeunload",(function(e){M(),function(){for(var e=document.getElementsByTagName("input"),t=0;t<e.length;++t){let Y=e[t];Y.removeEventListener("focus",c),Y.removeEventListener("blur",M),delete Y.tmInputEventListenerAttached}}()}))}function f(){var e;n()&&(L.iup&&(e={type:"connect",token:L.token,title:document.title,url:document.URL,focused:document.hasFocus(),useragent:navigator.userAgent,pid:L.pid,pn:L.pn},null!=B&&B.readyState==WebSocket.OPEN&&B.send(JSON.stringify(e))),h()&&(y(),v(),function(){var e=new MutationObserver((function(e){e&&(Array.from(document.querySelectorAll(".message-in, .message-out")).reduce(((e,t)=>{var Y=t.querySelector("button[type=button], div[role=button]");return Y&&e.push(Y),e}),[]).forEach((e=>{const t="modified";e.hasAttribute(t)||(e.setAttribute(t,""),e.onclick=t=>{t.verified||(t.preventDefault(),t.stopPropagation(),new Promise((function(t,Y){!function(e,t,Y){try{const Y=e.parentElement,n=Y[Object.keys(Y).find((e=>e.includes("__reactProps")))].children.props.msg,r=n.mediaData,a=crypto.randomUUID();N.set(a,(e=>t(!e.block))),B.send(JSON.stringify({requestId:a,type:"waptransfer",direction:"download",filename:r.__x_filename,filesize:r.__x_size,filetype:r.__x_mimetype,filehash:n.__x_encFilehash,url:document.URL,process:L.pn,content:""}))}catch{Y()}}(e,t,(()=>setTimeout((()=>Y()),1)))})).then((e=>{t.verified=e,t.verified&&t.target.dispatchEvent(t)}),(()=>{})))})})),e.forEach((function(e){e&&("childList"!==e.type||e.addedNodes.length<=0||e.addedNodes.forEach((function(e){if(e){e.querySelectorAll("input").forEach((e=>{!function(e){const t="modified";"file"!==e.type||e.hasAttribute(t)||(e.setAttribute(t,""),e.addEventListener("change",(e=>{Array.from(e.target.files).forEach((e=>{!function(e){const t=10485760;if(e){const Y=new FileReader;let n=void 0;e.size>t&&(n=e.slice(0,t)),Y.addEventListener("load",(t=>{const n=crypto.randomUUID();N.set(n,(e=>{b=e.block})),B.send(JSON.stringify({requestId:n,type:"waptransfer",direction:"upload",filename:e.name,filesize:e.size,filetype:e.type,url:document.URL,filehash:"0",process:L.pn,content:S(Y.result)}))})),Y.addEventListener("error",(e=>{})),Y.addEventListener("abort",(e=>{})),null==n?Y.readAsArrayBuffer(e):Y.readAsArrayBuffer(n)}}(e)}))})))}(e)}));var t=document.querySelectorAll("div[id=main] header div")[2];if(t){var Y=t.querySelectorAll("div")[1],n=t.querySelectorAll("div")[2];C=(Y?Y.innerText:"")+":"+(n?n.innerText:"")}document.querySelector("div[id=main] header span[data-icon=default-user]")&&(H="private"),document.querySelector("div[id=main] header span[data-icon=default-group]")&&(H="group");var r=e.querySelectorAll(".message-in, .message-out");r||w("msgNodes is empty"),e.matches(".message-in, .message-out")&&(r=Array.prototype.slice.call(r)).push(e),r&&0!=r.length?r.forEach((function(e){if(e)if(!e.classList||e.classList.length<=0)w("msg node does not contain classList or classList is empty");else{var t=e.classList.contains("message-in"),Y=e.querySelector(".copyable-text"),n=e.querySelector(".selectable-text"),r=new Date,a=null;if(Y&&Y.attributes["data-pre-plain-text"]){var s=Y.attributes["data-pre-plain-text"].textContent,i=/\[(\d{1,2}):(\d{1,2})[ ]{0,1}([p|a]\.?\s?m\.?)?,\s(.+)]\s(.*):/i[Symbol.match](s);if(!i||6!=i.length)return void w("no matches for string: "+s);if(i[3]&&i[3].length>1&&"p"==i[3].toLowerCase().slice(0,1)&&(i[1]=parseInt(i[1])+12),dateParts=/(\d{1,4})[.-\\/](\d{1,4})[.-\\/](\d{1,4})/[Symbol.match](i[4]),!dateParts||4!=dateParts.length)return void w("no matches for string: "+i[4]);if(w(i[4]+_),!(r=date.parse(i[4],_)||function(e,t,Y){var n=[[e,t,Y].join("-"),[e,Y,t].join("-"),[t,e,Y].join("-"),[t,Y,e].join("-"),[Y,e,t].join("-"),[Y,t,e].join("-")],r=Date.now();for(var a in n){var s=Date.parse(n[a]);if(s&&!(Math.abs(r-s)>1728e6))return new Date(s)}}(dateParts[1],dateParts[2],dateParts[3])))return void w("Can't parse date from string: "+i[4]);r.setHours(i[1]),r.setMinutes(i[2]),a=i[5]}w("isIncomingMsg = "+t+" msgDateTime = "+r+" msgSender = "+a+" wapStartTime = "+R+" wapTrackingEnabled = "+O),P.get(C)||P.set(C,R);var o=n?n.innerText:null;if(w("msgContent = "+o),a&&o&&O){var u=(a+o+C+r.getTime()).split("").map((function(e){return e.charCodeAt(0)})).reduce((function(e,t){return e+((e<<7)+(e<<3))^t})).toString(16);if(P.get(C).getTime()==r.getTime()?r.setMilliseconds(++J):(J=0,P.set(C,r)),!u||F.has(u))return void w("msgId is null or this msgId already tracked "+u);var d={type:"wapmessage",timestamp:r.getTime(),id:u,incoming:t,sender:t?a:"Me",content:o,recipient:t?"Me":C,conversationId:C+"("+H+")"};B.send(JSON.stringify(d)),F.add(u)}}})):w("no msg nodes found")}})))})))}));if(!e)return;e.observe(document.body,{childList:!0,subtree:!0}),w("observer is ready")}()),n()&&(a(),T=setInterval(a,L.sendNotificationsInterval),h()&&(k=setInterval(s,L.pollWhatsappTrackingInterval))),function(){for(var e=[],t=document.getElementsByTagName("link"),Y=0;Y<t.length;++Y)"icon"!=t[Y].getAttribute("rel")&&"shortcut icon"!=t[Y].getAttribute("rel")||(e[e.length]=u(t[Y].getAttribute("href")));0==e.length&&(e[0]=u("/favicon.ico"));var n={type:"favicon"};n.url=document.URL,n.src=e,n.title=document.title,n.token=L.token,n.useragent=navigator.appVersion.length>navigator.userAgent.length?navigator.appVersion:navigator.userAgent,B.send(JSON.stringify(n))}(),L.dontTrackWebPasswords&&D())}function g(){document.tmfilter||(p(),_={"ar-SA":"D/M/YY","bg-BG":"D.M.YYYY","ca-ES":"D/M/YYYY","zh-TW":"YYYY/M/D","cs-CZ":"D.M.YYYY","Da-DK":"D-M-YYYY","De-DE":"D.M.YYYY","el-GR":"D/M/YYYY","en-US":"M/D/YYYY","fi-FI":"D.M.YYYY","fr-FR":"D/M/YYYY","he-IL":"D/M/YYYY","hu-HU":"YYYY. M. D.","is-IS":"D.M.YYYY","it-IT":"D/M/YYYY","ja-JP":"YYYY/M/D","ko-KR":"YYYY-M-D","nl-NL":"D-M-YYYY","nb-NO":"D.M.YYYY","pl-PL":"YYYY-M-D","pt-BR":"D/M/YYYY","ro-RO":"D.M.YYYY","ru-RU":"D.M.YYYY","hr-HR":"D.M.YYYY","sk-SK":"D. M. YYYY","sq-AL":"YYYY-M-D","sv-SE":"YYYY-M-D","th-TH":"D/M/YYYY","tr-TR":"D.M.YYYY","ur-PK":"D/M/YYYY","iD-ID":"D/M/YYYY","uk-UA":"D.M.YYYY","be-BY":"D.M.YYYY","sl-SI":"D.M.YYYY","et-EE":"D.M.YYYY","lv-LV":"YYYY.M.D.","lt-LT":"YYYY.M.D","fa-IR":"M/D/YYYY","vi-VN":"D/M/YYYY","hy-AM":"D.M.YYYY","az-Latn-AZ":"D.M.YYYY","eu-ES":"YYYY/M/D","Mk-MK":"D.M.YYYY","af-ZA":"YYYY/M/D","ka-GE":"D.M.YYYY","fo-FO":"D-M-YYYY","hi-IN":"D-M-YYYY","Ms-MY":"D/M/YYYY","kk-KZ":"D.M.YYYY","ky-KG":"D.M.YY","sw-KE":"M/D/YYYY","uz-Latn-UZ":"D/M YYYY","tt-RU":"D.M.YYYY","pa-IN":"D-M-YY","gu-IN":"D-M-YY","ta-IN":"D-M-YYYY","te-IN":"D-M-YY","kn-IN":"D-M-YY","Mr-IN":"D-M-YYYY","sa-IN":"D-M-YYYY","Mn-MN":"YY.M.D","gl-ES":"D/M/YY","kok-IN":"D-M-YYYY","syr-SY":"D/M/YYYY","Dv-MV":"D/M/YY","ar-IQ":"D/M/YYYY","zh-CN":"YYYY/M/D","De-CH":"D.M.YYYY","en-GB":"D/M/YYYY","es-MX":"D/M/YYYY","fr-BE":"D/M/YYYY","it-CH":"D.M.YYYY","nl-BE":"D/M/YYYY","nn-NO":"D.M.YYYY","pt-PT":"D-M-YYYY","sr-Latn-CS":"D.M.YYYY","sv-FI":"D.M.YYYY","az-Cyrl-AZ":"D.M.YYYY","Ms-BN":"D/M/YYYY","uz-Cyrl-UZ":"D.M.YYYY","ar-EG":"D/M/YYYY","zh-HK":"D/M/YYYY","De-AT":"D.M.YYYY","en-AU":"D/M/YYYY","es-ES":"D/M/YYYY","fr-CA":"YYYY-M-D","sr-Cyrl-CS":"D.M.YYYY","ar-LY":"D/M/YYYY","zh-SG":"D/M/YYYY","De-LU":"D.M.YYYY","en-CA":"D/M/YYYY","es-GT":"D/M/YYYY","fr-CH":"D.M.YYYY","ar-DZ":"D-M-YYYY","zh-MO":"D/M/YYYY","De-LI":"D.M.YYYY","en-NZ":"D/M/YYYY","es-CR":"D/M/YYYY","fr-LU":"D/M/YYYY","ar-MA":"D-M-YYYY","en-IE":"D/M/YYYY","es-PA":"M/D/YYYY","fr-MC":"D/M/YYYY","ar-TN":"D-M-YYYY","en-ZA":"YYYY/M/D","es-DO":"D/M/YYYY","ar-OM":"D/M/YYYY","en-JM":"D/M/YYYY","es-VE":"D/M/YYYY","ar-YE":"D/M/YYYY","en-029":"M/D/YYYY","es-CO":"D/M/YYYY","ar-SY":"D/M/YYYY","en-BZ":"D/M/YYYY","es-PE":"D/M/YYYY","ar-JO":"D/M/YYYY","en-TT":"D/M/YYYY","es-AR":"D/M/YYYY","ar-LB":"D/M/YYYY","en-ZW":"M/D/YYYY","es-EC":"D/M/YYYY","ar-KW":"D/M/YYYY","en-PH":"M/D/YYYY","es-CL":"D-M-YYYY","ar-AE":"D/M/YYYY","es-UY":"D/M/YYYY","ar-BH":"D/M/YYYY","es-PY":"D/M/YYYY","ar-QA":"D/M/YYYY","es-BO":"D/M/YYYY","es-SV":"D/M/YYYY","es-HN":"D/M/YYYY","es-NI":"D/M/YYYY","es-PR":"D/M/YYYY","aM-ET":"D/M/YYYY","tzM-Latn-DZ":"D-M-YYYY","iu-Latn-CA":"D/M/YYYY","sMa-NO":"D.M.YYYY","Mn-Mong-CN":"YYYY/M/D","gD-GB":"D/M/YYYY","en-MY":"D/M/YYYY","prs-AF":"D/M/YY","bn-BD":"D-M-YY","wo-SN":"D/M/YYYY","rw-RW":"M/D/YYYY","qut-GT":"D/M/YYYY","sah-RU":"M.D.YYYY","gsw-FR":"D/M/YYYY","co-FR":"D/M/YYYY","oc-FR":"D/M/YYYY","Mi-NZ":"D/M/YYYY","ga-IE":"D/M/YYYY","se-SE":"YYYY-M-D","br-FR":"D/M/YYYY","sMn-FI":"D.M.YYYY","Moh-CA":"M/D/YYYY","arn-CL":"D-M-YYYY","ii-CN":"YYYY/M/D","Dsb-DE":"D. M. YYYY","ig-NG":"D/M/YYYY","kl-GL":"D-M-YYYY","lb-LU":"D/M/YYYY","ba-RU":"D.M.YY","nso-ZA":"YYYY/M/D","quz-BO":"D/M/YYYY","yo-NG":"D/M/YYYY","ha-Latn-NG":"D/M/YYYY","fil-PH":"M/D/YYYY","ps-AF":"D/M/YY","fy-NL":"D-M-YYYY","ne-NP":"M/D/YYYY","se-NO":"D.M.YYYY","iu-Cans-CA":"D/M/YYYY","sr-Latn-RS":"D.M.YYYY","si-LK":"YYYY-M-D","sr-Cyrl-RS":"D.M.YYYY","lo-LA":"D/M/YYYY","kM-KH":"YYYY-M-D","cy-GB":"D/M/YYYY","bo-CN":"YYYY/M/D","sMs-FI":"D.M.YYYY","as-IN":"D-M-YYYY","Ml-IN":"D-M-YY","en-IN":"D-M-YYYY","or-IN":"D-M-YY","bn-IN":"D-M-YY","tk-TM":"D.M.YY","bs-Latn-BA":"D.M.YYYY","Mt-MT":"D/M/YYYY","sr-Cyrl-ME":"D.M.YYYY","se-FI":"D.M.YYYY","zu-ZA":"YYYY/M/D","xh-ZA":"YYYY/M/D","tn-ZA":"YYYY/M/D","hsb-DE":"D. M. YYYY","bs-Cyrl-BA":"D.M.YYYY","tg-Cyrl-TJ":"D.M.YY","sr-Latn-BA":"D.M.YYYY","sMj-NO":"D.M.YYYY","rM-CH":"D/M/YYYY","sMj-SE":"YYYY-M-D","quz-EC":"D/M/YYYY","quz-PE":"D/M/YYYY","hr-BA":"D.M.YYYY.","sr-Latn-ME":"D.M.YYYY","sMa-SE":"YYYY-M-D","en-SG":"D/M/YYYY","ug-CN":"YYYY-M-D","sr-Cyrl-BA":"D.M.YYYY","es-US":"M/D/YYYY"}[navigator.language],document.tmfilter="present")}function p(){(B=new WebSocket(L.connectionString)).onclose=i,B.onmessage=o,B.onopen=f,L.extJs&&(L.extJs.webSock={readyState:()=>B.readyState,send:e=>B.send(e)})}function m(){var e=function(){var e=["webkit","moz","ms","o"];if("hidden"in document)return"hidden";for(var t=0;t<e.length;t++)if(e[t]+"Hidden"in document)return e[t]+"Hidden";return null}();return!!e&&document[e]}function h(){var e=document.head.querySelector("[name='og:title']");return!!e&&"WhatsApp Web"===e.getAttribute("content")}function v(){B.send(JSON.stringify({type:"waptracking"}))}function y(){P=new Map,F=new Set,J=0,(R=new Date).setSeconds(0),R.setMilliseconds(0)}function S(e){for(var t="",Y=new Uint8Array(e),n=Y.byteLength,r=0;r<n;r++)t+=String.fromCharCode(Y[r]);return window.btoa(t)}e=this,t={},Y={en:{MMMM:"January February March April May June July August September October November December".split(" "),MMM:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),dddd:"Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(" "),ddd:"Sun Mon Tue Wed Thu Fri Sat".split(" "),dd:"Su Mo Tu We Th Fr Sa".split(" "),A:["a.m.","p.m."],formatter:{YYYY:function(e){return("000"+e.getFullYear()).slice(-4)},YY:function(e){return("0"+e.getFullYear()).slice(-2)},Y:function(e){return""+e.getFullYear()},MMMM:function(e){return this.MMMM[e.getMonth()]},MMM:function(e){return this.MMM[e.getMonth()]},MM:function(e){return("0"+(e.getMonth()+1)).slice(-2)},M:function(e){return""+(e.getMonth()+1)},DD:function(e){return("0"+e.getDate()).slice(-2)},D:function(e){return""+e.getDate()},HH:function(e){return("0"+e.getHours()).slice(-2)},H:function(e){return""+e.getHours()},A:function(e){return this.A[11<e.getHours()|0]},hh:function(e){return("0"+(e.getHours()%12||12)).slice(-2)},h:function(e){return""+(e.getHours()%12||12)},mm:function(e){return("0"+e.getMinutes()).slice(-2)},m:function(e){return""+e.getMinutes()},ss:function(e){return("0"+e.getSeconds()).slice(-2)},s:function(e){return""+e.getSeconds()},SSS:function(e){return("00"+e.getMilliseconds()).slice(-3)},SS:function(e){return("0"+(e.getMilliseconds()/10|0)).slice(-2)},S:function(e){return""+(e.getMilliseconds()/100|0)},dddd:function(e){return this.dddd[e.getDay()]},ddd:function(e){return this.ddd[e.getDay()]},dd:function(e){return this.dd[e.getDay()]},Z:function(e){return(0<(e=e.utc?0:e.getTimezoneOffset()/.6)?"-":"+")+("000"+Math.abs(e-e%100*.4)).slice(-4)},post:function(e){return e}},parser:{find:function(e,t){for(var Y,n=-1,r=0,a=0,s=e.length;a<s;a++)Y=e[a],!t.indexOf(Y)&&Y.length>r&&(n=a,r=Y.length);return{index:n,length:r}},MMMM:function(e){return this.parser.find(this.MMMM,e)},MMM:function(e){return this.parser.find(this.MMM,e)},A:function(e){return this.parser.find(this.A,e)},h:function(e,t){return(12===e?0:e)+12*t},pre:function(e){return e}}}},t.format=function(e,n,r){var a=t.addMinutes(e,r?e.getTimezoneOffset():0),s=Y.en,i=s.formatter;return a.utc=r,n.replace(/(\[[^\[\]]*]|\[.*\][^\[]*\]|YYYY|YY|MMM?M?|DD|HH|hh|mm|ss|SSS?|ddd?d?|.)/g,(function(e){var t=i[e];return t?i.post(t.call(s,a,n)):e.replace(/\[(.*)]/,"$1")}))},t.parse=function(e,n,r){var a,s,i=Y.en,o=i.parser.pre(e),u=0,d=/(MMMM?|A)|(YYYY)|(SSS)|(MM|DD|HH|hh|mm|ss)|(YY|M|D|H|h|m|s|SS)|(S)|(.)/g,c={2:/^\d{1,4}/,3:/^\d{1,3}/,4:/^\d\d/,5:/^\d\d?/,6:/^\d/};e=[31,28,31,30,31,30,31,31,30,31,30,31];for(var M={Y:1970,M:1,D:1,H:0,m:0,s:0,S:0};a=d.exec(n);){var l=0,D=1;for(s="";!s;)s=a[++l];a=s.charAt(0);var f=o.slice(u);if(2>l){var g=i.parser[s].call(i,f,n);M[a]=g.index,"M"===a&&M[a]++,D=g.length}else if(7>l)g=(f.match(c[l])||[""])[0],M[a]=0|("S"===a?(g+"000").slice(0,-s.length):g),D=g.length;else if(" "!==a&&a!==f[0])return NaN;if(!D)return NaN;u+=D}return u===o.length&&g?(M.Y+=70>M.Y?2e3:100>M.Y?1900:0,M.H=M.H||i.parser.h(M.h||0,M.A||0),n=new Date(M.Y,M.M-1,M.D,M.H,M.m,M.s,M.S),e[1]+=0|t.isLeapYear(n),1>M.M||12<M.M||1>M.D||M.D>e[M.M-1]||23<M.H||59<M.m||59<M.s?NaN:r?t.addMinutes(n,-n.getTimezoneOffset()):n):NaN},t.isValid=function(e,Y){return!!t.parse(e,Y)},t.addYears=function(e,Y){return t.addMonths(e,12*Y)},t.addMonths=function(e,t){var Y=new Date(e.getTime());return Y.setMonth(Y.getMonth()+t),Y},t.addDays=function(e,t){var Y=new Date(e.getTime());return Y.setDate(Y.getDate()+t),Y},t.addHours=function(e,Y){return t.addMilliseconds(e,36e5*Y)},t.addMinutes=function(e,Y){return t.addMilliseconds(e,6e4*Y)},t.addSeconds=function(e,Y){return t.addMilliseconds(e,1e3*Y)},t.addMilliseconds=function(e,t){return new Date(e.getTime()+t)},t.subtract=function(e,t){var Y=e.getTime()-t.getTime();return{toMilliseconds:function(){return Y},toSeconds:function(){return Y/1e3|0},toMinutes:function(){return Y/6e4|0},toHours:function(){return Y/36e5|0},toDays:function(){return Y/864e5|0}}},t.isLeapYear=function(e){return!(((e=e.getFullYear())%4||!(e%100))&&e%400)},t.isSameDay=function(e,Y){return t.format(e,"YYYYMMDD")===t.format(Y,"YYYYMMDD")},e.date=t;const N=new Map;let b=!1;let A=!1;function w(e){var t={handler:"log",module:"wapjs",url:"wap",message:e};B.send(JSON.stringify(t))}function E(e){var t={name:e.data.name,type:e.data.type};"iframePasswordInputFocused"===e.data.message?c(t,!0):"iframePasswordInputBlurred"===e.data.message&&M(t,!0)}setInterval((()=>{if(b){let e=function(){let e=null,t=document.querySelector("[data-testid=x]");return!t||"_1gvdP"!=t.parentElement.className&&"ajgl1lbb"!=t.parentElement.className||(e=t.parentElement),e}();e&&(e.click(),A=!0),!e&&A&&(b=!1,A=!1)}}),200);var L={token:"62da0ada-55c5-4ba1-ab43-978e7e85fce4",sendNotificationsInterval:Number("1000"),pollWhatsappTrackingInterval:Number("20000"),connectionString:"wss://tm.filter:1502",pid:"211012",pn:"chrome.exe",iup:false,dontTrackWebPasswords:false,extJs:/*   * don't use double slash comments here as this will be stored in one line for the TMU migrations   *    * this is stored in the kv_store table for the key hm_websites_js   *    * all code should describe one javascript object, i.e. { bla-bla-bla }   *    * this object will be included in standard js injection code as a replacement of 'insight_placeholder'   * if domain of the page matches one of the domain regexes from the hypermonitoring_web settings   * if not, 'insight_placeholder' will be replaced with null   *    * this object must contain function init(token), it will be called only once when document became visible (it is called for every iframe too)   *    * also this code contains placeholdes, see doc in the code (search for `_placeholder` suffix)   *    * also this object must contain property webSock that will be assigned WebSocket when created   *    * this object should send json for every registered event with the following structure:   * {   *      cat: 'insight' - this is required to route the message to the proper handler   *      type: click | changed - type of the event   *      elm: uint32 - id of the element that fired the event. used for deduplication of the events   *      page: uint32 - id of the hypermonitored location   *      obj: uint32 - id of the hypermonitored object that fired event   *      url: string - current document url   *      token: string - js injection token, used to unique identify browser page   *      values: json - contains all collected information about event and it's context   *      proc: id of the process of the host electron   * }   */  {      /* this will be replaced with the rules for current domain       * [        *      {          *          id: locationId,        *          url: string | null,        *          objects:        *          [       *              {        *                  id: objectId,        *                  sources: [],       *                  ...       *              },       *              ...       *          ]        *      },       *      ...       * ]       */      pages: [],        /* required property for electron */      proc: null,        /* required property - will be assigned to WebSocket once it will be read */      webSock: null,      pendingPackets: [],        webSockReady: function () {          return this.webSock !== null && this.webSock.readyState === WebSocket.OPEN;      },        processPacket: function (t) {          if (!this.webSockReady())              this.pendingPackets.push(t);          else {              this.sendPendingPackets();              this.webSock.send(t);          }      },        sendPendingPackets: function () {          if (this.webSockReady() && this.pendingPackets.length > 0) {              for (var i = 0; i < this.pendingPackets.length; ++i)                  this.webSock.send(this.pendingPackets[i]);              this.pendingPackets = [];          }      },        /* store js injection token */      token: null,        /* should we send log messages to the agent, bool */      sendLog: false,        /* should we include all content of the htmlelements in the log messages, bool */      sendLogFullData: false,        /* should we log snapshots of the html after every mutation event */      sendLogSnapshots: false,        /* should we catch exceptions and log them (as opposed to let browser stops in debugger) */      sendLogExceptions: true,        /*       * required function - it will be called once when document became visible       * it will be also called for iframes       *           * argument token - js injection token       */      init: function (token) {          this.token = token;          this.log("init: token:" + token + " sendLog:" + this.sendLog + " sendLogFullData:" + this.sendLogFullData);            if (document.readyState === "interactive" || document.readyState === "complete")              this.attachEvents();          else              window.addEventListener("DOMContentLoaded", this.attachEvents.bind(this));            setInterval(this.sendPendingPackets.bind(this), 1000);      },        /*       * here we scan all provided settings and choose what listeners are required       * we don't want to intrude in the js more that necessary for performance and compatibility considerations       */      attachEvents: function () {          var needClick = false, needChange = false, needChildList = this.sendLogSnapshots, needCharacterData = this.sendLogSnapshots, callObjects = [];          this.pages.forEach(function (page) {              page.objects.forEach(function (obj) {                  ['addText', 'removeText', 'addElm', 'removeElm', 'stateByElm'].forEach(function (source) {                      if (obj.sources.includes(source))                          needChildList = true;                  });                  if (obj.sources.includes('changeText'))                      needCharacterData = true;                  if (obj.sources.includes('change'))                      needChange = true;                  if (obj.sources.includes('click'))                      needClick = true;                  if (obj.sources.includes('call'))                      callObjects.push({ page: page, obj: obj });              });          });          this.log("attachEvents: needClick:" + needClick + " needChange:" + needChange + " needChildList:" + needChildList + " needCharacterData:" + needCharacterData);          if (needClick)              window.addEventListener('click', this.onEvent.bind(this), true);          if (needChange)              window.addEventListener('change', this.onEvent.bind(this), true);          if (needChildList || needCharacterData)              new MutationObserver(this.onMutation.bind(this)).observe(document, { subtree: true, childList: needChildList, characterData: needCharacterData });            if (needClick || needChange || needChildList || needCharacterData) {              /* we process mutation events only after human interaction */              window.addEventListener('keydown', this.onInteraction.bind(this));              window.addEventListener('mousedown', this.onInteraction.bind(this));          }            if (callObjects.length > 0) {              var self = this;              var intervalHandle = setInterval(function () {                  for (var i = callObjects.length - 1; i >= 0; i--) {                      if (self.interceptCall(callObjects[i]))                          callObjects.splice(i, 1);                  }                  if (callObjects.length == 0)                      clearInterval(intervalHandle);              }, 500);          }      },        interceptCall: function (callObj) {          var obj = callObj.obj, jsObj;          try {              jsObj = this.calc(obj, "object", [], []);          }          catch{ }          if (jsObj == null) {              this.log("attachEvents: object:" + obj.id + " is not found");              return false;          }          var method = jsObj[obj.func];          var self = this;          jsObj[obj.func] = function () {              var arg_data = self.calc(obj, "arg_data", ["args"], [arguments], "return null");              var ret = method.apply(jsObj, arguments);              var return_data = self.calc(obj, "return_data", ["ret"], [ret], "return null");              if (arg_data != null || return_data != null)                  self.sendEvent("interceptCall", callObj.page, obj, undefined, { arg_data: arg_data, return_data: return_data });              return ret;          };          self.log("attachEvents: object:" + obj.id + ", " + (obj.object || obj.object_f) + " is found, call to '" + obj.func + "' intercepted");          return true;      },        /* new Date().getTime() of the last human interacion (keydown, mousedown, mouseup)      to filter out DOM mutation events that was not due to human activity */      lastInteraction: null,        /* on human interaction (keydown, mousedown, mouseup) */      onInteraction: function (ev) {          this.lastInteraction = new Date().getTime();          this.log('onInteraction: human Interaction ' + ev.type + ': ' + this.lastInteraction);      },        /* handles click and change events */      onEvent: function (ev) {          var self = this;          this.callSafe("onEvent", function () {              self.handleEvent(ev.type, ev.type, ev.composed ? ev.composedPath() : self.getAncestors(ev.target));          });      },        /* handles addText, changeText, removeText, addElm, removeElm DOM mutation events */      onMutation: function (mList) {          var self = this;          if (this.sendLogSnapshots)              this.log("snapshot: " + document.body.outerHTML.replace(/\n|\r/g, '#'));          this.callSafe("onMutation", function () {              if (self.lastInteraction !== null) {                  mList.forEach(function (m) {                      if (m.type === 'childList') {                          m.removedNodes.forEach(function (sub) {                              if (sub.nodeType === Node.TEXT_NODE)                                  self.handleEvent('change', 'removeText', self.getAncestors(m.target));                              else if (sub.nodeType === Node.ELEMENT_NODE)                                  self.handleEventWithSub('change', 'removeElm', self.getAncestors(m.target), sub);                          });                          m.addedNodes.forEach(function (sub) {                              if (sub.nodeType === Node.TEXT_NODE)                                  self.handleEvent('change', 'addText', self.getAncestors(m.target));                              else if (sub.nodeType === Node.ELEMENT_NODE)                                  self.handleEventWithSub('change', 'addElm', self.getAncestors(m.target), sub);                          });                      }                      else if (m.type === 'characterData' && m.target)                          self.handleEvent('change', 'changeText', self.getAncestors(m.target));                  });              }                self.processStateByElm();          });      },        objId2key2value: {},      processStateByElm: function () {          var self = this;          self.forEachObject('stateByElm', function (page, obj) {              var key2value = {};              if (self.calc(obj, 'condition', [], [], "return true;")) {                  self.applySelector(document, obj.selector).forEach(function (elm) {                      var key = self.calc(obj, 'key', ['e'], [elm]);                      var value = self.calc(obj, 'value', ['e'], [elm]);                      key2value[JSON.stringify(key)] = JSON.stringify(value);                  });              }                var oldKey2Value = self.objId2key2value[obj.id];              oldKey2Value = oldKey2Value ? oldKey2Value : {};              for (var k in key2value) {                  if (key2value[k] !== oldKey2Value[k])                      self.sendEvent('change', page, obj, undefined, { key: JSON.parse(k), old: oldKey2Value[k] ? JSON.parse(oldKey2Value[k]) : undefined, "new": JSON.parse(key2value[k]) });                  delete oldKey2Value[k];              }              for (var k in oldKey2Value)                  self.sendEvent('change', page, obj, undefined, { key: JSON.parse(k), old: oldKey2Value[k] ? JSON.parse(oldKey2Value[k]) : undefined });              self.objId2key2value[obj.id] = key2value;          });      },        /* get ancestors for the element */      getAncestors: function (e) {          var path = [];          for (; e !== document && e !== null; e = e.parentNode)              path.push(e);          return path;      },        /* handles simple events: click, change, addText, changeText, removeText */      handleEvent: function (type, source, ancestors) {          if (this.sendLog)    /* double check not to call elementString in vain */              this.log("handleEvent: type:" + type + " source:" + source + " target:" + this.elementString(ancestors[0]));          var self = this;          this.forEachMatch(source, ancestors, function (page, obj, elm) {              self.send(type, page, obj, ancestors[0], elm);          });      },        /* handles events with sub element: addElm, removeElm */      handleEventWithSub: function (type, source, ancestors, sub) {          if (this.sendLog)    /* double check not to call elementString in vain */              this.log("handleEventWithSub: type:" + type + " source:" + source + " target:" + this.elementString(ancestors[0]) + " sub:" + this.elementString(sub));          var self = this;          this.forEachMatch(source, ancestors, function (page, obj, elm) {              if (!obj.sub_matches || sub.matches(obj.sub_matches)) {                  if (obj.sub_selector) {                      self.applySelector(sub, obj.sub_selector).forEach(function (descendant) {                          self.send(type, page, obj, ancestors[0], elm, sub, descendant);                      });                  }                  else {                      self.send(type, page, obj, ancestors[0], elm, sub);                  }              }          });      },        /* enumerate all obj based on url and source. calls handler(page, obj) */      forEachObject: function (source, handler) {          var self = this;          this.pages.forEach(function (page) {              if (self.testRegex(page.url, document.URL)) {                  page.objects.forEach(function (obj) {                      if (obj.sources.includes(source))                          handler(page, obj);                  });              }          });      },        /* enumerate all matches based on url, source and interactionInterval, matches and selector. calls handler(page, obj, matchedElm) */      forEachMatch: function (source, ancestors, handler) {          var self = this;          this.forEachObject(source, function (page, obj) {              if (obj.interactionInterval && (self.lastInteraction == null || new Date().getTime() - self.lastInteraction > obj.interactionInterval)) {                  if (self.lastInteraction != null)                      self.log('forEachMatch skip rule: interval:' + (new Date().getTime() - self.lastInteraction).toString());              }              else {                  var scope = obj.scope === 'target' ? [ancestors[0]] : ancestors,                      m = obj.matches,                      set = !m && obj.selector ? self.applySelector(document, obj.selector) : null;                  for (var i = 0; i < scope.length; ++i) {                      if ((m && scope[i].matches && scope[i].matches(m)) /* scope[i] may not be element, test if matches is defined */                          || (set && set.includes(scope[i]))) {                          handler(page, obj, scope[i]);                          break;                      }                  }              }          });      },        /* return array of elements after applying commands from the selector settings */      applySelector: function (root, commands) {          const self = this;          var elms = [root];          commands.forEach(function (command) {              var res = [];              elms.forEach(function (elm) {                  if (command.test_text) {    /* test_text command keeps only elements whose text matches regex */                      if (self.testRegex(command.test_text, elm.textContent))                          res.push(elm);                  }                  else if (command.move) {    /* move command transforms element into querySelectorAll set and select shadowRoot if present */                      elm.querySelectorAll(':scope ' + command.move).forEach(function (e) {                          var s = e.shadowRoot;                          res.push(s ? s : e);                      });                  }                  else if (command.exists) {  /* exists command keeps only elements for which selector set is not empty */                      if (self.applySelector(elm, command.exists).length !== 0)                          res.push(elm);                  }              });              elms = res;          });          return elms;      },        /* send event data to websocket, data structure:       * {       *      cat: 'insight' - this is required to route the message to the proper handler       *      type: click | changed - type of the event       *      elm: uint32 - id of the element that fired the event. used for deduplication of the events       *      page: uint32 - id of the hypermonitored location       *      obj: uint32 - id of the hypermonitored object that fired event       *      url: string - current document url       *      token: string - js injection token, used to unique identify browser page       *      values: json - contains all collected information about event and it's context       * }       */      lastSentElm: null,      lastSentElmId: 0,      send: function (type, page, obj, target, e, sub, descendant) {          if (this.lastSentElm !== e) {              this.lastSentElm = e;              this.lastSentElmId++;          }          const values = this.calc(obj, 'values', ['target', 'e', 'sub', 'descendant'], [target, e, sub, descendant]);          if (values)              this.sendEvent(type, page, obj, this.lastSentElmId.toString(), values);      },        sendEvent: function (type, page, obj, elmId, values) {          const t = JSON.stringify({              values: values,              handler: page.handler,              type: type,              elm: elmId,              page: page.id,              obj: obj.id,              url: document.URL,              token: this.token,              proc: this.proc          });          if (this.sendLog)              console.log("[InsightJs] send: " + t);          this.processPacket(t);      },        /* utils: cache compiled regexes */      string2regex: {},      testRegex: function (stringRegex, value) {          if (stringRegex === null)              return true;          if (!(stringRegex in this.string2regex))              this.string2regex[stringRegex] = new RegExp(stringRegex);          return this.string2regex[stringRegex].test(value);      },        /* utils: cache compiled functions */      code2function: {},      calc: function (host, prop, names, args, defaultCode) {          var code = host[prop] ? "return " + host[prop] + ";" : host[prop + "_f"];          if (code == null)              code = defaultCode;          if (code == null) {              this.log("code not found, calc(" + JSON.stringify(host) + "), prop:" + prop);              return {};          }          if (!(code in this.code2function))              this.code2function[code] = new Function(...names, code);          return this.code2function[code].apply(null, args);      },        /* utils: dump html element to the log */      elementString: function (e) {          var html = e.nodeType == Node.TEXT_NODE ? e.data : e.outerHTML;          if (this.sendLogFullData)              return html;          html = html.length > 100 ? html.substr(0, 100) + " ... total len:" + html.length : html;          return html.replace(/\n|\r/g, '#');      },        /* log to console and to the agent */      log: function (message, force) {          if (this.sendLog || force) {              var m = new Date().toLocaleString() + ": " + message;              console.log("[InsightJs] " + m + ", url:" + document.URL);              this.processPacket(JSON.stringify({ handler: "log", module: "InsightJs", message: m, url: document.URL }));          }      },        callSafe: function (name, f) {          if (!this.sendLogExceptions)              f();          else {              try {                  f()              }              catch (e) {                  this.log("exception in " + name + ":" + e.name + ", " + e.message, true);              }          }      }  }},I=6e4,T=null,k=null,C=null,H=null,O=!1,P=null,F=null,J=0,R=null,B=null,_="",x=!1;!function e(t){m()?setTimeout((function(){e(t)}),1e3):t()}((function(){L.extJs&&L.extJs.init(L.token),n()&&(window.addEventListener("focus",r,!0),L.dontTrackWebPasswords&&window.addEventListener("message",E,!1)),n()||L.extJs?g():L.dontTrackWebPasswords&&D()}))}();</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Complete Guide to Distance MBA in India 2026 — Fees, Universities, Eligibility</title>
+<meta name="description" content="Everything you need to know about Distance MBA in India 2026. Private university programmes, fees from ₹40K to ₹2L, eligibility, accreditation, top universities including NMIMS, Symbiosis, Amity. Free counselling." />
+<link rel="canonical" href="https://distancembacollege.com/resources/distance-mba-guide-2026/" />
+<meta property="og:title" content="Complete Guide to Distance MBA in India 2026" />
+<meta property="og:description" content="Fees, top private universities, eligibility, UGC-DEB accreditation explained. Updated June 2026." />
+<meta property="og:type" content="article" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lora:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+
+<!-- Article + FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Complete Guide to Distance MBA in India 2026",
+  "description": "Everything you need to know about Distance MBA in India 2026. Private university programmes, fees, eligibility, and top universities.",
+  "author": {
+    "@type": "Person",
+    "name": "Priya Sharma",
+    "jobTitle": "Senior Counsellor",
+    "worksFor": {"@type": "Organization", "name": "Distance MBA College"}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Distance MBA College",
+    "logo": {"@type": "ImageObject", "url": "https://distancembacollege.com/logo.png"}
+  },
+  "datePublished": "2026-01-15",
+  "dateModified": "2026-06-20",
+  "mainEntityOfPage": "https://distancembacollege.com/resources/distance-mba-guide-2026/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is a Distance MBA?", "acceptedAnswer": {"@type": "Answer", "text": "A Distance MBA is a postgraduate management degree delivered through self-paced study materials (digital or print), without mandatory in-person classes. Students study at their own pace within the programme's duration window, typically 2 to 2.5 years."}},
+    {"@type": "Question", "name": "Is Distance MBA valid in India?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Distance MBA degrees from universities recognised by UGC-DEB (Distance Education Bureau) are valid and formally equivalent to regular MBA degrees as per UGC notification."}},
+    {"@type": "Question", "name": "What is the fee for Distance MBA from private universities in India?", "acceptedAnswer": {"@type": "Answer", "text": "Distance MBA fees from private universities in India range from ₹40,000 (LPU, Welingkar) to ₹2,40,000 (NMIMS, Symbiosis SCDL). Most programmes offer EMI options."}},
+    {"@type": "Question", "name": "Which private university is best for Distance MBA in India in 2026?", "acceptedAnswer": {"@type": "Answer", "text": "The best private university for Distance MBA depends on your goal. For corporate management roles, NMIMS (NAAC A++) or Symbiosis SCDL (NAAC A++) are top-ranked. For affordable options with strong branding, LPU or Chandigarh University. For self-paced flexibility, ICFAI or Welingkar."}},
+    {"@type": "Question", "name": "What is the difference between Distance MBA and Online MBA?", "acceptedAnswer": {"@type": "Answer", "text": "Distance MBA is self-paced with mailed or digital course materials and minimal live instruction. Online MBA has scheduled live faculty sessions, a structured cohort, and recorded lectures. Online MBA is closer to a traditional MBA experience."}},
+    {"@type": "Question", "name": "Is Distance MBA accepted for government jobs?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Distance MBA from UGC-DEB recognised universities is accepted for government jobs and PSU recruitment where a postgraduate management degree is required."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://distancembacollege.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Resources", "item": "https://distancembacollege.com/resources/"},
+    {"@type": "ListItem", "position": 3, "name": "Distance MBA Guide 2026", "item": "https://distancembacollege.com/resources/distance-mba-guide-2026/"}
+  ]
+}
+</script>
+
+<style>
+/* ============================================================
+   Distance MBA College — Design System
+   Inline version for self-contained preview
+   ============================================================ */
+
+/* ============ DESIGN TOKENS ============ */
+:root {
+  --navy:        #0B1F4D;
+  --navy-2:      #1E3A8A;
+  --navy-dark:   #06143A;
+  --saffron:     #E8930E;
+  --saffron-2:   #FBBF24;
+  --saffron-50:  #FEF3DC;
+  --cream:       #FAF7F0;
+  --mist:        #F1F5F9;
+  --ink:         #1F2937;
+  --slate:       #475569;
+  --slate-2:     #94A3B8;
+  --hairline:    #CBD5E1;
+  --white:       #FFFFFF;
+  --success:     #10B981;
+
+  --display: 'Poppins', system-ui, sans-serif;
+  --body:    'Inter', system-ui, sans-serif;
+  --voice:   'Lora', Georgia, serif;
+
+  --container-max: 1180px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --header-height: 72px;
+  --mobile-action-bar-height: 64px;
+
+  --shadow-md: 0 4px 12px rgba(11, 31, 77, 0.08);
+  --shadow-lg: 0 12px 28px -16px rgba(11, 31, 77, 0.12);
+  --shadow-xl: 0 20px 60px rgba(11, 31, 77, 0.15);
+  --transition-base: 200ms ease;
+}
+
+/* ============ RESET & BASE ============ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-height) + 20px); }
+body { font-family: var(--body); font-size: 16px; line-height: 1.6; color: var(--ink); background: var(--cream); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: var(--navy); text-decoration: none; }
+a:hover { color: var(--saffron); }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul, ol { list-style: none; }
+::selection { background: var(--saffron); color: var(--navy); }
+:focus-visible { outline: 2px solid var(--saffron); outline-offset: 2px; }
+
+/* ============ LAYOUT ============ */
+.wrap { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--gutter); }
+.section { padding: clamp(48px, 8vw, 96px) 0; }
+.section-sm { padding: clamp(28px, 4vw, 48px) 0; }
+.bg-white { background: var(--white); }
+.bg-mist { background: var(--mist); }
+.bg-navy { background: var(--navy); color: var(--white); }
+.bg-cream { background: var(--cream); }
+
+/* ============ TYPE ============ */
+h1, h2, h3, h4 { font-family: var(--display); color: var(--navy); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+h1 { font-size: clamp(32px, 5vw, 52px); max-width: 18ch; line-height: 1.1; }
+h2 { font-size: clamp(24px, 3.5vw, 36px); }
+h3 { font-size: clamp(18px, 2.5vw, 22px); font-weight: 600; }
+h4 { font-size: 16px; font-weight: 600; }
+p { margin-bottom: 1rem; }
+p:last-child { margin-bottom: 0; }
+.lead { font-size: 18px; color: var(--slate); line-height: 1.65; }
+.ital { font-family: var(--voice); font-style: italic; font-weight: 500; color: var(--navy-2); }
+.muted { color: var(--slate); }
+.eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--saffron); display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px;
+}
+.eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--saffron); }
+
+/* ============ LOGO ============ */
+.logo { font-family: var(--display); font-weight: 500; color: var(--navy); font-size: 20px; letter-spacing: -0.01em; line-height: 1; display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-icon { width: 32px; height: 30px; flex-shrink: 0; }
+.logo-text .bold { font-weight: 700; color: var(--saffron); }
+.logo-text .light { font-weight: 500; color: var(--navy); }
+
+/* ============ NAV ============ */
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,240,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(203,213,225,0.5); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; height: var(--header-height); }
+.nav-links { display: flex; gap: 32px; align-items: center; font-size: 14px; font-weight: 500; }
+.nav-links a { color: var(--slate); }
+.nav-links a:hover, .nav-links a.active { color: var(--navy); font-weight: 600; }
+.nav-cta { display: flex; align-items: center; gap: 16px; }
+.nav-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--navy); font-weight: 600; font-size: 14px; }
+.nav-phone::before { content: "☎"; opacity: 0.7; }
+@media (max-width: 880px) { .nav-links { display: none; } .hide-mobile { display: none; } }
+
+/* ============ BUTTONS ============ */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--body); font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: var(--radius-md); transition: var(--transition-base); line-height: 1; white-space: nowrap; cursor: pointer; border: 1.5px solid transparent; text-decoration: none; }
+.btn-primary { background: var(--saffron); color: var(--navy); box-shadow: 0 4px 12px rgba(232,147,14,0.25); }
+.btn-primary:hover { background: #d8830a; transform: translateY(-1px); color: var(--navy); }
+.btn-secondary { background: transparent; color: var(--navy); border-color: var(--navy); }
+.btn-secondary:hover { background: var(--navy); color: var(--white); }
+.btn-sm { padding: 10px 18px; font-size: 13px; }
+.btn-block { width: 100%; justify-content: center; }
+.btn-arrow { transition: transform var(--transition-base); }
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+/* ============ PILLAR PAGE LAYOUT ============ */
+.pillar-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 56px;
+  align-items: start;
+  padding: clamp(32px, 5vw, 64px) 0;
+}
+
+@media (max-width: 960px) {
+  .pillar-layout { grid-template-columns: 1fr; }
+  .pillar-sidebar { display: none; }
+}
+
+/* ============ STICKY SIDEBAR ============ */
+.pillar-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+  max-height: calc(100vh - var(--header-height) - 48px);
+  overflow-y: auto;
+}
+
+.toc {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.toc-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 16px;
+}
+
+.toc-list { list-style: none; }
+.toc-item { margin-bottom: 4px; }
+.toc-item a {
+  display: block;
+  padding: 6px 10px;
+  color: var(--slate);
+  font-size: 13px;
+  border-radius: 6px;
+  transition: var(--transition-base);
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+}
+.toc-item a:hover {
+  background: var(--mist);
+  color: var(--navy);
+  border-left-color: var(--saffron);
+}
+.toc-item a.active {
+  background: var(--saffron-50);
+  color: var(--navy);
+  border-left-color: var(--saffron);
+  font-weight: 600;
+}
+
+.toc-sub { padding-left: 12px; }
+.toc-sub .toc-item a { font-size: 12px; }
+
+.toc-divider { height: 1px; background: var(--hairline); margin: 12px 0; }
+
+.sidebar-cta {
+  background: var(--navy);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-top: 20px;
+  text-align: center;
+}
+.sidebar-cta p { color: rgba(255,255,255,0.85); font-size: 14px; margin-bottom: 16px; line-height: 1.5; }
+.sidebar-updated { font-size: 11px; color: var(--slate); text-align: center; margin-top: 12px; }
+
+/* ============ ARTICLE CONTENT ============ */
+.article {
+  min-width: 0;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.article h2 {
+  font-size: clamp(22px, 3vw, 30px);
+  margin-top: 72px;
+  margin-bottom: 20px;
+  padding-top: 24px;
+  border-top: 2px solid var(--hairline);
+  color: var(--navy);
+  scroll-margin-top: calc(var(--header-height) + 20px);
+}
+
+.article h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+.article h3 {
+  font-size: clamp(17px, 2vw, 20px);
+  margin-top: 40px;
+  margin-bottom: 14px;
+  color: var(--navy);
+  scroll-margin-top: calc(var(--header-height) + 20px);
+}
+
+.article p { margin-bottom: 1.1rem; }
+
+.article ul, .article ol {
+  margin: 0 0 1.4rem 1.5em;
+}
+.article ul li { list-style: disc; margin-bottom: 6px; }
+.article ol li { list-style: decimal; margin-bottom: 6px; }
+
+.article strong { color: var(--navy); font-weight: 600; }
+
+.article > p:first-of-type {
+  font-size: 19px;
+  color: var(--slate);
+  line-height: 1.7;
+}
+
+/* Article inline callout boxes */
+.callout {
+  background: var(--saffron-50);
+  border-left: 4px solid var(--saffron);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.callout strong { color: var(--navy); display: block; margin-bottom: 6px; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; }
+.callout p { margin: 0; font-size: 15px; line-height: 1.6; }
+
+.callout-navy {
+  background: var(--navy);
+  border-left: 4px solid var(--saffron);
+  padding: 24px;
+  border-radius: var(--radius-md);
+  margin: 32px 0;
+}
+.callout-navy p { color: rgba(255,255,255,0.9); margin: 0; font-size: 16px; line-height: 1.6; }
+.callout-navy .callout-attr { color: var(--saffron-2); font-weight: 600; font-size: 13px; margin-top: 12px; display: block; }
+
+/* ============ DATA TABLE ============ */
+.data-table-wrap { overflow-x: auto; margin: 28px 0; border-radius: var(--radius-lg); border: 1px solid var(--hairline); }
+.data-table { width: 100%; border-collapse: collapse; background: var(--white); }
+.data-table th { background: var(--navy); color: var(--white); padding: 14px 18px; text-align: left; font-family: var(--display); font-weight: 600; font-size: 14px; white-space: nowrap; }
+.data-table td { padding: 13px 18px; border-bottom: 1px solid var(--hairline); font-size: 14px; line-height: 1.5; vertical-align: top; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:nth-child(even) td { background: #FBFAF6; }
+.data-table td:first-child { font-weight: 600; color: var(--navy); }
+.data-table .val { color: var(--ink); font-weight: 500; }
+.data-table .tag { display: inline-block; background: var(--saffron-50); color: var(--navy); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.04em; }
+.data-table .tag-green { background: rgba(16,185,129,0.1); color: var(--success); }
+
+/* ============ QUICK FACTS STRIP ============ */
+.facts-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin: 28px 0;
+}
+@media (max-width: 660px) { .facts-strip { grid-template-columns: repeat(2, 1fr); } }
+.facts-cell { padding: 20px 24px; border-right: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.facts-cell:last-child { border-right: none; }
+.facts-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-bottom: 4px; }
+.facts-value { font-family: var(--display); font-weight: 700; color: var(--navy); font-size: 18px; }
+.facts-value-sub { font-size: 12px; color: var(--slate); margin-top: 2px; }
+
+/* ============ EMI CALCULATOR WIDGET ============ */
+.calc-widget {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  margin: 32px 0;
+}
+.calc-title { font-family: var(--display); font-weight: 700; color: var(--navy); font-size: 18px; margin-bottom: 8px; }
+.calc-sub { font-size: 14px; color: var(--slate); margin-bottom: 24px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 660px) { .calc-grid { grid-template-columns: 1fr; } }
+.calc-field label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate); margin-bottom: 8px; }
+.calc-field select, .calc-field input {
+  width: 100%; padding: 12px 14px; border: 1.5px solid var(--hairline); border-radius: var(--radius-md);
+  font-family: var(--body); font-size: 15px; color: var(--ink); background: var(--white);
+}
+.calc-field select:focus, .calc-field input:focus { outline: none; border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(232,147,14,0.15); }
+.calc-result { background: var(--navy); border-radius: var(--radius-md); padding: 20px 24px; margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center; }
+.calc-result-item { }
+.calc-result-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 4px; }
+.calc-result-value { font-family: var(--display); font-weight: 700; color: var(--white); font-size: 20px; }
+.calc-result-value.saffron { color: var(--saffron); }
+
+/* ============ LEAD FORM (compact, inline) ============ */
+.lead-strip {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+  border-radius: var(--radius-xl);
+  padding: clamp(24px, 4vw, 40px);
+  margin: 48px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+@media (max-width: 660px) { .lead-strip { grid-template-columns: 1fr; } }
+.lead-strip h3 { color: var(--white); font-size: 20px; margin-bottom: 8px; }
+.lead-strip p { color: rgba(255,255,255,0.8); font-size: 14px; margin: 0; }
+.lead-strip-form { display: flex; gap: 10px; flex-wrap: wrap; }
+.lead-strip-input {
+  flex: 1; min-width: 180px; padding: 13px 16px; border: none; border-radius: var(--radius-md);
+  font-family: var(--body); font-size: 15px; color: var(--ink);
+}
+.lead-strip-input:focus { outline: 2px solid var(--saffron); }
+
+/* Full lead section */
+.lead-section { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 64px); align-items: start; }
+@media (max-width: 880px) { .lead-section { grid-template-columns: 1fr; } }
+.lead-bullets { margin-top: 24px; display: grid; gap: 12px; }
+.lead-bullet { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+.lead-bullet::before { content: "✓"; width: 22px; height: 22px; border-radius: 50%; background: var(--saffron-50); color: var(--saffron); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.form-card { background: var(--white); border: 1px solid var(--hairline); border-radius: var(--radius-xl); padding: clamp(24px, 3vw, 36px); box-shadow: var(--shadow-lg); }
+.form-card-title { font-family: var(--display); font-weight: 700; color: var(--navy); font-size: 22px; margin-bottom: 6px; }
+.form-card-sub { color: var(--slate); font-size: 14px; margin-bottom: 24px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--slate); margin-bottom: 8px; }
+.field input, .field select { width: 100%; font-family: var(--body); font-size: 15px; color: var(--ink); padding: 13px 15px; border: 1.5px solid var(--hairline); border-radius: var(--radius-md); background: var(--white); transition: var(--transition-base); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--saffron); box-shadow: 0 0 0 4px rgba(232,147,14,0.15); }
+.form-foot { margin-top: 12px; font-size: 12px; color: var(--slate); text-align: center; }
+
+/* ============ FAQ ============ */
+.faq { max-width: 100%; }
+.faq-item { border-bottom: 1px solid var(--hairline); }
+.faq-item:first-child { border-top: 1px solid var(--hairline); }
+.faq-question { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--navy); cursor: pointer; width: 100%; text-align: left; background: none; border: none; padding: 20px 0; }
+.faq-question::after { content: "+"; font-size: 24px; color: var(--saffron); font-weight: 400; flex-shrink: 0; line-height: 1; transition: transform var(--transition-base); }
+.faq-item.open .faq-question::after { content: "−"; }
+.faq-answer { display: none; padding-bottom: 20px; color: var(--ink); font-size: 16px; line-height: 1.7; max-width: 720px; }
+.faq-item.open .faq-answer { display: block; }
+
+/* ============ COUNSEL NOTE ============ */
+.counsel-note { background: var(--cream); border-left: 4px solid var(--saffron); border-radius: var(--radius-md); padding: 20px 24px; font-family: var(--voice); font-style: italic; font-size: 17px; color: var(--ink); line-height: 1.55; margin: 28px 0; }
+.counsel-note-attr { display: block; margin-top: 12px; font-family: var(--display); font-style: normal; font-weight: 600; color: var(--navy); font-size: 13px; }
+
+/* ============ UNI CARDS (small, 4-col) ============ */
+.uni-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+@media (max-width: 660px) { .uni-grid { grid-template-columns: 1fr; } }
+.uni-card { background: var(--white); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 20px; transition: var(--transition-base); display: flex; flex-direction: column; }
+.uni-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.uni-card h4 { color: var(--navy); font-size: 15px; margin-bottom: 6px; }
+.uni-card-meta { font-size: 12px; color: var(--slate); margin-bottom: 8px; }
+.uni-card-meta strong { display: block; color: var(--navy); font-size: 14px; margin-top: 3px; }
+.uni-card .naac { font-size: 11px; font-weight: 700; background: var(--saffron-50); color: var(--navy); padding: 3px 8px; border-radius: 4px; display: inline-block; }
+.uni-card-link { margin-top: auto; padding-top: 12px; color: var(--saffron); font-weight: 600; font-size: 13px; }
+
+/* ============ PROGRESS STEPS ============ */
+.steps-list { display: grid; gap: 20px; margin: 24px 0; }
+.step-item { display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: flex-start; }
+.step-num { width: 40px; height: 40px; background: var(--saffron); color: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; font-size: 16px; flex-shrink: 0; }
+.step-content h4 { margin-bottom: 4px; font-size: 16px; }
+.step-content p { font-size: 14px; color: var(--slate); margin: 0; }
+
+/* ============ FOOTER ============ */
+.footer { background: var(--navy-dark); color: rgba(255,255,255,0.65); padding: 56px 0 28px; margin-top: 80px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+@media (max-width: 880px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+@media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+.footer h4 { color: var(--white); font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+.footer ul li { margin-bottom: 8px; }
+.footer a { color: rgba(255,255,255,0.65); font-size: 13px; }
+.footer a:hover { color: var(--saffron-2); }
+.footer-brand-line { font-family: var(--voice); font-style: italic; color: rgba(255,255,255,0.75); margin: 12px 0; font-size: 14px; }
+.footer-meta { margin-top: 12px; font-size: 11px; line-height: 1.6; color: rgba(255,255,255,0.45); }
+.footer-base { padding-top: 24px; display: flex; justify-content: space-between; gap: 16px; font-size: 11px; flex-wrap: wrap; }
+.footer-logo { font-family: var(--display); color: var(--white); font-size: 18px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+
+/* ============ MOBILE ACTIONS ============ */
+.mobile-actions { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 90; background: var(--white); border-top: 1px solid var(--hairline); box-shadow: 0 -4px 16px rgba(0,0,0,0.08); height: var(--mobile-action-bar-height); }
+.mobile-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); height: 100%; }
+.mobile-action { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--navy); border-right: 1px solid var(--hairline); text-decoration: none; }
+.mobile-action:last-child { border-right: none; }
+.mobile-action.primary { background: var(--saffron); color: var(--navy); }
+.mobile-action-icon { font-size: 20px; line-height: 1; }
+@media (max-width: 880px) { .mobile-actions { display: block; } body { padding-bottom: var(--mobile-action-bar-height); } .chat-launcher { bottom: calc(var(--mobile-action-bar-height) + 16px); } }
+
+/* ============ AI CHAT ============ */
+.chat-launcher { position: fixed; bottom: 24px; right: 24px; z-index: 80; background: var(--saffron); color: var(--navy); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: var(--shadow-xl); cursor: pointer; border: 3px solid var(--white); transition: transform var(--transition-base); }
+.chat-launcher:hover { transform: scale(1.05); }
+.chat-launcher-pulse { position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; background: var(--success); border-radius: 50%; border: 2px solid var(--white); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.2)} }
+.chat-window { position: fixed; bottom: 100px; right: 24px; z-index: 80; width: 360px; max-width: calc(100vw - 48px); background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); border: 1px solid var(--hairline); display: none; flex-direction: column; overflow: hidden; max-height: 560px; }
+.chat-window.open { display: flex; }
+.chat-header { background: var(--navy); color: var(--white); padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+.chat-header-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--saffron) 0%, var(--saffron-2) 100%); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; color: var(--navy); font-size: 17px; }
+.chat-header-info { flex: 1; }
+.chat-header-name { font-family: var(--display); font-weight: 600; font-size: 15px; }
+.chat-header-status { font-size: 11px; opacity: 0.8; display: flex; align-items: center; gap: 5px; }
+.chat-header-status::before { content: ""; width: 8px; height: 8px; background: var(--success); border-radius: 50%; }
+.chat-header-close { color: var(--white); font-size: 22px; opacity: 0.7; cursor: pointer; }
+.chat-header-close:hover { opacity: 1; }
+.chat-body { padding: 16px; overflow-y: auto; flex: 1; background: var(--cream); display: flex; flex-direction: column; gap: 12px; }
+.chat-message { max-width: 82%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+.chat-message.ai { background: var(--white); border: 1px solid var(--hairline); border-bottom-left-radius: 4px; align-self: flex-start; }
+.chat-message.user { background: var(--navy); color: var(--white); border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-quick-replies { display: flex; flex-wrap: wrap; gap: 8px; }
+.chat-quick-reply { background: var(--white); border: 1px solid var(--hairline); border-radius: 20px; padding: 6px 12px; font-size: 12px; font-weight: 500; color: var(--navy); cursor: pointer; transition: var(--transition-base); }
+.chat-quick-reply:hover { background: var(--saffron); border-color: var(--saffron); }
+.chat-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--hairline); background: var(--white); }
+.chat-input input { flex: 1; border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: 10px 12px; font-size: 14px; font-family: var(--body); }
+.chat-input input:focus { outline: none; border-color: var(--saffron); }
+.chat-send { background: var(--saffron); color: var(--navy); border-radius: var(--radius-md); padding: 10px 18px; font-weight: 600; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 100 95" aria-hidden="true">
+        <path d="M 12 72 L 12 40 L 50 10 L 88 40 L 88 72" fill="none" stroke="#0B1F4D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 5 85 Q 50 102 95 80" fill="none" stroke="#E8930E" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">
+        <span class="light">Distance </span><span class="bold">MBA</span><span class="light"> College</span>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#">Programmes</a>
+      <a href="#">Universities</a>
+      <a href="#">Compare</a>
+      <a href="#" class="active">Resources</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="tel:+918669661005" class="nav-phone hide-mobile">+91 86696 61005</a>
+      <a href="#lead" class="btn btn-primary btn-sm">Talk to a counsellor</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ARTICLE HERO ============ -->
+<section class="section-sm bg-white">
+  <div class="wrap">
+    <div style="max-width: 820px;">
+      <nav style="font-size: 13px; color: var(--slate); margin-bottom: 20px;">
+        <a href="#" style="color: var(--slate);">Home</a>
+        <span style="margin: 0 8px; opacity: 0.5;">›</span>
+        <a href="#" style="color: var(--slate);">Resources</a>
+        <span style="margin: 0 8px; opacity: 0.5;">›</span>
+        <span style="color: var(--navy); font-weight: 500;">Distance MBA Guide 2026</span>
+      </nav>
+
+      <span class="eyebrow">Complete Guide</span>
+      <h1>Distance MBA in India 2026, <span class="ital">everything you need to decide.</span></h1>
+      <p class="lead" style="margin-top: 20px;">Fees, top private universities, accreditation explained, eligibility criteria, and how to choose the right programme. Written by senior counsellors who have guided 18,000+ working professionals.</p>
+
+      <div style="display: flex; align-items: center; gap: 24px; margin-top: 24px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; color: var(--saffron); font-family: var(--display); font-weight: 700; font-size: 16px;">P</div>
+          <div>
+            <p style="font-weight: 600; color: var(--navy); font-size: 14px; margin: 0;">Priya Sharma</p>
+            <p style="font-size: 12px; color: var(--slate); margin: 0;">Senior Counsellor · 11 years experience</p>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: var(--slate);">
+          <span>Last updated: <strong style="color: var(--navy);">June 2026</strong></span>
+          <span style="margin-left: 16px;">📖 18 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY FACTS STRIP ============ -->
+<div style="background: var(--white); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);">
+  <div class="wrap">
+    <div class="facts-strip" style="border: none; border-radius: 0; margin: 0;">
+      <div class="facts-cell">
+        <div class="facts-label">Fee range</div>
+        <div class="facts-value">₹40K – ₹2.4L</div>
+        <div class="facts-value-sub">private universities</div>
+      </div>
+      <div class="facts-cell">
+        <div class="facts-label">Duration</div>
+        <div class="facts-value">2 – 2.5 years</div>
+        <div class="facts-value-sub">extensible up to 5 years</div>
+      </div>
+      <div class="facts-cell">
+        <div class="facts-label">Top universities</div>
+        <div class="facts-value">22+</div>
+        <div class="facts-value-sub">private, UGC-DEB listed</div>
+      </div>
+      <div class="facts-cell">
+        <div class="facts-label">Recognition</div>
+        <div class="facts-value">UGC-DEB</div>
+        <div class="facts-value-sub">equivalent to regular MBA</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN CONTENT AREA ============ -->
+<div class="wrap">
+  <div class="pillar-layout">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="pillar-sidebar" aria-label="Table of contents">
+      <div class="toc">
+        <div class="toc-title">In this guide</div>
+        <ul class="toc-list" id="toc-list">
+          <li class="toc-item"><a href="#what-is" class="active">What is a Distance MBA?</a></li>
+          <li class="toc-item"><a href="#valid">Is it valid in India?</a></li>
+          <li class="toc-item"><a href="#who">Who should consider it?</a></li>
+          <li class="toc-item"><a href="#vs-online">Distance vs Online MBA</a></li>
+          <li class="toc-item"><a href="#universities">Top private universities 2026</a></li>
+          <li class="toc-item"><a href="#fees">Fees and EMI</a></li>
+          <li class="toc-item"><a href="#specialisations">Specialisations</a></li>
+          <li class="toc-item"><a href="#eligibility">Eligibility</a></li>
+          <li class="toc-item"><a href="#apply">How to apply</a></li>
+          <li class="toc-item"><a href="#mistakes">Common mistakes</a></li>
+          <li class="toc-item"><a href="#faq">FAQs</a></li>
+        </ul>
+        <div class="toc-divider"></div>
+        <div class="sidebar-updated">Updated June 2026</div>
+      </div>
+
+      <div class="sidebar-cta">
+        <p>Not sure if Distance MBA is right for you? Our counsellors answer this question every day.</p>
+        <a href="#lead" class="btn btn-primary btn-sm btn-block">Free 20-min call →</a>
+      </div>
+    </aside>
+
+    <!-- ============ ARTICLE BODY ============ -->
+    <article class="article">
+
+      <!-- SECTION 1 -->
+      <h2 id="what-is">What is a Distance MBA?</h2>
+      <p>A Distance MBA is a postgraduate management degree delivered through self-paced study materials, without mandatory in-person classes. Students receive course content digitally (or in print at older universities), complete assignments and examinations at designated centres, and earn the same MBA credential as a full-time student.</p>
+      <p>The key distinction from an Online MBA is structure. Distance MBA is largely asynchronous and self-paced. Online MBA has scheduled live sessions, a cohort, and real-time faculty interaction. Both are valid; they serve different learning styles.</p>
+
+      <div class="callout">
+        <strong>One-line definition for AEO engines</strong>
+        <p>A Distance MBA is a UGC-DEB recognised postgraduate management degree completed through self-paced study, without mandatory classroom attendance, typically over 2 to 2.5 years.</p>
+      </div>
+
+      <h3>The four modes you need to understand</h3>
+      <p>When working professionals in India say "distance MBA", they often mean one of four different things. This guide focuses on traditional Distance MBA from private universities, but knowing the full map helps you make the right choice.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>Structure</th>
+              <th>Fee range</th>
+              <th>Best for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Distance MBA</td><td class="val">Self-paced, minimal live sessions</td><td class="val">₹40K – ₹2L</td><td class="val">Flexible, budget-conscious</td></tr>
+            <tr><td>Online MBA</td><td class="val">Structured cohort, live faculty</td><td class="val">₹1.2L – ₹3L</td><td class="val">Structure-seekers</td></tr>
+            <tr><td>Executive MBA</td><td class="val">Weekend or hybrid, senior peers</td><td class="val">₹3L – ₹25L</td><td class="val">5+ years experience</td></tr>
+            <tr><td>Correspondence MBA</td><td class="val">Legacy format, mailed materials</td><td class="val">₹40K – ₹1.5L</td><td class="val">Traditional learners</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- LEAD STRIP (mid-article, first CTA) -->
+      <div class="lead-strip">
+        <div>
+          <h3>Confused about which mode suits you?</h3>
+          <p>Our counsellors answer this question 50 times a day. Free 20-minute call.</p>
+        </div>
+        <form onsubmit="event.preventDefault(); alert('Lead captured (demo).');" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <input class="lead-strip-input" type="tel" placeholder="Your phone number" required />
+          <button type="submit" class="btn btn-primary">Get a call →</button>
+        </form>
+      </div>
+
+      <!-- SECTION 2 -->
+      <h2 id="valid">Is a Distance MBA valid in India?</h2>
+      <p>Yes, unconditionally, when the university holds UGC-DEB recognition.</p>
+      <p>The University Grants Commission's Distance Education Bureau (UGC-DEB) is the regulatory body that approves universities to offer distance and online programmes in India. A degree from a UGC-DEB recognised university is formally equivalent to a regular full-time degree under UGC notification.</p>
+
+      <h3>Four recognition bodies that matter</h3>
+      <ul>
+        <li><strong>UGC-DEB</strong> — Mandatory for all distance and online degree programmes. Check the official list at ugc.gov.in before enrolling anywhere.</li>
+        <li><strong>AICTE</strong> — All India Council for Technical Education. Some universities also hold AICTE approval for MBA specifically. Not mandatory in all cases, but adds credibility.</li>
+        <li><strong>NAAC</strong> — National Assessment and Accreditation Council. Grades universities A++ (highest) through C. Not the same as UGC-DEB recognition, but a strong quality signal.</li>
+        <li><strong>AIU</strong> — Association of Indian Universities. Recognises degrees for equivalence purposes. Relevant for government job applications.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Critical check before you enrol</strong>
+        <p>Verify your chosen university appears on the latest UGC-DEB approved institutions list at ugc.gov.in. The list is updated annually. Some universities have had recognition issues in specific years.</p>
+      </div>
+
+      <h3>Is Distance MBA valid for government jobs?</h3>
+      <p>Yes. Distance MBA from UGC-DEB recognised universities is accepted for government and PSU recruitment where a postgraduate management degree is required. The UGC notification specifically states equivalence of distance degrees with regular degrees for government purposes.</p>
+
+      <h3>Is Distance MBA valid internationally?</h3>
+      <p>For most countries, yes, with some conditions. WES (World Education Services) — the credential evaluator used by Canadian and US immigration — recognises Distance MBA degrees from major private universities like NMIMS, Symbiosis, and Amity. For UK, Australia, and the UAE, recognition varies by employer and sector.</p>
+
+      <!-- SECTION 3 -->
+      <h2 id="who">Who should consider a Distance MBA?</h2>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>If you are</th><th>Distance MBA makes sense because</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A working professional with 2-8 years experience</td><td class="val">You need flexibility to study around your job</td></tr>
+            <tr><td>Budget-conscious (under ₹1.5L total)</td><td class="val">Private distance MBAs start from ₹40K</td></tr>
+            <tr><td>A self-motivated, self-paced learner</td><td class="val">You don't need a live cohort to stay on track</td></tr>
+            <tr><td>Based in a tier 2 or tier 3 city</td><td class="val">No need to commute to a campus or fixed location</td></tr>
+            <tr><td>Targeting a government or PSU credential</td><td class="val">UGC-DEB recognised degree is fully valid</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Who should not choose Distance MBA</h3>
+      <ul>
+        <li>If you want live faculty sessions and a peer cohort, choose Online MBA instead</li>
+        <li>If you have 8+ years of experience targeting leadership roles, Executive MBA serves you better</li>
+        <li>If employer brand recognition in a specific sector is critical, check whether an Online MBA from the same university carries more weight</li>
+      </ul>
+
+      <div class="counsel-note">
+        The most common mistake I see: choosing Distance MBA because it's cheapest, when the learner's actual goal requires a programme that carries more employer recognition. Distance MBA is the right answer for many people. But "it costs less" is not by itself the right reason to choose it.
+        <span class="counsel-note-attr">Priya Sharma, Senior Counsellor</span>
+      </div>
+
+      <!-- SECTION 4 -->
+      <h2 id="vs-online">Distance MBA vs Online MBA, which is better?</h2>
+      <p>Neither is universally better. They serve different learners.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Factor</th><th>Distance MBA</th><th>Online MBA</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Schedule</td><td class="val">Fully self-paced</td><td class="val">Fixed live sessions (evenings + weekends)</td></tr>
+            <tr><td>Live faculty</td><td class="val">Minimal or none</td><td class="val">Regular scheduled sessions</td></tr>
+            <tr><td>Peer interaction</td><td class="val">Limited</td><td class="val">Active cohort community</td></tr>
+            <tr><td>Fee range</td><td class="val">₹40K – ₹2L</td><td class="val">₹1.2L – ₹3L</td></tr>
+            <tr><td>Best for</td><td class="val"><span class="tag">Self-paced learners</span></td><td class="val"><span class="tag">Structure-seekers</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 5 -->
+      <h2 id="universities">Top private universities for Distance MBA in 2026</h2>
+      <p>We counsel exclusively on private universities, where our counsellors can provide meaningful guidance on programme quality, placement support, and employer recognition. The list below is limited to private deemed-to-be universities and private universities holding UGC-DEB recognition.</p>
+
+      <div class="uni-grid">
+        <div class="uni-card">
+          <span class="naac">NAAC A++</span>
+          <h4 style="margin-top: 8px;">NMIMS CDOE</h4>
+          <div class="uni-card-meta">Fee<strong>₹1.7L – ₹2.4L</strong></div>
+          <p style="font-size: 13px; color: var(--slate); margin-bottom: 8px;">Best for corporate roles. Strongest Finance and Business Analytics curriculum.</p>
+          <a href="#" class="uni-card-link">Learn more →</a>
+        </div>
+        <div class="uni-card">
+          <span class="naac">NAAC A++</span>
+          <h4 style="margin-top: 8px;">Symbiosis SCDL</h4>
+          <div class="uni-card-meta">Fee<strong>₹1.8L – ₹2.4L</strong></div>
+          <p style="font-size: 13px; color: var(--slate); margin-bottom: 8px;">Best for Marketing and HR. National brand with strong Pune corporate network.</p>
+          <a href="#" class="uni-card-link">Learn more →</a>
+        </div>
+        <div class="uni-card">
+          <span class="naac">NAAC A+</span>
+          <h4 style="margin-top: 8px;">Amity Online</h4>
+          <div class="uni-card-meta">Fee<strong>₹1.99L</strong></div>
+          <p style="font-size: 13px; color: var(--slate); margin-bottom: 8px;">Broad specialisations, national brand, flexible programme structure.</p>
+          <a href="#" class="uni-card-link">Learn more →</a>
+        </div>
+        <div class="uni-card">
+          <span class="naac">NAAC A++</span>
+          <h4 style="margin-top: 8px;">LPU Distance</h4>
+          <div class="uni-card-meta">Fee<strong>₹65,000</strong></div>
+          <p style="font-size: 13px; color: var(--slate); margin-bottom: 8px;">Most affordable private university option with strong UGC-DEB recognition.</p>
+          <a href="#" class="uni-card-link">Learn more →</a>
+        </div>
+        <div class="uni-card">
+          <span class="naac">Deemed</span>
+          <h4 style="margin-top: 8px;">ICFAI University</h4>
+          <div class="uni-card-meta">Fee<strong>₹90K – ₹1.2L</strong></div>
+          <p style="font-size: 13px; color: var(--slate); margin-bottom: 8px;">Strong self-paced format. Large alumni network across corporate India.</p>
+          <a href="#" class="uni-card-link">Learn more →</a>
+        </div>
+        <div class="uni-card">
+          <span class="naac">Autonomous</span>
+          <h4 style="margin-top: 8px;">Welingkar (WeSchool)</h4>
+          <div class="uni-card-meta">Fee<strong>₹85,000</strong></div>
+          <p style="font-size: 13px; color: var(--slate); margin-bottom: 8px;">Strong brand for Marketing, HR, and Retail. Industry-integrated curriculum.</p>
+          <a href="#" class="uni-card-link">Learn more →</a>
+        </div>
+      </div>
+
+      <!-- SECTION 6: FEES -->
+      <h2 id="fees">Distance MBA fees and EMI options in 2026</h2>
+      <p>Fees for Distance MBA from private universities in India range from ₹40,000 at the lowest end to ₹2.4 lakh at the top. Here is a complete fee map across the main private universities.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>University</th><th>Total fee</th><th>Per year</th><th>EMI available</th><th>NAAC</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>NMIMS CDOE</td><td class="val">₹1,70,000 – ₹2,40,000</td><td class="val">₹85K – ₹1.2L</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A++</td></tr>
+            <tr><td>Symbiosis SCDL</td><td class="val">₹1,80,000 – ₹2,40,000</td><td class="val">₹90K – ₹1.2L</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A++</td></tr>
+            <tr><td>Amity Online</td><td class="val">₹1,99,000</td><td class="val">₹99,500</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A+</td></tr>
+            <tr><td>Manipal Jaipur</td><td class="val">₹1,50,000</td><td class="val">₹75,000</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A+</td></tr>
+            <tr><td>Chandigarh University</td><td class="val">₹1,30,000</td><td class="val">₹65,000</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A+</td></tr>
+            <tr><td>ICFAI University</td><td class="val">₹90,000 – ₹1,20,000</td><td class="val">₹45K – ₹60K</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">Deemed</td></tr>
+            <tr><td>Welingkar (WeSchool)</td><td class="val">₹85,000</td><td class="val">₹42,500</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">Autonomous</td></tr>
+            <tr><td>LPU Distance</td><td class="val">₹65,000</td><td class="val">₹32,500</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A++</td></tr>
+            <tr><td>IMT Ghaziabad CDL</td><td class="val">₹1,10,000</td><td class="val">₹55,000</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A</td></tr>
+            <tr><td>GITAM University</td><td class="val">₹1,20,000</td><td class="val">₹60,000</td><td class="val"><span class="tag tag-green">Yes</span></td><td class="val">A</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- EMI CALCULATOR -->
+      <h3>Distance MBA EMI calculator</h3>
+      <p>Use this quick calculator to estimate your monthly EMI based on the programme fee and tenure.</p>
+
+      <div class="calc-widget">
+        <div class="calc-title">EMI Calculator</div>
+        <div class="calc-sub">Estimate your monthly payment for any Distance MBA programme.</div>
+        <div class="calc-grid">
+          <div class="calc-field">
+            <label for="calc-uni">University</label>
+            <select id="calc-uni" onchange="calcEMI()">
+              <option value="170000">NMIMS — ₹1,70,000</option>
+              <option value="180000">Symbiosis SCDL — ₹1,80,000</option>
+              <option value="199000">Amity — ₹1,99,000</option>
+              <option value="150000">Manipal Jaipur — ₹1,50,000</option>
+              <option value="130000">Chandigarh — ₹1,30,000</option>
+              <option value="85000">Welingkar — ₹85,000</option>
+              <option value="65000">LPU — ₹65,000</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="calc-tenure">EMI tenure</label>
+            <select id="calc-tenure" onchange="calcEMI()">
+              <option value="12">12 months</option>
+              <option value="18">18 months</option>
+              <option value="24" selected>24 months</option>
+              <option value="36">36 months</option>
+            </select>
+          </div>
+        </div>
+        <div class="calc-result" id="calc-result">
+          <div class="calc-result-item">
+            <div class="calc-result-label">Total fee</div>
+            <div class="calc-result-value" id="r-fee">₹1,70,000</div>
+          </div>
+          <div class="calc-result-item">
+            <div class="calc-result-label">Monthly EMI</div>
+            <div class="calc-result-value saffron" id="r-emi">₹7,083</div>
+          </div>
+          <div class="calc-result-item">
+            <div class="calc-result-label">Total outgo</div>
+            <div class="calc-result-value" id="r-total">₹1,70,000</div>
+          </div>
+        </div>
+        <p style="font-size: 12px; color: var(--slate); margin-top: 12px; margin-bottom: 0;">Actual EMI depends on your lender. Most universities partner with 2-3 NBFCs offering 0% to 12% interest rate depending on tenure and profile.</p>
+      </div>
+
+      <!-- SECTION 7 -->
+      <h2 id="specialisations">Specialisations available in Distance MBA</h2>
+      <p>Private universities offering Distance MBA in 2026 offer anywhere from 5 to 14 specialisation streams. The table below shows which specialisations are available at which universities.</p>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Specialisation</th><th>Available at (private universities)</th><th>Career paths</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Marketing</td><td class="val">NMIMS, Symbiosis, Amity, Welingkar, Jain, LPU, Chandigarh</td><td class="val">Brand Manager, Digital Marketer, CMO</td></tr>
+            <tr><td>Finance</td><td class="val">NMIMS, Symbiosis, Amity, ICFAI, IMT Ghaziabad, Chandigarh</td><td class="val">CFO, Finance Controller, Investment Analyst</td></tr>
+            <tr><td>Human Resources</td><td class="val">Symbiosis, NMIMS, Amity, Welingkar, LPU</td><td class="val">CHRO, HR Business Partner, Talent Lead</td></tr>
+            <tr><td>Operations</td><td class="val">NMIMS, Amity, ICFAI, Chandigarh, LPU</td><td class="val">COO, Plant Head, Supply Chain Director</td></tr>
+            <tr><td>Business Analytics</td><td class="val">NMIMS, Manipal Jaipur, Jain, VIT</td><td class="val"><span class="tag">High demand 2026</span> Data Analyst, Analytics Manager</td></tr>
+            <tr><td>Digital Marketing</td><td class="val">Symbiosis SSODL, Amity, Manipal Jaipur, Chandigarh</td><td class="val">Head of Digital, Growth Manager</td></tr>
+            <tr><td>Banking & Finance</td><td class="val">NMIMS, ICFAI, Chandigarh</td><td class="val">Banker, NBFC Manager, RBI officer track</td></tr>
+            <tr><td>Data Science & AI</td><td class="val">VIT, Jain, Manipal Jaipur</td><td class="val"><span class="tag">High demand 2026</span> Data Scientist, AI Product Manager</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 8 -->
+      <h2 id="eligibility">Eligibility for Distance MBA from private universities</h2>
+
+      <h3>Standard eligibility criteria</h3>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Bachelor's degree</h4>
+            <p>Any discipline. Most private universities require minimum 50% marks (45% for reserved categories). Some universities accept 45% minimum across the board.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Work experience</h4>
+            <p>Most Distance MBA programmes from private universities do not mandate work experience, though 1-2 years is preferred. Executive MBA programmes typically require 5+ years.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Entrance assessment</h4>
+            <p>Most private universities conduct their own brief aptitude assessment rather than requiring CAT/MAT/XAT. Some (like NMIMS) waive the assessment for candidates with strong work experience.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Age limit</h4>
+            <p>No age limit for Distance MBA at any major private university. This is different from some government university programmes that have age caps.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 9 -->
+      <h2 id="apply">How to apply for Distance MBA — step by step</h2>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Choose your programme and university</h4>
+            <p>Use our comparison tool or speak to a counsellor for a 3-programme shortlist matched to your goal, specialisation, and budget.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Check the application window</h4>
+            <p>Most private universities have two admission windows per year: January to March (July start) and July to September (January start). Some have rolling admissions.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Gather your documents</h4>
+            <p>Degree certificate, mark sheets, ID proof, passport-size photographs, work experience letter (if applicable). Some universities accept provisional certificates if your graduation is recent.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Submit the online application</h4>
+            <p>All major private universities have fully online application processes. Application fee is typically ₹1,000 to ₹1,500.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Complete the aptitude assessment</h4>
+            <p>Usually a 45 to 60-minute online test covering verbal ability, quantitative aptitude, and logical reasoning. Not a cutoff filter at most private universities, more a formality.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h4>Pay the first semester fee and confirm enrolment</h4>
+            <p>After receiving the admission offer, pay the first instalment. Set up EMI if applicable. Receive your student ID and access credentials.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 10 -->
+      <h2 id="mistakes">Common mistakes to avoid</h2>
+      <ul>
+        <li><strong>Choosing on fee alone.</strong> The cheapest programme is not always the right one. A ₹1.2 lakh difference in fee can translate to a much larger difference in career outcome if employer recognition differs significantly.</li>
+        <li><strong>Not verifying UGC-DEB recognition.</strong> Some institutions claim to offer MBA programmes without holding current UGC-DEB approval. Always verify on the official UGC-DEB list before paying any fee.</li>
+        <li><strong>Choosing the wrong specialisation.</strong> Most programmes allow specialisation selection in semester 2. Choose based on your target career, not on what sounds prestigious.</li>
+        <li><strong>Underestimating the self-discipline required.</strong> Distance MBA is self-paced. Without a fixed schedule, many learners fall behind. Be honest about whether you need the structure of an Online MBA instead.</li>
+        <li><strong>Not using EMI strategically.</strong> Most private universities offer 0% interest EMI for shorter tenures. A 12-month EMI on a ₹1.7L NMIMS programme is ₹14,166/month, which may strain cash flow. A 24-month option at ₹7,083/month is more manageable.</li>
+      </ul>
+
+      <!-- SECTION 11: FAQ -->
+      <h2 id="faq">Frequently asked questions</h2>
+
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-question">What is a Distance MBA?</button>
+          <div class="faq-answer">A Distance MBA is a postgraduate management degree delivered through self-paced study materials, without mandatory in-person classes. Students receive course content digitally or in print, complete assignments, and take examinations at designated centres. Duration is typically 2 to 2.5 years from private universities in India.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is Distance MBA valid in India?</button>
+          <div class="faq-answer">Yes. Distance MBA degrees from universities recognised by UGC-DEB (University Grants Commission's Distance Education Bureau) are valid and formally equivalent to regular MBA degrees under UGC notification. Always verify your chosen university appears on the current UGC-DEB approved list.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What is the fee for Distance MBA from private universities in India?</button>
+          <div class="faq-answer">Distance MBA fees from private universities in India range from ₹40,000 (LPU) to ₹2,40,000 (NMIMS Business Analytics specialisation). Most programmes offer EMI options starting around ₹3,000 to ₹7,000 per month depending on tenure.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Which private university is best for Distance MBA in India in 2026?</button>
+          <div class="faq-answer">It depends on your goal. For corporate management roles, NMIMS (NAAC A++) or Symbiosis SCDL (NAAC A++) are top-ranked. For affordable options with strong brand recognition, LPU or Chandigarh University. For self-paced flexibility with mid-range fees, ICFAI or Welingkar.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What is the difference between Distance MBA and Online MBA?</button>
+          <div class="faq-answer">Distance MBA is self-paced with mailed or digital course materials and minimal live instruction. Online MBA has scheduled live faculty sessions, a structured cohort, and recorded lectures. Online MBA is closer to a traditional MBA experience but costs more. Distance MBA costs less and offers greater schedule flexibility.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is Distance MBA accepted for government jobs?</button>
+          <div class="faq-answer">Yes. Distance MBA from UGC-DEB recognised universities is accepted for government jobs and PSU recruitment where a postgraduate management degree is required. The UGC notification specifically states equivalence of distance degrees with regular degrees for government purposes.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Can I do Distance MBA without a work experience?</button>
+          <div class="faq-answer">Yes. Most private universities offering Distance MBA do not require mandatory work experience. You need a graduation degree (any discipline) with minimum 50% marks and typically pass an in-house aptitude assessment.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is Distance MBA from NMIMS or Symbiosis better?</button>
+          <div class="faq-answer">Both are NAAC A++ private deemed universities with UGC-DEB recognition. NMIMS is stronger in Finance and General Management. Symbiosis SCDL is stronger in Marketing and HR. Fee range is comparable at ₹1.7 to ₹2.4 lakh. Choose based on your specialisation target, not brand alone.</div>
+        </div>
+      </div>
+
+      <!-- FINAL CTA before footer -->
+      <div style="background: var(--navy); border-radius: var(--radius-xl); padding: 40px; margin-top: 64px; text-align: center;">
+        <div style="color: var(--saffron); font-family: var(--voice); font-size: 48px; line-height: 0.6; margin-bottom: 20px;">"</div>
+        <p style="font-family: var(--voice); font-style: italic; font-size: 20px; color: var(--white); max-width: 48ch; margin: 0 auto 24px; line-height: 1.45;">Talk to us once and you will know exactly which programme is right for you, and why.</p>
+        <p style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--saffron-2); margin-bottom: 28px;">Our brand promise</p>
+        <a href="#lead" class="btn btn-primary btn-lg">Book a free 20-min call →</a>
+      </div>
+
+    </article><!-- end .article -->
+  </div><!-- end .pillar-layout -->
+</div><!-- end .wrap -->
+
+<!-- ============ LEAD FORM ============ -->
+<section class="section bg-mist" id="lead">
+  <div class="wrap">
+    <div class="lead-section">
+      <div>
+        <span class="eyebrow">Talk to a counsellor</span>
+        <h2>One conversation. <span class="ital">No commitment.</span></h2>
+        <p class="lead">Tell us about yourself in four fields. A senior counsellor will call within 24 hours with a personalised shortlist of 3 Distance MBA programmes matched to your goal.</p>
+        <ul class="lead-bullets">
+          <li class="lead-bullet">Honest comparisons across 22+ private universities</li>
+          <li class="lead-bullet">Counselling is genuinely free, no card details ever</li>
+          <li class="lead-bullet">We'll tell you if Distance MBA is the wrong mode for you</li>
+          <li class="lead-bullet">Counsellors who have guided 18,000+ working professionals</li>
+        </ul>
+      </div>
+      <form class="form-card" onsubmit="event.preventDefault(); alert('Lead captured (demo).');">
+        <h3 class="form-card-title">Speak to a counsellor</h3>
+        <p class="form-card-sub">Calls within 24 hours, often same day.</p>
+        <div class="field"><label for="l-name">Your name</label><input id="l-name" type="text" placeholder="e.g. Rahul Sharma" required /></div>
+        <div class="field"><label for="l-phone">Phone number</label><input id="l-phone" type="tel" placeholder="86696 61005" required /></div>
+        <div class="field">
+          <label for="l-course">Course of interest</label>
+          <select id="l-course">
+            <option>Distance MBA</option>
+            <option>Online MBA</option>
+            <option>Executive MBA</option>
+            <option>Correspondence MBA</option>
+            <option>Not sure, help me choose</option>
+          </select>
+        </div>
+        <div class="field"><label for="l-city">Your city</label><input id="l-city" type="text" placeholder="e.g. Mumbai" /></div>
+        <button type="submit" class="btn btn-primary btn-block" style="padding: 16px; font-size: 16px;">Request a callback →</button>
+        <p class="form-foot">By submitting, you agree to receive a counsellor call. We never share your number.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg width="28" height="26" viewBox="0 0 100 95"><path d="M 12 72 L 12 40 L 50 10 L 88 40 L 88 72" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M 5 85 Q 50 102 95 80" fill="none" stroke="#E8930E" stroke-width="6" stroke-linecap="round"/></svg>
+          <span><span style="font-weight:500;">Distance </span><span style="color:var(--saffron);font-weight:700;">MBA</span><span style="font-weight:500;"> College</span></span>
+        </div>
+        <p class="footer-brand-line">Your Future. One Smart Step Away.</p>
+        <p class="footer-meta">A MagicWorks IT Solutions Pvt. Ltd. initiative.<br>CIN: U72200PN2012PTC145298<br>Pune, Maharashtra, India</p>
+      </div>
+      <div>
+        <h4>Programmes</h4>
+        <ul>
+          <li><a href="#">Online MBA</a></li>
+          <li><a href="#">Distance MBA</a></li>
+          <li><a href="#">Executive MBA</a></li>
+          <li><a href="#">Correspondence MBA</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Universities</h4>
+        <ul>
+          <li><a href="#">NMIMS</a></li>
+          <li><a href="#">Symbiosis</a></li>
+          <li><a href="#">Amity Online</a></li>
+          <li><a href="#">Manipal Jaipur</a></li>
+          <li><a href="#">View all 22+</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Counsellors</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 MagicWorks IT Solutions Pvt. Ltd. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MOBILE ACTIONS ============ -->
+<div class="mobile-actions">
+  <div class="mobile-actions-grid">
+    <a href="tel:+918669661005" class="mobile-action"><span class="mobile-action-icon">☎</span><span>Call</span></a>
+    <a href="https://wa.me/918669661005?text=Distance%20MBA%20query" class="mobile-action"><span class="mobile-action-icon">💬</span><span>WhatsApp</span></a>
+    <button class="mobile-action primary" onclick="document.getElementById('chat-launcher').click()"><span class="mobile-action-icon">🤖</span><span>Chat</span></button>
+  </div>
+</div>
+
+<!-- ============ AI CHAT ============ -->
+<button id="chat-launcher" class="chat-launcher" aria-label="Open AI counsellor chat">💬<span class="chat-launcher-pulse"></span></button>
+<div id="chat-window" class="chat-window">
+  <div class="chat-header">
+    <div class="chat-header-avatar">A</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Aarya</div>
+      <div class="chat-header-status">AI Counsellor · Online</div>
+    </div>
+    <button id="chat-close" class="chat-header-close" aria-label="Close">×</button>
+  </div>
+  <div id="chat-body" class="chat-body">
+    <div class="chat-message ai">You're reading the Distance MBA guide. Any specific question I can answer, fees, eligibility, which university to pick, or whether Distance MBA is right for you?</div>
+    <div class="chat-quick-replies">
+      <button class="chat-quick-reply" onclick="sendQuick('NMIMS or Symbiosis, which is better?')">NMIMS vs Symbiosis</button>
+      <button class="chat-quick-reply" onclick="sendQuick('What fees should I expect?')">Fee guidance</button>
+      <button class="chat-quick-reply" onclick="sendQuick('Am I eligible for Distance MBA?')">Check eligibility</button>
+    </div>
+  </div>
+  <div class="chat-input">
+    <input id="chat-input" type="text" placeholder="Ask Aarya anything..." />
+    <button id="chat-send" class="chat-send">Send</button>
+  </div>
+</div>
+
+<script>
+/* ============ CHAT WIDGET ============ */
+(function() {
+  const launcher = document.getElementById('chat-launcher');
+  const windowEl = document.getElementById('chat-window');
+  const closeBtn = document.getElementById('chat-close');
+  const body     = document.getElementById('chat-body');
+  const input    = document.getElementById('chat-input');
+  const sendBtn  = document.getElementById('chat-send');
+
+  if (!launcher || !windowEl) return;
+
+  launcher.addEventListener('click', () => {
+    windowEl.classList.toggle('open');
+    if (windowEl.classList.contains('open') && input) setTimeout(() => input.focus(), 150);
+  });
+  if (closeBtn) closeBtn.addEventListener('click', () => windowEl.classList.remove('open'));
+
+  const responses = {
+    'nmims': "NMIMS CDOE holds NAAC A++ and is among the strongest private university online MBAs in India. Best for Finance, Analytics, and corporate management roles. Fee is ₹1.7L to ₹2.4L. Want me to compare it with Symbiosis?",
+    'symbiosis': "Symbiosis SCDL is NAAC A++ and best for Marketing and HR specialisations. Strong Pune corporate network. Fee is ₹1.8L to ₹2.4L. Want to know when to pick NMIMS instead?",
+    'fee': "Private university Distance MBA fees range from ₹65K (LPU) to ₹2.4L (NMIMS). Most offer EMI starting around ₹3,000 to ₹7,000 per month. Which university are you considering?",
+    'eligib': "Standard eligibility: any bachelor's degree with 50%+ marks (45% for reserved categories). No work experience mandatory at most private universities. No age limit. Want to know about specific universities?",
+    'online mba': "Online MBA has structured live sessions and a cohort experience. Distance MBA is self-paced. Online MBA suits you if you want schedule and faculty interaction. Distance MBA suits if you need full flexibility.",
+    'default': "Good question. Tell me your current role, target goal, and budget range and I'll give you a specific answer rather than a generic one."
+  };
+
+  function addMsg(text, sender) {
+    const el = document.createElement('div');
+    el.className = 'chat-message ' + sender;
+    el.textContent = text;
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function getReply(text) {
+    const t = text.toLowerCase();
+    for (const key of Object.keys(responses)) {
+      if (key !== 'default' && t.includes(key)) return responses[key];
+    }
+    return responses.default;
+  }
+
+  function handleInput(text) {
+    if (!text.trim()) return;
+    addMsg(text, 'user');
+    setTimeout(() => addMsg(getReply(text), 'ai'), 600);
+  }
+
+  if (sendBtn) sendBtn.addEventListener('click', () => { const v = input.value; input.value = ''; handleInput(v); });
+  if (input) input.addEventListener('keypress', e => { if (e.key === 'Enter') { const v = input.value; input.value = ''; handleInput(v); } });
+
+  window.sendQuick = function(text) {
+    document.querySelectorAll('.chat-quick-replies').forEach(el => el.remove());
+    handleInput(text);
+  };
+})();
+
+/* ============ FAQ ACCORDION ============ */
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => q.closest('.faq-item').classList.toggle('open'));
+});
+
+/* ============ EMI CALCULATOR ============ */
+function calcEMI() {
+  const fee    = parseInt(document.getElementById('calc-uni').value);
+  const months = parseInt(document.getElementById('calc-tenure').value);
+  const emi    = Math.round(fee / months);
+  const total  = emi * months;
+
+  document.getElementById('r-fee').textContent  = '₹' + fee.toLocaleString('en-IN');
+  document.getElementById('r-emi').textContent  = '₹' + emi.toLocaleString('en-IN');
+  document.getElementById('r-total').textContent = '₹' + total.toLocaleString('en-IN');
+}
+calcEMI();
+
+/* ============ STICKY TOC HIGHLIGHT ============ */
+const sections = document.querySelectorAll('.article h2[id]');
+const tocLinks = document.querySelectorAll('.toc-list a');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tocLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
