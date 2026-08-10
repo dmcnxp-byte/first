@@ -40,7 +40,7 @@ Both variants are compositions of the same `Logo` and `PhoneLink` subcomponents,
 | `full` | 4-column grid: Brand (logo, tagline, CIN/GST/registered office from Site Settings), Programmes links, Universities links, Company links; base bar (copyright, Privacy, Terms) |
 | `minimal` | Single centered legal line + copyright + Privacy/Terms links |
 
-Link lists in the `full` footer are **not hardcoded** — they read from the `navigation` singleton in Sanity (see [SANITY_CMS_ARCHITECTURE.md](SANITY_CMS_ARCHITECTURE.md)) so editors can adjust footer link sets without a deploy.
+Link lists in the `full` footer are **not hardcoded** — they read from Site Settings in Sanity (see [SANITY_CMS_ARCHITECTURE.md](SANITY_CMS_ARCHITECTURE.md); the former separate `navigation` singleton was absorbed into Site Settings) so editors can adjust footer link sets without a deploy.
 
 ## 4. Global chrome present in both layouts
 

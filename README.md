@@ -5,8 +5,8 @@ Distance, Online, Executive, or Correspondence MBA from an accredited private
 university. See [`/DOC`](DOC/PROJECT_OVERVIEW.md) for the full, approved
 architecture — this repository implements it.
 
-**Current phase:** Phase 2 — technical foundation. Status and remaining work
-tracked in [`DOC/PROJECT_STATUS.md`](DOC/PROJECT_STATUS.md).
+**Current phase:** Phase 3 — Foundation CMS & Dynamic Homepage. Status and
+remaining work tracked in [`DOC/PROJECT_STATUS.md`](DOC/PROJECT_STATUS.md).
 
 ## Stack
 
@@ -18,7 +18,8 @@ Next.js (App Router) · React · TypeScript · Tailwind CSS · Sanity Studio (em
 distance-mba-college/
 ├── apps/web/       # the Next.js application (site + embedded Sanity Studio)
 ├── DOC/            # approved architecture & requirements documentation
-└── design/         # Phase 1 design references (HTML mockups, brand guidelines) — read-only source material
+├── design/         # Phase 1 design references (HTML mockups, brand guidelines) — read-only source material
+└── scripts/        # one-time data-prep scripts (e.g. University.csv -> Sanity seed NDJSON)
 ```
 
 Full target structure: [`DOC/FOLDER_STRUCTURE.md`](DOC/FOLDER_STRUCTURE.md).

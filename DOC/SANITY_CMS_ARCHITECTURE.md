@@ -19,25 +19,27 @@ schemaTypes/
 │   ├── offering.ts              # University × Programme × Specialization join document
 │   ├── blogPost.ts
 │   ├── resourcePage.ts          # pillar/guide long-form
-│   ├── landingPage.ts
+│   ├── landingPage.ts           # still a distinct future document type — narrower block set, /lp/ route (unbuilt)
 │   ├── counsellor.ts
 │   ├── successStory.ts
-│   ├── homePage.ts              # singleton
-│   ├── siteSettings.ts          # singleton
-│   ├── navigation.ts            # singleton
+│   ├── page.ts                  # the generic Page document — Homepage is the one Page with isHomepage: true
+│   ├── siteSettings.ts          # singleton — absorbs the former separate `navigation` singleton
 │   └── redirect.ts
 ├── objects/
 │   ├── seo.ts                   # {title, description, ogImage, canonicalUrl, noindex}
 │   ├── faq.ts                   # {question, answer} — reused inline everywhere
 │   ├── cta.ts                   # {label, href|internalLink, style}
 │   ├── leadFormConfig.ts        # {title, subtitle, fields[], submitLabel, footerNote}
+│   ├── navLink.ts                # {label, href} — reused across Site Settings' header/footer link arrays
 │   ├── quickFact.ts / factRow.ts
 │   ├── accreditationBadge.ts
-│   └── pageBuilder/             # one object schema per builder block (see PAGE_BUILDER_ARCHITECTURE.md § 2)
+│   └── pageBuilder/             # one object schema per builder block (24 total — see PAGE_BUILDER_ARCHITECTURE.md § 2), incl. compareTableBlock.ts, stepsBlock.ts, relatedUniversitiesBlock.ts, imageContentBlock.ts, dividerBlock.ts
 └── index.ts
 ```
 
 Every document type includes the shared `seo` object and, where applicable, `faq` array — never duplicated as bespoke fields per type.
+
+The 24-entry page-builder catalog is the **finalized** reusable Section Library as of the design-mockup audit documented in [PAGE_BUILDER_ARCHITECTURE.md § 2a](PAGE_BUILDER_ARCHITECTURE.md#2a-what-is-not-a-page-builder-section-the-entity-field-boundary) — that section is the authoritative record of which mockup patterns became generic sections vs. entity-specific fixed fields on `university`/`programme`/`specialization` vs. deferred pending a future document type.
 
 ## 3. Studio structure (desk organization)
 
@@ -45,7 +47,7 @@ Custom Structure Builder groups the desk by business concern, not alphabetically
 
 ```
 Content
-├── Homepage                     (singleton)
+├── Pages                         (list — Homepage is the one Page flagged isHomepage: true, not a hand-wired singleton)
 ├── Programmes (4 documents, one per mode)
 ├── Universities (list, grouped by priority tier from content strategy)
 ├── Specializations (list)
@@ -55,10 +57,9 @@ Content
 ├── Blog (grouped by category)
 ├── Counsellors
 ├── Success Stories
-├── Landing Pages
+├── Landing Pages                 (still its own document type — narrower block set, /lp/ route)
 Site Configuration
-├── Site Settings                (singleton)
-├── Navigation                   (singleton)
+├── Site Settings                 (singleton — also owns header/footer nav, absorbing the former separate Navigation singleton)
 └── Redirects (list, filterable/searchable — this is the operational tool editors use for FR-18)
 ```
 
@@ -94,7 +95,7 @@ This is the same rendering path used for production (see [PAGE_BUILDER_ARCHITECT
 
 - Sanity project webhook fires on any document publish/unpublish/delete, POSTing `{ _id, _type, slug }` (via a small GROQ projection configured on the webhook) to `/api/revalidate`.
 - The Route Handler validates a shared secret header, then calls `revalidateTag('sanity:${_type}:${_id}')` and, for documents with a known public path (university/programme/etc.), also `revalidatePath()` for that specific path as a belt-and-suspenders measure.
-- Homepage and Navigation/SiteSettings singleton changes revalidate a broader tag (`sanity:global`) since they affect every page's header/footer.
+- Site Settings changes revalidate a broader tag (`sanity:global`) since it affects every page's header/footer. Page document changes additionally trigger a path-specific `revalidatePath()` (`/` for the Homepage, `/{slug}` otherwise), computed from the webhook's `slug`/`isHomepage` projection.
 
 ## 8. Content governance hooks
 

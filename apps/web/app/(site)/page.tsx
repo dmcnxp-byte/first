@@ -1,19 +1,55 @@
-// Placeholder only — the real Homepage is a Sanity page-builder-driven document.
-// See DOC/PAGE_BUILDER_ARCHITECTURE.md. Implementation begins in Phase 3.
-export default function Home() {
-  return (
-    <main className="flex min-h-screen items-center justify-center p-8 text-center">
-      <div>
-        <p className="text-sm uppercase tracking-wide text-neutral-500">
+import type { Metadata } from "next";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { homePageQuery, pageTag } from "@/lib/sanity/queries/page";
+import type { Page } from "@/lib/sanity/types/page";
+import { SectionRenderer } from "@/components/page-builder/SectionRenderer";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildFaqPageSchema } from "@/lib/seo/schema/faq";
+import { buildMetadataFromSeo } from "@/lib/seo/metadata";
+import { siteUrl } from "@/lib/seo/site";
+
+// Homepage — DOC/PAGE_BUILDER_ARCHITECTURE.md: Page (the one `page` document
+// flagged isHomepage: true) -> ordered `sections` array -> SectionRenderer ->
+// registered adapters -> composed section components. Every future page
+// (app/(site)/[slug]/page.tsx) uses this exact same shape. No hardcoded
+// content; every section comes from Sanity (FR-2).
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await sanityFetch<Page>({ query: homePageQuery, tags: [pageTag] });
+  if (!page?.seo) {
+    return { title: "Distance MBA College" };
+  }
+  return buildMetadataFromSeo(page.seo, siteUrl, "/");
+}
+
+export default async function HomePage() {
+  const page = await sanityFetch<Page>({ query: homePageQuery, tags: [pageTag] });
+
+  if (!page) {
+    return (
+      <div className="mx-auto max-w-2xl px-6 py-24 text-center">
+        <p className="text-slate text-sm font-semibold uppercase tracking-wide">
           Distance MBA College
         </p>
-        <h1 className="mt-2 text-2xl font-semibold">
-          Technical foundation initialized — Phase 2
+        <h1 className="font-display text-navy mt-4 text-2xl font-semibold">
+          Homepage content isn&apos;t available yet
         </h1>
-        <p className="mt-2 text-sm text-neutral-500">
-          Homepage content ships in Phase 3. See <code>/DOC</code> for architecture.
+        <p className="text-slate mt-2">
+          No Page document with isHomepage:true was found in Sanity — either no project is
+          connected yet, or that Page hasn&apos;t been created. See{" "}
+          <code>DOC/PROJECT_STATUS.md</code>.
         </p>
       </div>
-    </main>
+    );
+  }
+
+  const faqBlock = page.sections.find((block) => block._type === "faqBlock");
+
+  return (
+    <>
+      {faqBlock && faqBlock._type === "faqBlock" ? (
+        <JsonLd schema={buildFaqPageSchema(faqBlock.items)} />
+      ) : null}
+      <SectionRenderer blocks={page.sections} />
+    </>
   );
 }

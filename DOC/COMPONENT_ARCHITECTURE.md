@@ -29,15 +29,21 @@ Primitives (ui/)  →  Composed patterns (sections/)  →  Layout shells (layout
 
 ## 3. Composed pattern contracts (selected)
 
-**`CompareTable`** — the single most reused component (mode-comparison, fee tables, university-listing tables, head-to-head Compare pages):
+**`CompareTable`** (`components/sections/CompareTable.tsx`, page-builder block `compareTableBlock` — **built**) — the single most reused component (mode-comparison, fee tables, university-listing tables, head-to-head Compare pages):
 ```ts
 type CompareTableProps = {
   columns: string[]                       // e.g. ["Attribute", "NMIMS", "Symbiosis"]
   rows: { label: string; values: string[] }[]
-  mobileCollapse?: 'stacked-card' | 'scroll'   // default 'stacked-card', reproduces data-label pattern accessibly
 }
 ```
-Renders as a semantic `<table>` (not a CSS-grid div-table as in the mockups) with `scope` attributes for accessibility, and a CSS-only stacked-card view below 660px driven by `<caption>`/`data-label`-equivalent techniques that don't rely on ARIA-hostile div-tables.
+Renders as a semantic `<table>` (not a CSS-grid div-table as in the mockups) with `scope` attributes for accessibility, and a CSS-only stacked-card view below the `tc` (660px) breakpoint — implemented as two parallel renders toggled by Tailwind's responsive display utilities (`hidden tc:block` / `tc:hidden`), not `data-label`/`content: attr()` tricks.
+
+**`StepsList`** (`components/sections/StepsList.tsx`, page-builder block `stepsBlock`, Studio title "Timeline / Steps" — **built**) — numbered process, shared between eligibility criteria, how-to-apply, and any other step-by-step content:
+```ts
+type StepsListProps = {
+  steps: { title: string; description?: string }[]   // number comes from array position, not a stored field
+}
+```
 
 **`FAQAccordion`** — takes `items: {question, answer}[]` and **also** returns/exposes the same array for `generateFAQSchema()` to consume in `lib/seo/schema/faq.ts`, closing the drift gap flagged in requirements (mockups had 6 schema items vs. 8 rendered items).
 
@@ -46,6 +52,10 @@ Renders as a semantic `<table>` (not a CSS-grid div-table as in the mockups) wit
 **`LeadFormCard`** — the field-list-driven contract detailed in [FORMS_ARCHITECTURE.md](FORMS_ARCHITECTURE.md); never hardcodes a field shape.
 
 **`EMICalcWidget`** — Client Component; pure client-side computation (no network round-trip needed for the calculation itself), but final "email me this" or "get shortlist via WhatsApp" action reuses the shared lead-submission contract.
+
+**`ImageContent`** (`components/sections/ImageContent.tsx`, page-builder block `imageContentBlock` — **built**) — image + text split section for low-structure marketing pages (About, Landing): `{image, alt, imagePosition: 'left'|'right', eyebrow?, heading, headingAccent?, body?, cta?}`.
+
+**`Divider`** (`components/sections/Divider.tsx`, page-builder block `dividerBlock` — **built**) — pure visual spacer/rule between page-builder sections, no content fields: `{style?: 'line'|'space'}`.
 
 ## 4. Naming & file conventions
 

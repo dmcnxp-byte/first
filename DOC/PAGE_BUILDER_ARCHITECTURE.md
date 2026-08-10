@@ -6,44 +6,78 @@ Satisfies "fully dynamic homepage from day one" and "Dynamic Landing Pages." Bui
 
 | Document type | Uses page builder? | Why |
 |---|---|---|
-| Homepage | **Yes** | Explicit requirement; also the page most likely to be restructured by marketing without a deploy |
-| Campaign Landing Page | **Yes** | Each ad campaign needs a different section order/emphasis; editors iterate fast on these |
-| Resources hub / About / How-It-Works | **Yes** | Low-structure marketing pages benefit from flexibility |
+| **Page** (generic) | **Yes** | The one document type behind Homepage and every low-structure marketing page (Resources hub, About, How-It-Works, Compare-style landing content, etc.) — Homepage is simply the `Page` with `isHomepage: true`, rendered at `/`; every other `Page` renders at `/{slug}` via the identical route/query/`SectionRenderer` path. Explicit requirement: the page most likely to be restructured by marketing without a deploy |
+| Campaign Landing Page | **Yes, but its own document type** | Each ad campaign needs a different section order/emphasis and a narrower block allow-list (§ 5) plus campaign-specific fields (`campaignSource`, `/lp/` routing, typically `noindex`) — kept as its own `landingPage` document type rather than folded into generic `Page`, so its narrower `of` array can't accidentally gain the full catalog |
 | University / Programme / Specialization / Compare | **No — fixed template** | Per ADR-3 in [PROJECT_ARCHITECTURE.md](PROJECT_ARCHITECTURE.md), these need guaranteed structure for AEO/schema extraction and cross-page comparability; a fixed template with optional-but-ordered fields (not a freeform block array) is the correct model |
 | Blog Post / Resource Article | **No — Portable Text body** | Long-form content is authored as rich text with embedded custom blocks (callout, data-table, uni-card-grid, steps-list, EMI-calc — see [SANITY_CMS_ARCHITECTURE.md](SANITY_CMS_ARCHITECTURE.md)), which is a *content* flexibility model, not a page-*structure* flexibility model — the section order (hero → TOC+body → FAQ → footer) stays fixed |
 
-## 2. Content model: `pageBuilder` field
+## 2. Content model: `sections` field
 
-Any document type that opts in gets a single field:
+The generic `Page` document (and, with its own narrower `of` array, Campaign Landing Page) gets a single field:
 
 ```ts
 defineField({
-  name: 'pageBuilder',
-  title: 'Page sections',
+  name: 'sections',
+  title: 'Sections',
   type: 'array',
   of: [
-    { type: 'heroBlock' },
-    { type: 'trustStripBlock' },
-    { type: 'modeStripBlock' },
-    { type: 'featuredUniversitiesBlock' },
+    { type: 'heroBlock' },              // Hero
+    { type: 'trustStripBlock' },        // Trust Bar
+    { type: 'modeStripBlock' },         // Featured Programmes
+    { type: 'featuredUniversitiesBlock' }, // Featured Universities
     { type: 'specializationsGridBlock' },
-    { type: 'pullQuoteBlock' },
+    { type: 'pullQuoteBlock' },         // Quote
     { type: 'counsellorMomentBlock' },
     { type: 'aiChatInviteBlock' },
     { type: 'comparisonPreviewBlock' },
-    { type: 'leadFormBlock' },
-    { type: 'faqBlock' },
-    { type: 'richTextBlock' },       // escape hatch for ad-hoc marketing copy
+    { type: 'leadFormBlock' },          // Contact Form
+    { type: 'faqBlock' },               // FAQ
+    { type: 'richTextBlock' },          // Rich Text — also the "Custom Content" escape hatch
+    { type: 'statsBlock' },             // Statistics
+    { type: 'testimonialsBlock' },      // Testimonials
+    { type: 'ctaBlock' },               // CTA
+    { type: 'galleryBlock' },           // Gallery
+    { type: 'videoBlock' },             // Video
+    { type: 'newsletterBlock' },        // Newsletter
+    { type: 'partnersBlock' },          // Partners
+    { type: 'compareTableBlock' },      // Comparison Table
+    { type: 'stepsBlock' },             // Timeline / Steps
+    { type: 'relatedUniversitiesBlock' }, // Related Universities
+    { type: 'imageContentBlock' },      // Image + Content
+    { type: 'dividerBlock' },           // Divider
   ],
 })
 ```
 
-Each block type is a Sanity object schema whose fields are exactly the content a corresponding composed pattern needs (e.g. `heroBlock` → `{eyebrow, heading, subhead, primaryCta, secondaryCta}` maps 1:1 to `<Hero>`'s props). This is deliberately **not** a generic "flexible content" free-for-all — the block list is a closed, curated set (NFR-11, editorial safety), matching exactly the section catalogue already validated against the mockups in [REQUIREMENTS_ANALYSIS.md § 9](REQUIREMENTS_ANALYSIS.md#9-sections-catalogue-by-page-type).
+Each block type is a Sanity object schema whose fields are exactly the content a corresponding composed pattern needs (e.g. `heroBlock` → `{eyebrow, heading, subhead, primaryCta, secondaryCta}` maps 1:1 to `<Hero>`'s props). This is deliberately **not** a generic "flexible content" free-for-all — the block list is a closed, curated set (NFR-11, editorial safety). 24 entries: the original 12 validated against the mockups in [REQUIREMENTS_ANALYSIS.md § 9](REQUIREMENTS_ANALYSIS.md#9-sections-catalogue-by-page-type), 7 added for the general-purpose Page catalog (Statistics, Testimonials, CTA, Gallery, Video, Newsletter, Partners), and 5 added by the Section Library finalization pass (Comparison Table, Timeline / Steps, Related Universities, Image + Content, Divider — see § 2a) — each mapping 1:1 to its own reusable component, no schema duplicated (e.g. "Custom Content" is deliberately the same `richTextBlock` as "Rich Text," not a second escape-hatch schema).
+
+Three existing blocks also gained small, optional, backward-compatible fields during that same pass rather than becoming new schemas: `pullQuoteBlock` (optional `cta`, retitled "Quote"), `counsellorMomentBlock` (optional `cta`), `statsBlock`'s `statItem` (optional `subLabel`).
+
+## 2a. What is *not* a page-builder section (the entity-field boundary)
+
+A full audit of every design mockup (`design/*.html`) surfaced several more content patterns than the block list above. Most of them are **not** page-builder sections — they're either fixed fields on an entity's own document type, or belong to a different mechanism entirely. Getting this boundary right matters more than adding blocks: a generic section can't guarantee the structure AEO/schema extraction needs (ADR-3), and duplicating a concept in two places is exactly what NFR-11 exists to prevent.
+
+| Pattern found in mockups | Where it actually lives |
+|---|---|
+| Fee structure, Eligibility, Application timeline, Accreditation deep-dive (university-nmims.html) | Fixed fields on the `university`/`programme` documents (`feeStructure`, `eligibility`, `applicationTimeline`, `accreditationDetail` — already specified in [DATA_MODEL.md](DATA_MODEL.md)), built when University/Programme Detail pages are implemented — not a generic section, since every University document must carry this structure consistently |
+| Career paths / salary table, recruiter categories (specialization-marketing.html) | `careerPaths`/`recruiterCategories` fields on the `specialization` document, per [DATA_MODEL.md](DATA_MODEL.md) |
+| "Who it's for / who it's not" (`.who-grid`, found identically on 3 mockups) | The already-planned `fitGuidance` field on Programme/Specialization ([DATA_MODEL.md](DATA_MODEL.md)) rendered by the already-planned `WhoFitsCards` composed pattern ([COMPONENT_ARCHITECTURE.md § 3](COMPONENT_ARCHITECTURE.md#3-composed-pattern-contracts-selected)) — not built yet, since it needs the Detail-page templates to exist first |
+| Table of contents (resource-distance-mba-guide.html) | A Resource Page *template* layout concern (sticky sidebar beside the article body), not an ordered section |
+| Callout box, embedded data table, EMI calculator widget (resource-distance-mba-guide.html's article body) | Portable-Text-embedded custom block types for the future Blog Post/Resource Page rich-text body (§ 1's "Portable Text body" row) — a *content*-flexibility mechanism inside one field, not the page-*structure* flexibility this document governs |
+| "University Grid" / "Programme Grid" | Not separate from Featured Universities/Featured Programmes — same data and components; a full grid is a future `/universities/`/`/programmes/` *directory page* rendering everything via its own fixed template, not a page-builder section |
+| Featured Blogs, Blog Grid, Categories | Deferred — no `blogPost` document type or `blog.html` mockup exists yet; a reference-based block with nothing to reference would be dead schema |
+| Downloads/brochure | Not found in any of the 7 mockups — not built, per "do not invent" |
+
+## 2b. Page strategy — page-builder vs. template-driven (all page types)
+
+- **Page-builder** (the generic `page` document, § 1): Homepage, About, Contact, Landing Pages, Resource Pages authored as marketing pages, and any other low-structure page. Assembled entirely from the 24-block catalog above.
+- **Template-driven, fixed structure**: University Detail, Programme Detail, Compare, and Blog Post. Each gets its own document type with typed, guaranteed fields (not a `sections` array) once built — per § 1's ADR-3 rationale.
+- Template-driven documents are **not** sealed off from the section library, though: once built, each may embed a small, named set of the *same* reusable content directly as optional fields — `faqs: faq[]`, `leadForm: leadFormConfig`, `testimonials: testimonialItem[]`, `cta: cta`, and (once `blogPost`/`university` cross-references exist) related-content reference arrays. This reuses the identical shared object types the page-builder blocks are built from (`faq`, `leadFormConfig`, `cta`), so "optional reusable sections on a fixed template" means "the same object type, one more field," never a parallel schema.
 
 ## 3. Render-time resolution
 
 ```
-Sanity pageBuilder array  →  SectionRenderer (Server Component)  →  switch on block._type  →  matching adapter in components/page-builder/  →  underlying composed pattern
+Sanity `sections` array  →  SectionRenderer (Server Component)  →  switch on block._type  →  matching adapter in components/page-builder/  →  underlying composed pattern
 ```
 
 ```tsx
@@ -57,18 +91,18 @@ export function SectionRenderer({ blocks }: { blocks: PageBuilderBlock[] }) {
 }
 ```
 
-`blockRegistry` is a single typed lookup table (`components/page-builder/registry.ts`) mapping each Sanity block `_type` string to its adapter component — adding a new page-builder block is: (1) add a Sanity object schema, (2) add one adapter, (3) register it. No template file needs to change.
+`blockRegistry` is a single typed lookup table (`components/page-builder/registry.tsx`) mapping each Sanity block `_type` string to its adapter component — adding a new page-builder block is: (1) add a Sanity object schema, (2) add one adapter, (3) register it. No template file needs to change — this is exactly what made the Homepage-to-generic-Page refactor a schema/route change with zero component rewrites.
 
 ## 4. Editorial constraints (NFR-11)
 
-- Sanity Studio's array editor for `pageBuilder` uses the `insert menu` restricted to the block list above — editors cannot add a raw HTML block or an unregistered component.
+- Sanity Studio's array editor for `sections` uses the `insert menu` ("Add Section") restricted to the block list above — editors cannot add a raw HTML block or an unregistered component.
 - Certain blocks can be marked `single: true` at the schema-validation level in Studio custom validation (e.g., discourage more than one `leadFormBlock` per page) without hard-blocking unusual-but-legitimate cases — a soft warning, not a hard constraint, since campaign LPs may legitimately want two lead forms (top + bottom).
-- A `pageBuilder` array on the Homepage document ships with a **sensible default preset** (the exact section order from `homepage.html`) pre-populated when the singleton is first created, so the dynamic system's default output matches the approved design without an editor having to assemble it from scratch.
+- The Homepage's `sections` array ships with a **sensible default preset** (the exact section order from `homepage.html`) pre-populated on the one `Page` document flagged `isHomepage: true`, so the dynamic system's default output matches the approved design without an editor having to assemble it from scratch.
 
 ## 5. Campaign Landing Page specifics
 
-Landing Pages reuse the identical `pageBuilder` mechanism but draw from a **narrower** block allow-list appropriate to a single-goal conversion page (`heroBlock` with embedded form, `featuredUniversitiesBlock` non-linking variant, `counsellorMomentBlock`, `faqBlock`) — enforced by giving `landingPage.pageBuilder` its own `of` array in the schema rather than reusing the homepage's, even though the underlying block schemas and adapters are shared.
+Landing Pages reuse the identical `sections` mechanism but draw from a **narrower** block allow-list appropriate to a single-goal conversion page (`heroBlock` with embedded form, `featuredUniversitiesBlock` non-linking variant, `counsellorMomentBlock`, `faqBlock`) — enforced by giving `landingPage.sections` its own `of` array in the schema rather than reusing the generic Page's full 24-block catalog, even though the underlying block schemas and adapters are shared. (`landingPage` remains its own document type, not folded into the generic `page` — see § 1.)
 
 ## 6. Preview & draft mode
 
-Editors preview an in-progress `pageBuilder` arrangement via Next.js Draft Mode: Studio's "Open preview" action sets a draft cookie, the Next.js route then fetches with the preview (unfiltered, includes drafts) API and renders the exact same `SectionRenderer` path — there is no separate "preview renderer," which guarantees preview-vs-published parity.
+Editors preview an in-progress `sections` arrangement via Next.js Draft Mode: Studio's "Open preview" action sets a draft cookie, the Next.js route then fetches with the preview (unfiltered, includes drafts) API and renders the exact same `SectionRenderer` path — there is no separate "preview renderer," which guarantees preview-vs-published parity.

@@ -8,6 +8,8 @@ See the full tree in [FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md). Summary of dyna
 
 | Route | Param | Resolves via |
 |---|---|---|
+| `/` | — | `app/(site)/page.tsx` — the one `page` document flagged `isHomepage: true` |
+| `/[slug]/` | `slug` | `app/(site)/[slug]/page.tsx` — the generic Page route, `generateStaticParams()` from all `page` documents except the Homepage; a static literal sibling folder (e.g. `universities/`) always wins over this dynamic segment, so entity directories below can coexist with it |
 | `/programmes/[mode]/` | `mode` ∈ {distance-mba, online-mba, executive-mba, correspondence-mba} | `generateStaticParams()` from the 4 `programme` documents |
 | `/universities/[slug]/` | `slug` | `generateStaticParams()` from all published `university` documents |
 | `/specializations/[slug]/` | `slug` | same pattern, 14 documents |

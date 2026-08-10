@@ -18,8 +18,8 @@ erDiagram
     UNIVERSITY ||--o{ SUCCESS_STORY : "learner attended"
     UNIVERSITY ||--o{ BLOG_POST : "referenced by"
     PROGRAMME ||--o{ RESOURCE_PAGE : "topic cluster pillar"
-    HOMEPAGE ||--|| PAGE_BUILDER : "composed of"
-    LANDING_PAGE ||--|| PAGE_BUILDER : "composed of"
+    PAGE ||--|| PAGE_BUILDER : "composed of (Homepage is the one Page with isHomepage: true)"
+    LANDING_PAGE ||--|| PAGE_BUILDER : "composed of (own narrower block set — still a distinct future document type, unbuilt)"
     REDIRECT }o--|| ANY_DOCUMENT : "301s to"
 ```
 
@@ -176,17 +176,15 @@ Same shape as Blog Post plus: `readTimeMinutes` (number), `tocOverride` (optiona
 | `outcomeNarrative` | Portable Text | |
 | `beforeRole`, `afterRole` | string | |
 
-### Homepage (singleton)
+### Page
 
-`{ pageBuilder: array, seo: seo }` — see [PAGE_BUILDER_ARCHITECTURE.md](PAGE_BUILDER_ARCHITECTURE.md). Deliberately minimal as a document — nearly all of its content lives inside the page-builder blocks.
+**Supersedes the earlier "Homepage (singleton)" model** — see [PAGE_BUILDER_ARCHITECTURE.md](PAGE_BUILDER_ARCHITECTURE.md) for the full rationale. `Page` is the one generic, reusable document type behind every page-builder-driven page: `{ title, slug, isHomepage: boolean, sections: array, seo: seo }`. The Homepage is simply the one `Page` document with `isHomepage: true` (rendered at `/`); every future Landing/Compare/Resources page is another `Page` document (rendered at `/{slug}`) — same schema, same route, same `SectionRenderer`, no per-page-type document type. `slug` and `isHomepage` each carry a uniqueness validation rule (custom `Rule.custom` querying the dataset) so exactly one `Page` can be the Homepage and no two `Page`s can collide on a slug.
+
+Fixed-template document types (University, Programme, Specialization, Compare) are unaffected — they remain their own document types per [PAGE_BUILDER_ARCHITECTURE.md § 1](PAGE_BUILDER_ARCHITECTURE.md#1-scope-where-the-page-builder-applies), not `Page` documents.
 
 ### Site Settings (singleton)
 
-`{ siteName, tagline, logo (all variants), favicon, phone, whatsappNumber, socialLinks[], legalEntityName, cin, gst, registeredOfficeAddress, chatDefaults: { openingMessagesByPageType }, organizationSchemaDefaults }`
-
-### Navigation (singleton)
-
-`{ headerProgrammesLinks[], headerUniversitiesLinks[] (top 5 + "view all" target), footerColumns: [{title, links[]}]}` — powers both `Header` and `Footer` per [LAYOUT_ARCHITECTURE.md](LAYOUT_ARCHITECTURE.md), editable without a deploy.
+The single global configuration document — absorbs the former separate `Navigation` singleton, so there is deliberately only one global-config document, not two: `{ siteName, tagline, logo, favicon, chatWelcomeMessage, headerProgrammesLinks[], headerUniversitiesLinks[] (top 5 + "view all" target), footerColumns: [{title, links[]}], phone, whatsappNumber, email, legalEntityName, cin, gst, registeredOfficeAddress, socialLinks[], defaultSeo: seo, organizationSchema, theme: { primaryColorOverride?, accentColorOverride? } }`. Powers `Header`/`Footer` per [LAYOUT_ARCHITECTURE.md](LAYOUT_ARCHITECTURE.md), `defaultSeo` is the fallback when a `Page` doesn't set its own SEO, and `theme` is an optional hex-color override on top of the code-level brand tokens — all editable without a deploy.
 
 ### Redirect
 
@@ -201,6 +199,7 @@ Same shape as Blog Post plus: `readTimeMinutes` (number), `tocOverride` (optiona
 | `leadFormConfig` | `{ title, subtitle, fields: ('name'\|'phone'\|'email'\|'city'\|'select')[], selectOptions?: string[], selectLabel?: string, submitLabel, footerNote }` |
 | `cta` | `{ label, internalLink? (reference, weak), externalHref?, style: 'primary'\|'secondary'\|'ghost' }` |
 | `accreditationBadge` | `{ label, sourceUrl? }` |
+| `navLink` | `{ label, href }` — reused across Site Settings' header/footer link arrays |
 
 ## 4. Sitemap reference {#sitemap-reference}
 

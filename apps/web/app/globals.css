@@ -1,16 +1,70 @@
 @import "tailwindcss";
 
 /*
- * Font family tokens only, wired to next/font variables set in app/layout.tsx.
- * Brand colour/spacing/radius tokens (DOC/REQUIREMENTS_ANALYSIS.md § 12) are
- * deliberately not added yet — they land with the component library in Phase 3.
+ * Brand design tokens transcribed from design/homepage.html's :root custom
+ * properties (byte-identical across all mockups per
+ * DOC/REQUIREMENTS_ANALYSIS.md § 12/13) — this is the single source for
+ * every color/spacing/radius/shadow value the component library consumes.
  */
 @theme inline {
   --font-display: var(--font-poppins);
   --font-sans: var(--font-inter);
   --font-voice: var(--font-lora);
+
+  /* Brand colors */
+  --color-navy: #0b1f4d;
+  --color-navy-2: #1e3a8a;
+  --color-navy-dark: #06143a;
+  --color-saffron: #e8930e;
+  --color-saffron-2: #fbbf24;
+  --color-saffron-50: #fef3dc;
+  --color-cream: #faf7f0;
+  --color-mist: #f1f5f9;
+  --color-ink: #1f2937;
+  --color-slate: #475569;
+  --color-slate-2: #94a3b8;
+  --color-hairline: #cbd5e1;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* Layout */
+  --container-max: 1180px;
+  --container-narrow: 880px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Shadows */
+  --shadow-card: 0 4px 12px rgba(11, 31, 77, 0.08);
+  --shadow-lg: 0 12px 28px -16px rgba(11, 31, 77, 0.12);
+  --shadow-xl: 0 20px 60px rgba(11, 31, 77, 0.15);
+
+  /* Breakpoints — confirmed identical across every mockup, see
+     DOC/REQUIREMENTS_ANALYSIS.md § 14 */
+  --breakpoint-xs: 500px;
+  --breakpoint-sm: 600px;
+  --breakpoint-tc: 660px;
+  --breakpoint-md: 880px;
+  --breakpoint-lg: 960px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height, 72px);
 }
 
 body {
   font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media print {
+  .print\:hidden {
+    display: none !important;
+  }
 }

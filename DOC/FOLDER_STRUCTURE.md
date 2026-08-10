@@ -101,9 +101,9 @@ distance-mba-college/
 ├── apps/
 │   └── studio/                            # OR embedded under apps/web/(studio) — see SANITY_CMS_ARCHITECTURE.md decision
 │       ├── schemaTypes/
-│       │   ├── documents/                 # university.ts, programme.ts, specialization.ts, compare.ts, offering.ts, blogPost.ts, resourcePage.ts, landingPage.ts, counsellor.ts, successStory.ts, homePage.ts, redirect.ts
-│       │   ├── objects/                   # faq.ts, seo.ts, cta.ts, leadFormConfig.ts, pageBuilder block objects
-│       │   ├── singletons/                # siteSettings.ts, navigation.ts
+│       │   ├── documents/                 # university.ts, programme.ts, specialization.ts, compare.ts, offering.ts, blogPost.ts, resourcePage.ts, landingPage.ts, counsellor.ts, successStory.ts, page.ts (generic — Homepage is the one Page with isHomepage: true), redirect.ts
+│       │   ├── objects/                   # faq.ts, seo.ts, cta.ts, leadFormConfig.ts, navLink.ts, pageBuilder block objects
+│       │   ├── singletons/                # siteSettings.ts (also owns header/footer nav — see DOC/SANITY_CMS_ARCHITECTURE.md § 2)
 │       │   └── index.ts
 │       ├── structure/                     # Studio desk structure customization
 │       ├── sanity.config.ts
