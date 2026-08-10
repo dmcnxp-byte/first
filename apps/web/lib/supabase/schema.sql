@@ -1,9 +1,8 @@
 -- Reference copy of the approved Supabase schema — see DOC/SUPABASE_ARCHITECTURE.md § 1.
 --
--- NOT YET APPLIED to any Supabase project. This file is checked in purely as
--- a source-controlled reference; running these migrations against a real
--- Supabase project (and enabling RLS per § 2) is Phase 3 work, done once lead
--- forms/API routes/business logic are actually being implemented.
+-- Source-controlled reference kept in lockstep with whatever has actually
+-- been applied to the real Supabase project via the SQL editor (there is no
+-- migration runner in this project — see DOC/SUPABASE_ARCHITECTURE.md § 2).
 
 -- Core lead record — one row per form/phone-click/whatsapp-click/ai-chat conversion event
 create table leads (
@@ -64,8 +63,9 @@ create table redirect_hits (
 
 -- Row Level Security: enabled on every table above, with NO policies granting
 -- anonymous/authenticated client access — all reads/writes go through Next.js
--- Route Handlers using the service-role key. See DOC/SUPABASE_ARCHITECTURE.md § 2.
--- alter table leads enable row level security;
--- alter table lead_events enable row level security;
--- alter table ai_chat_sessions enable row level security;
--- alter table redirect_hits enable row level security;
+-- Route Handlers using the service-role key, which bypasses RLS entirely.
+-- See DOC/SUPABASE_ARCHITECTURE.md § 2.
+alter table leads enable row level security;
+alter table lead_events enable row level security;
+alter table ai_chat_sessions enable row level security;
+alter table redirect_hits enable row level security;

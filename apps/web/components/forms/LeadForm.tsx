@@ -5,6 +5,7 @@ import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
+import { validateLeadFormPayload } from "@/lib/leads/validation";
 import type { LeadFormConfig } from "@/lib/sanity/types/shared";
 
 // The single, config-driven lead-form component in the codebase — DOC/FORMS_ARCHITECTURE.md § 1.
@@ -31,8 +32,21 @@ export function LeadForm({
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("submitting");
+    if (status === "submitting") return;
     setErrors({});
+
+    const clientCheck = validateLeadFormPayload(
+      config.fields,
+      values,
+      config.selectOptions,
+    );
+    if (!clientCheck.valid) {
+      setErrors(clientCheck.errors);
+      setStatus("error");
+      return;
+    }
+
+    setStatus("submitting");
 
     const formData = new FormData(event.currentTarget);
     const honeypot = String(formData.get("company_website") ?? "");
@@ -110,12 +124,15 @@ export function LeadForm({
           />
         </Field>
       ) : null}
+      {errors.name ? <p className="text-error -mt-3 text-sm">{errors.name}</p> : null}
 
       {config.fields.includes("phone") ? (
         <Field label="Phone">
           <Input
             name="phone"
             type="tel"
+            inputMode="numeric"
+            maxLength={15}
             phonePrefix="+91"
             placeholder="86696 61005"
             required
@@ -138,6 +155,7 @@ export function LeadForm({
           />
         </Field>
       ) : null}
+      {errors.email ? <p className="text-error -mt-3 text-sm">{errors.email}</p> : null}
 
       {config.fields.includes("city") ? (
         <Field label="City">
@@ -161,6 +179,7 @@ export function LeadForm({
           />
         </Field>
       ) : null}
+      {errors.select ? <p className="text-error -mt-3 text-sm">{errors.select}</p> : null}
 
       <Button
         type="submit"

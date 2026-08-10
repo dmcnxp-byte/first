@@ -5,6 +5,7 @@ import { homepageLeadFormConfigQuery } from "@/lib/sanity/queries/leadFormConfig
 import { validateLeadFormPayload, type LeadFormPayload } from "@/lib/leads/validation";
 import { scoreLead, type SourcePageType } from "@/lib/leads/scoring";
 import { forwardLeadToCrm } from "@/lib/leads/crm-webhook";
+import { sendLeadNotificationEmail } from "@/lib/email/lead-notification";
 import type { LeadFormConfig, LeadFormFieldName } from "@/lib/sanity/types/shared";
 import type { LeadEventInsert, LeadInsert } from "@/lib/supabase/types";
 
@@ -78,15 +79,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Only persist fields the re-derived config actually allows — a
-    // tampered client payload can't smuggle extra fields through.
-    leadPayload = {
-      name: allowedFields.includes("name") ? fields?.name : undefined,
-      phone: allowedFields.includes("phone") ? fields?.phone : undefined,
-      email: allowedFields.includes("email") ? fields?.email : undefined,
-      city: allowedFields.includes("city") ? fields?.city : undefined,
-      select: allowedFields.includes("select") ? fields?.select : undefined,
-    };
+    // validation.normalized only contains keys for fields the re-derived
+    // config actually allows — a tampered client payload can't smuggle extra
+    // fields through — and every value is already trimmed/normalized
+    // (lowercased email, bare 10-digit phone) before it ever reaches Supabase.
+    leadPayload = validation.normalized;
   } else if (channel !== "phone_click" && channel !== "whatsapp_click") {
     return NextResponse.json(
       { success: false, error: "Unknown channel." },
@@ -151,6 +148,23 @@ export async function POST(request: Request) {
             : { crm_forward_error: crmResult.error },
         )
         .eq("id", lead.id);
+
+      // Internal-only notification, sent only after the Supabase insert
+      // above is confirmed — never sends to the visitor's own address, and a
+      // delivery failure here is logged, not thrown: the lead already exists
+      // and must not be lost because the mail provider had a bad day.
+      const emailResult = await sendLeadNotificationEmail({
+        leadId: lead.id,
+        fields: leadPayload,
+        selectLabel,
+        pageType,
+      });
+      if (!emailResult.ok) {
+        console.error(
+          `[/api/leads] internal notification email failed for lead ${lead.id}:`,
+          emailResult.error,
+        );
+      }
     }
 
     const leadTier =
