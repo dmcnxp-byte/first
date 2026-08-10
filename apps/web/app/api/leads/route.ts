@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { createServiceRoleClient } from "@/lib/supabase/server-client";
 import { sanityFetch } from "@/lib/sanity/fetch";
-import { homepageLeadFormConfigQuery } from "@/lib/sanity/queries/leadFormConfig";
+import {
+  leadFormConfigByDocumentIdQuery,
+  homepageLeadFormConfigQuery,
+} from "@/lib/sanity/queries/leadFormConfig";
 import { validateLeadFormPayload, type LeadFormPayload } from "@/lib/leads/validation";
-import { scoreLead, type SourcePageType } from "@/lib/leads/scoring";
+import { scoreLead, sanitizeSourceContext } from "@/lib/leads/scoring";
 import { forwardLeadToCrm } from "@/lib/leads/crm-webhook";
 import { sendLeadNotificationEmail } from "@/lib/email/lead-notification";
 import type { LeadFormConfig, LeadFormFieldName } from "@/lib/sanity/types/shared";
@@ -45,18 +48,30 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   }
 
-  const pageType = (context?.pageType ?? "homepage") as SourcePageType;
-  const sourceDocumentId = context?.documentId;
-  const sourcePageSlug = context?.slug ?? "/";
+  const {
+    pageType,
+    slug: sourcePageSlug,
+    documentId: sourceDocumentId,
+  } = sanitizeSourceContext(context);
 
   let leadPayload: LeadFormPayload = {};
   let selectLabel: string | undefined;
 
   if (channel === "form") {
-    const config = await sanityFetch<LeadFormConfig>({
-      query: homepageLeadFormConfigQuery,
-      tags: ["sanity:page"],
-    });
+    // Re-derive the config from whichever document actually rendered this
+    // form — never trust the client's own claim of which fields were
+    // offered. Falls back to the Homepage's config only when the submission
+    // carries no documentId at all (e.g. an older client).
+    const config = sourceDocumentId
+      ? await sanityFetch<LeadFormConfig>({
+          query: leadFormConfigByDocumentIdQuery,
+          params: { documentId: sourceDocumentId },
+          tags: ["sanity:page"],
+        })
+      : await sanityFetch<LeadFormConfig>({
+          query: homepageLeadFormConfigQuery,
+          tags: ["sanity:page"],
+        });
 
     const allowedFields: LeadFormFieldName[] = config?.fields ?? [
       "name",
@@ -158,6 +173,7 @@ export async function POST(request: Request) {
         fields: leadPayload,
         selectLabel,
         pageType,
+        pageSlug: sourcePageSlug,
       });
       if (!emailResult.ok) {
         console.error(

@@ -28,9 +28,14 @@ import {
 } from "@/lib/sanity/queries/university";
 import type { University } from "@/lib/sanity/types/university";
 import type { PageBuilderBlock } from "@/lib/sanity/types/page";
+import type { LeadSourceContext } from "@/lib/leads/scoring";
 
+// `page` is this page's own identity — only the leadFormBlock/newsletterBlock
+// adapters below actually read it (JS callbacks may always ignore trailing
+// arguments they don't declare), so every other adapter is untouched.
 type BlockRenderer<T extends PageBuilderBlock = PageBuilderBlock> = (
   block: T,
+  page: LeadSourceContext,
 ) => React.ReactNode | Promise<React.ReactNode>;
 
 // blockRegistry — DOC/PAGE_BUILDER_ARCHITECTURE.md § 3: a single typed lookup
@@ -135,7 +140,7 @@ export const blockRegistry: {
       items={block.items}
     />
   ),
-  leadFormBlock: (block) => (
+  leadFormBlock: (block, page) => (
     <LeadFormSection
       eyebrow={block.eyebrow}
       heading={block.heading}
@@ -143,6 +148,7 @@ export const blockRegistry: {
       intro={block.intro}
       bullets={block.bullets}
       form={block.form}
+      source={page}
     />
   ),
   faqBlock: (block) => (
@@ -190,13 +196,14 @@ export const blockRegistry: {
       caption={block.caption}
     />
   ),
-  newsletterBlock: (block) => (
+  newsletterBlock: (block, page) => (
     <Newsletter
       eyebrow={block.eyebrow}
       heading={block.heading}
       headingAccent={block.headingAccent}
       subhead={block.subhead}
       form={block.form}
+      source={{ slug: page.slug, documentId: page.documentId }}
     />
   ),
   partnersBlock: (block) => (

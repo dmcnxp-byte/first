@@ -73,7 +73,10 @@ export default async function GenericPage({
       {faqBlock && faqBlock._type === "faqBlock" ? (
         <JsonLd schema={buildFaqPageSchema(faqBlock.items)} />
       ) : null}
-      <SectionRenderer blocks={page.sections} />
+      <SectionRenderer
+        blocks={page.sections}
+        page={{ pageType: "landing_page", slug: page.slug, documentId: page._id }}
+      />
     </>
   );
 }

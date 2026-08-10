@@ -11,6 +11,7 @@ export async function sendLeadNotificationEmail(params: {
   fields: LeadFormPayload;
   selectLabel?: string;
   pageType: string;
+  pageSlug: string;
 }): Promise<{ ok: boolean; error?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_NOTIFICATION_EMAIL;
@@ -23,7 +24,7 @@ export async function sendLeadNotificationEmail(params: {
     return { ok: false, error: "Email notification not configured" };
   }
 
-  const { fields, selectLabel, pageType } = params;
+  const { fields, selectLabel, pageType, pageSlug } = params;
   const submittedAt = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
   const rows: Array<[string, string]> = [
@@ -34,10 +35,19 @@ export async function sendLeadNotificationEmail(params: {
     [selectLabel ?? "Interest", fields.select],
   ].filter((row): row is [string, string] => Boolean(row[1]));
 
-  const sourceLabel = pageType.charAt(0).toUpperCase() + pageType.slice(1);
+  // e.g. "Homepage" or "University - Nmims" — generic across every page that
+  // renders the reusable LeadForm, never assuming which one submitted.
+  const sourceLabel =
+    pageType === "homepage"
+      ? "Homepage"
+      : `${titleCase(pageType)} - ${titleCase(pageSlug)}`;
+  const subject =
+    pageType === "homepage"
+      ? "New Homepage Lead Submission"
+      : `New Lead Submission — ${sourceLabel}`;
 
   const text = [
-    "New Homepage Lead Submission",
+    subject,
     "",
     "Lead Details",
     "--------------------------------",
@@ -50,7 +60,7 @@ export async function sendLeadNotificationEmail(params: {
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:480px;color:#0b1f4d;">
-      <h2 style="margin-bottom:16px;">New Homepage Lead Submission</h2>
+      <h2 style="margin-bottom:16px;">${escapeHtml(subject)}</h2>
       <table cellpadding="0" cellspacing="0">
         ${rows
           .map(
@@ -71,7 +81,7 @@ export async function sendLeadNotificationEmail(params: {
     const { error } = await resend.emails.send({
       from,
       to,
-      subject: "New Homepage Lead Submission",
+      subject,
       html,
       text,
     });
@@ -90,6 +100,15 @@ export async function sendLeadNotificationEmail(params: {
       error: error instanceof Error ? error.message : "Unknown email error",
     };
   }
+}
+
+function titleCase(value: string): string {
+  return value
+    .replace(/[-_]+/g, " ")
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function escapeHtml(value: string): string {

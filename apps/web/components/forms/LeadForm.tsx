@@ -7,17 +7,20 @@ import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import { validateLeadFormPayload } from "@/lib/leads/validation";
 import type { LeadFormConfig } from "@/lib/sanity/types/shared";
+import type { LeadSourceContext } from "@/lib/leads/scoring";
 
-// The single, config-driven lead-form component in the codebase — DOC/FORMS_ARCHITECTURE.md § 1.
-// Renders exactly `config.fields`, in the fixed visual order name -> phone ->
-// email -> city -> select, and posts a payload shaped by whichever fields
-// were actually rendered.
+// The single, config-driven, page-agnostic lead-form component in the
+// codebase — DOC/FORMS_ARCHITECTURE.md § 1. Renders exactly `config.fields`,
+// in the fixed visual order name -> phone -> email -> city -> select, and
+// posts a payload shaped by whichever fields were actually rendered plus
+// whatever `context` its caller supplies — this component never assumes
+// which page it's on.
 export function LeadForm({
   config,
   context,
 }: {
   config: LeadFormConfig;
-  context: { pageType: string; documentId?: string; slug?: string };
+  context: LeadSourceContext;
 }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(

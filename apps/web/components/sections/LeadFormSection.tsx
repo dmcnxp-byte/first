@@ -3,9 +3,14 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { LeadForm } from "@/components/forms/LeadForm";
 import type { LeadFormConfig } from "@/lib/sanity/types/shared";
+import type { LeadSourceContext } from "@/lib/leads/scoring";
 
 // Lead capture section — DOC/REQUIREMENTS_ANALYSIS.md § 9, 2-col layout
-// (copy + trust bullets beside the form card).
+// (copy + trust bullets beside the form card). Page-agnostic: the page that
+// renders this block (via SectionRenderer) supplies its own identity through
+// `source` — this component never hardcodes which page it's on, so the same
+// leadFormBlock works unchanged on the Homepage, a future university page, or
+// any other page-builder page.
 export function LeadFormSection({
   eyebrow,
   heading,
@@ -13,6 +18,7 @@ export function LeadFormSection({
   intro,
   bullets,
   form,
+  source,
 }: {
   eyebrow?: string;
   heading: string;
@@ -20,6 +26,7 @@ export function LeadFormSection({
   intro?: string;
   bullets?: string[];
   form: LeadFormConfig;
+  source: LeadSourceContext;
 }) {
   return (
     <section id="lead" className="py-16 md:py-20">
@@ -52,7 +59,7 @@ export function LeadFormSection({
               </ul>
             ) : null}
           </div>
-          <LeadForm config={form} context={{ pageType: "homepage", slug: "/" }} />
+          <LeadForm config={form} context={source} />
         </div>
       </Container>
     </section>

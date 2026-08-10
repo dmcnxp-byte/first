@@ -11,7 +11,7 @@ import type { LeadFormFieldName } from "@/lib/sanity/types/shared";
 // PROJECT_STATUS.md Phase 3 notes). Behavior matches the documented rules
 // exactly; swap in zod with no contract changes once registry access exists.
 
-const INDIAN_MOBILE_RE = /^[6-9]\d{9}$/;
+export const INDIAN_MOBILE_RE = /^[6-9]\d{9}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export type LeadFormPayload = {

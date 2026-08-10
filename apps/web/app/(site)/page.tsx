@@ -27,7 +27,7 @@ export default async function HomePage() {
   if (!page) {
     return (
       <div className="mx-auto max-w-2xl px-6 py-24 text-center">
-        <p className="text-slate text-sm font-semibold uppercase tracking-wide">
+        <p className="text-slate text-sm font-semibold tracking-wide uppercase">
           Distance MBA College
         </p>
         <h1 className="font-display text-navy mt-4 text-2xl font-semibold">
@@ -49,7 +49,10 @@ export default async function HomePage() {
       {faqBlock && faqBlock._type === "faqBlock" ? (
         <JsonLd schema={buildFaqPageSchema(faqBlock.items)} />
       ) : null}
-      <SectionRenderer blocks={page.sections} />
+      <SectionRenderer
+        blocks={page.sections}
+        page={{ pageType: "homepage", slug: page.slug || "home", documentId: page._id }}
+      />
     </>
   );
 }
