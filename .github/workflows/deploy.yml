@@ -1,0 +1,39 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull latest code into cPanel
+        env:
+          CPANEL_API_TOKEN: ${{ secrets.CPANEL_API_TOKEN }}
+        run: |
+          set -e
+
+          RESPONSE=$(curl --fail --silent --show-error \
+            -H "Authorization: cpanel dnyanalugh:${CPANEL_API_TOKEN}" \
+            "https://dnyanal.com:2083/execute/VersionControl/update?repository_root=/home/dnyanalugh/dnyanal-deploy&branch=master")
+
+          echo "$RESPONSE"
+
+          echo "$RESPONSE" | jq -e '.result.status == 1'
+
+      - name: Deploy cPanel repository
+        env:
+          CPANEL_API_TOKEN: ${{ secrets.CPANEL_API_TOKEN }}
+        run: |
+          set -e
+
+          RESPONSE=$(curl --fail --silent --show-error \
+            -H "Authorization: cpanel dnyanalugh:${CPANEL_API_TOKEN}" \
+            "https://dnyanal.com:2083/execute/VersionControlDeployment/create?repository_root=/home/dnyanalugh/dnyanal-deploy")
+
+          echo "$RESPONSE"
+
+          echo "$RESPONSE" | jq -e '.result.status == 1'
