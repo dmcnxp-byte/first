@@ -1,0 +1,8 @@
+deployment:
+  tasks:
+    - export APP="/home/dnyanalugh/nextjs-app"
+    - /bin/cp -R apps/. "$APP/apps/"
+    - /bin/cp package.json package-lock.json "$APP/"
+    - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-app/22/bin/npm ci
+    - cd "$APP" && taskset -c 0 /home/dnyanalugh/nextjs-app/node_modules/.bin/next build apps/web --webpack
+    - /bin/mkdir -p "$APP/tmp" && /bin/touch "$APP/tmp/restart.txt"
