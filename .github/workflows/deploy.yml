@@ -36,4 +36,4 @@ jobs:
 
           echo "$RESPONSE"
 
-        echo "$RESPONSE" | jq -e '.data.status == 1'
+          echo "$RESPONSE" | jq -e '.data.status == 1'
