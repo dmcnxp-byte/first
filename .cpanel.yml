@@ -1,8 +1,42 @@
+---
 deployment:
   tasks:
     - export APP="/home/dnyanalugh/nextjs-app"
-    - /bin/cp -R apps/. "$APP/apps/"
+
+    - /bin/mkdir -p "$APP"
+
+    - /bin/cp -R apps "$APP/"
     - /bin/cp package.json package-lock.json "$APP/"
-    - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-app/22/bin/npm ci
-    - cd "$APP" && taskset -c 0 /home/dnyanalugh/nextjs-app/node_modules/.bin/next build apps/web --webpack
-    - /bin/mkdir -p "$APP/tmp" && /bin/touch "$APP/tmp/restart.txt"
+
+    - |
+      /bin/cat > "$APP/app.js" <<'EOF'
+      const next = require("next");
+      const http = require("http");
+
+      const port = process.env.PORT || 3000;
+      const hostname = "127.0.0.1";
+
+      const app = next({
+        dev: false,
+        hostname,
+        port,
+        dir: __dirname + "/apps/web",
+      });
+
+      const handle = app.getRequestHandler();
+
+      app.prepare().then(() => {
+        http.createServer((req, res) => {
+          handle(req, res);
+        }).listen(port, hostname, () => {
+          console.log(`Next.js running on ${hostname}:${port}`);
+        });
+      });
+      EOF
+
+    - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-app/22/bin/npm ci --ignore-scripts
+
+    - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-app/22/bin/npm run build --workspace=apps/web -- --webpack
+
+    - /bin/mkdir -p "$APP/tmp"
+    - /bin/touch "$APP/tmp/restart.txt"
