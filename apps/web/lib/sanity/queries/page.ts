@@ -27,6 +27,14 @@ const sectionsProjection = groq`
       universities[]->{
         ${universityFields}
       }
+    },
+    _type == "universityShortlistBlock" => {
+      items[]{
+        ...,
+        university->{
+          ${universityFields}
+        }
+      }
     }
   }
 `;

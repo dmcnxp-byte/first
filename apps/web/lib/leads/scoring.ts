@@ -38,9 +38,19 @@ export type LeadSourceContext = {
   pageType: SourcePageType;
   slug: string;
   documentId?: string;
+  /**
+   * Optional free-text interest signal set client-side when a visitor clicks
+   * a specific card in a `universityShortlistBlock` (see
+   * components/forms/SelectedUniversityContext.tsx) — never trusted as a
+   * distinct persisted field; merged into the existing interest signal
+   * (`leadPayload.select`) in app/api/leads/route.ts, same as every other
+   * page's `select` field already is.
+   */
+  selectedUniversity?: string;
 };
 
 const MAX_SLUG_LENGTH = 200;
+const MAX_SELECTED_UNIVERSITY_LENGTH = 120;
 const SANITY_DOCUMENT_ID_RE = /^[a-zA-Z0-9_.-]+$/;
 
 // The browser-submitted page context is never trusted as-is — an unrecognized
@@ -55,6 +65,7 @@ export function sanitizeSourceContext(raw?: {
   pageType?: string;
   slug?: string;
   documentId?: string;
+  selectedUniversity?: string;
 }): LeadSourceContext {
   let pageType: SourcePageType = "homepage";
   if (raw?.pageType) {
@@ -71,7 +82,12 @@ export function sanitizeSourceContext(raw?: {
       ? trimmedDocumentId
       : undefined;
 
-  return { pageType, slug, documentId };
+  const trimmedSelectedUniversity = raw?.selectedUniversity
+    ?.trim()
+    .slice(0, MAX_SELECTED_UNIVERSITY_LENGTH);
+  const selectedUniversity = trimmedSelectedUniversity || undefined;
+
+  return { pageType, slug, documentId, selectedUniversity };
 }
 
 export type ScoringInput = {

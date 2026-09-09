@@ -21,6 +21,8 @@ import { CompareTable } from "@/components/sections/CompareTable";
 import { StepsList } from "@/components/sections/StepsList";
 import { ImageContent } from "@/components/sections/ImageContent";
 import { Divider } from "@/components/sections/Divider";
+import { UniversityShortlistGrid } from "@/components/sections/UniversityShortlistGrid";
+import { HeroSplitContent } from "@/components/sections/HeroSplit";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import {
   featuredUniversitiesQuery,
@@ -31,11 +33,18 @@ import type { PageBuilderBlock } from "@/lib/sanity/types/page";
 import type { LeadSourceContext } from "@/lib/leads/scoring";
 
 // `page` is this page's own identity — only the leadFormBlock/newsletterBlock
-// adapters below actually read it (JS callbacks may always ignore trailing
-// arguments they don't declare), so every other adapter is untouched.
+// adapters below actually read it. `opts.bare`, when true, asks an adapter to
+// skip its own section/Container wrapper because SectionRenderer is nesting
+// it inside StickySidebarRegion's shared Container instead (only happens for
+// blocks that come after a `heroSplitBlock` — see SectionRenderer.tsx). Both
+// trailing params are optional; JS callbacks may always ignore trailing
+// arguments they don't declare, so every other adapter is untouched.
+export type RenderOptions = { bare?: boolean };
+
 type BlockRenderer<T extends PageBuilderBlock = PageBuilderBlock> = (
   block: T,
   page: LeadSourceContext,
+  opts?: RenderOptions,
 ) => React.ReactNode | Promise<React.ReactNode>;
 
 // blockRegistry — DOC/PAGE_BUILDER_ARCHITECTURE.md § 3: a single typed lookup
@@ -96,22 +105,24 @@ export const blockRegistry: {
       />
     );
   },
-  specializationsGridBlock: (block) => (
+  specializationsGridBlock: (block, _page, opts) => (
     <SpecializationsGrid
       eyebrow={block.eyebrow}
       heading={block.heading}
       headingAccent={block.headingAccent}
       items={block.items}
+      bare={opts?.bare}
     />
   ),
-  pullQuoteBlock: (block) => (
+  pullQuoteBlock: (block, _page, opts) => (
     <PullQuoteBand
       quoteText={block.quoteText}
       attribution={block.attribution}
       cta={block.cta}
+      bare={opts?.bare}
     />
   ),
-  counsellorMomentBlock: (block) => (
+  counsellorMomentBlock: (block, _page, opts) => (
     <CounsellorMoment
       eyebrow={block.eyebrow}
       heading={block.heading}
@@ -121,6 +132,7 @@ export const blockRegistry: {
       counsellorTitle={block.counsellorTitle}
       counsellorPhoto={block.counsellorPhoto}
       cta={block.cta}
+      bare={opts?.bare}
     />
   ),
   aiChatInviteBlock: (block) => (
@@ -251,5 +263,32 @@ export const blockRegistry: {
       cta={block.cta}
     />
   ),
-  dividerBlock: (block) => <Divider style={block.style} />,
+  dividerBlock: (block, _page, opts) => <Divider style={block.style} bare={opts?.bare} />,
+  universityShortlistBlock: (block, _page, opts) => (
+    <UniversityShortlistGrid
+      eyebrow={block.eyebrow}
+      heading={block.heading}
+      headingAccent={block.headingAccent}
+      intro={block.intro}
+      cardCtaLabel={block.cardCtaLabel}
+      cardSecondaryCtaLabel={block.cardSecondaryCtaLabel}
+      footnote={block.footnote}
+      items={block.items}
+      bare={opts?.bare}
+    />
+  ),
+  // Content-only (no grid/Container/form) — SectionRenderer intercepts
+  // `heroSplitBlock` specifically to build the sticky-sidebar region around
+  // it (see SectionRenderer.tsx); this entry exists so the registry stays a
+  // complete 1:1 map of every block type, and as a safe fallback.
+  heroSplitBlock: (block) => (
+    <HeroSplitContent
+      eyebrow={block.eyebrow}
+      heading={block.heading}
+      headingAccent={block.headingAccent}
+      subhead={block.subhead}
+      trustStrip={block.trustStrip}
+      stats={block.stats}
+    />
+  ),
 };

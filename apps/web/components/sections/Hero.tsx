@@ -21,17 +21,19 @@ export function Hero({
   secondaryCta?: Cta;
 }) {
   return (
-    <section className="py-20 md:py-28">
+    <section className="pt-[clamp(40px,8vw,96px)] pb-[clamp(40px,7vw,80px)]">
       <Container>
         {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
         <Heading as="h1" accent={headingAccent}>
           {heading}
         </Heading>
         {subhead ? (
-          <p className="text-slate mt-6 max-w-[62ch] text-lg">{subhead}</p>
+          <p className="text-slate mt-6 max-w-[56ch] text-[clamp(1rem,1.6vw,1.125rem)] leading-[1.65]">
+            {subhead}
+          </p>
         ) : null}
         {primaryCta || secondaryCta ? (
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-3">
             {primaryCta ? (
               <Button href={primaryCta.href} variant="primary" size="lg" withArrow>
                 {primaryCta.label}

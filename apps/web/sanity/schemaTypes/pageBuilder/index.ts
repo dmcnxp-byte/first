@@ -23,6 +23,8 @@ import { stepsBlock } from "./stepsBlock";
 import { relatedUniversitiesBlock } from "./relatedUniversitiesBlock";
 import { imageContentBlock } from "./imageContentBlock";
 import { dividerBlock } from "./dividerBlock";
+import { universityShortlistBlock } from "./universityShortlistBlock";
+import { heroSplitBlock } from "./heroSplitBlock";
 
 // The page-builder block catalog — DOC/PAGE_BUILDER_ARCHITECTURE.md § 2/4
 // (NFR-11). Curated, not a generic free-for-all: every entry maps 1:1 to a
@@ -53,6 +55,8 @@ export const pageBuilderBlockTypes: SchemaTypeDefinition[] = [
   relatedUniversitiesBlock,
   imageContentBlock,
   dividerBlock,
+  universityShortlistBlock,
+  heroSplitBlock,
 ];
 
 export const pageBuilderBlockNames = [
@@ -80,4 +84,6 @@ export const pageBuilderBlockNames = [
   "relatedUniversitiesBlock",
   "imageContentBlock",
   "dividerBlock",
+  "universityShortlistBlock",
+  "heroSplitBlock",
 ] as const;

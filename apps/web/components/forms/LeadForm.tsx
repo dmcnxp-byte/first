@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import { validateLeadFormPayload } from "@/lib/leads/validation";
+import { useSelectedUniversity } from "@/components/forms/SelectedUniversityContext";
 import type { LeadFormConfig } from "@/lib/sanity/types/shared";
 import type { LeadSourceContext } from "@/lib/leads/scoring";
 
@@ -28,6 +29,8 @@ export function LeadForm({
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const honeypotId = useId();
+  const { selected: selectedUniversity, clear: clearSelectedUniversity } =
+    useSelectedUniversity();
 
   function setValue(field: string, value: string) {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -61,7 +64,7 @@ export function LeadForm({
         body: JSON.stringify({
           channel: "form",
           fields: values,
-          context,
+          context: selectedUniversity ? { ...context, selectedUniversity } : context,
           honeypot,
         }),
       });
@@ -102,6 +105,23 @@ export function LeadForm({
           <p className="text-slate mt-1 text-sm">{config.subtitle}</p>
         ) : null}
       </div>
+
+      {selectedUniversity ? (
+        <div className="bg-saffron-50 border-saffron flex items-center gap-2 rounded-md border px-3 py-2.5 text-sm">
+          <span className="text-navy">
+            Interested in:{" "}
+            <strong className="font-display font-semibold">{selectedUniversity}</strong>
+          </span>
+          <button
+            type="button"
+            onClick={clearSelectedUniversity}
+            aria-label="Clear selection"
+            className="text-slate hover:text-navy ml-auto text-lg leading-none"
+          >
+            &times;
+          </button>
+        </div>
+      ) : null}
 
       {/* Honeypot — invisible to real users, excluded from config.fields, per DOC/FORMS_ARCHITECTURE.md § 7 */}
       <div className="hidden" aria-hidden="true">

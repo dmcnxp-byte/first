@@ -18,6 +18,7 @@ export function CounsellorMoment({
   counsellorTitle,
   counsellorPhoto,
   cta,
+  bare,
 }: {
   eyebrow?: string;
   heading: string;
@@ -27,56 +28,65 @@ export function CounsellorMoment({
   counsellorTitle?: string;
   counsellorPhoto?: SanityImage;
   cta?: Cta;
+  bare?: boolean;
 }) {
+  const content = (
+    <>
+      <SectionHead eyebrow={eyebrow} heading={heading} headingAccent={headingAccent} />
+      <div className="bg-navy grid grid-cols-1 items-center gap-8 rounded-2xl p-8 text-center sm:grid-cols-[auto_1fr] sm:gap-12 sm:p-12 sm:text-left lg:p-16">
+        {counsellorPhoto ? (
+          <Image
+            src={urlForImage(counsellorPhoto).width(240).height(240).url()}
+            alt={counsellorName}
+            width={120}
+            height={120}
+            className="border-saffron mx-auto h-[120px] w-[120px] shrink-0 rounded-full border-[3px] object-cover sm:mx-0"
+          />
+        ) : (
+          <div
+            className="border-saffron text-saffron font-display mx-auto flex h-[120px] w-[120px] shrink-0 items-center justify-center rounded-full border-[3px] text-4xl font-semibold sm:mx-0"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--color-navy-2) 0%, var(--color-navy) 100%)",
+            }}
+          >
+            {counsellorName.charAt(0)}
+          </div>
+        )}
+        <div>
+          <p className="font-voice text-[clamp(1.125rem,2.4vw,1.75rem)] leading-[1.4] font-medium text-white italic">
+            <span aria-hidden="true" className="text-saffron not-italic">
+              &ldquo;
+            </span>
+            {quote}
+          </p>
+          <p className="font-display mt-6 text-sm font-semibold text-white">
+            {counsellorName}
+            {counsellorTitle ? (
+              <span className="text-saffron-2 mt-1 block font-sans text-xs font-medium">
+                {counsellorTitle}
+              </span>
+            ) : null}
+          </p>
+          {cta ? (
+            <div className="mt-6">
+              <Button href={cta.href} variant={cta.style} withArrow>
+                {cta.label}
+              </Button>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </>
+  );
+
+  if (bare) {
+    return <div className="py-8 md:py-10">{content}</div>;
+  }
+
   return (
     <section className="py-16 md:py-20">
-      <Container>
-        <SectionHead eyebrow={eyebrow} heading={heading} headingAccent={headingAccent} />
-        <div className="bg-navy grid grid-cols-1 items-center gap-8 rounded-2xl p-8 text-center sm:grid-cols-[auto_1fr] sm:gap-12 sm:p-12 sm:text-left lg:p-16">
-          {counsellorPhoto ? (
-            <Image
-              src={urlForImage(counsellorPhoto).width(240).height(240).url()}
-              alt={counsellorName}
-              width={120}
-              height={120}
-              className="border-saffron mx-auto h-[120px] w-[120px] shrink-0 rounded-full border-[3px] object-cover sm:mx-0"
-            />
-          ) : (
-            <div
-              className="border-saffron text-saffron font-display mx-auto flex h-[120px] w-[120px] shrink-0 items-center justify-center rounded-full border-[3px] text-4xl font-semibold sm:mx-0"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--color-navy-2) 0%, var(--color-navy) 100%)",
-              }}
-            >
-              {counsellorName.charAt(0)}
-            </div>
-          )}
-          <div>
-            <p className="font-voice text-[clamp(1.125rem,2.4vw,1.75rem)] font-medium italic leading-[1.4] text-white">
-              <span aria-hidden="true" className="text-saffron not-italic">
-                &ldquo;
-              </span>
-              {quote}
-            </p>
-            <p className="font-display mt-6 text-sm font-semibold text-white">
-              {counsellorName}
-              {counsellorTitle ? (
-                <span className="text-saffron-2 mt-1 block font-sans text-xs font-medium">
-                  {counsellorTitle}
-                </span>
-              ) : null}
-            </p>
-            {cta ? (
-              <div className="mt-6">
-                <Button href={cta.href} variant={cta.style} withArrow>
-                  {cta.label}
-                </Button>
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </Container>
+      <Container>{content}</Container>
     </section>
   );
 }

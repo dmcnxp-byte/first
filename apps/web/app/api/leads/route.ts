@@ -37,7 +37,12 @@ export async function POST(request: Request) {
   const { channel, fields, context, honeypot } = body as {
     channel?: string;
     fields?: LeadFormPayload;
-    context?: { pageType?: string; documentId?: string; slug?: string };
+    context?: {
+      pageType?: string;
+      documentId?: string;
+      slug?: string;
+      selectedUniversity?: string;
+    };
     honeypot?: string;
   };
 
@@ -52,6 +57,7 @@ export async function POST(request: Request) {
     pageType,
     slug: sourcePageSlug,
     documentId: sourceDocumentId,
+    selectedUniversity,
   } = sanitizeSourceContext(context);
 
   let leadPayload: LeadFormPayload = {};
@@ -99,6 +105,16 @@ export async function POST(request: Request) {
     // fields through — and every value is already trimmed/normalized
     // (lowercased email, bare 10-digit phone) before it ever reaches Supabase.
     leadPayload = validation.normalized;
+
+    // Merge the (already-sanitized) card-click interest signal into the same
+    // `select`/interest field every other page already uses — no new
+    // Supabase column, no change to scoring/CRM/email, which all just read
+    // `leadPayload.select` generically.
+    if (selectedUniversity) {
+      leadPayload.select = leadPayload.select
+        ? `${leadPayload.select} — ${selectedUniversity}`
+        : selectedUniversity;
+    }
   } else if (channel !== "phone_click" && channel !== "whatsapp_click") {
     return NextResponse.json(
       { success: false, error: "Unknown channel." },

@@ -14,35 +14,7 @@ export const statsBlock = defineType({
       name: "items",
       title: "Stats",
       type: "array",
-      of: [
-        {
-          type: "object",
-          name: "statItem",
-          fields: [
-            defineField({
-              name: "value",
-              title: "Value",
-              description: 'e.g. "18,000+"',
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "label",
-              title: "Label",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "subLabel",
-              title: "Sub-label (optional)",
-              description:
-                'e.g. "private universities" under a "Top universities" stat — covers the facts-strip variant in design/resource-distance-mba-guide.html.',
-              type: "string",
-            }),
-          ],
-          preview: { select: { title: "value", subtitle: "label" } },
-        },
-      ],
+      of: [{ type: "statItem" }],
       validation: (Rule) => Rule.required().min(1),
     }),
   ],

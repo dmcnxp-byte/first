@@ -7,6 +7,7 @@ import { cta } from "./objects/cta";
 import { leadFormConfig } from "./objects/leadFormConfig";
 import { accreditationBadge } from "./objects/accreditationBadge";
 import { navLink } from "./objects/navLink";
+import { statItem } from "./objects/statItem";
 
 // Page-builder blocks — DOC/PAGE_BUILDER_ARCHITECTURE.md § 2.
 import { pageBuilderBlockTypes } from "./pageBuilder";
@@ -26,6 +27,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     leadFormConfig,
     accreditationBadge,
     navLink,
+    statItem,
     // Page-builder blocks
     ...pageBuilderBlockTypes,
     // Documents

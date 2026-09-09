@@ -9,13 +9,28 @@ export type ButtonVariant = "primary" | "secondary" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md font-semibold font-sans leading-none whitespace-nowrap border-[1.5px] border-transparent transition-[transform,box-shadow,background,color] duration-200 focus-visible:outline-2 focus-visible:outline-saffron focus-visible:outline-offset-2";
+  // `transition-[...]` sets only `transition-property`, which can't hold
+  // per-property durations — `[transition:...]` (arbitrary-property syntax)
+  // sets the actual shorthand. Tailwind v4 animates its `-translate-y-*`
+  // utilities via the native CSS `translate` property (not `transform`), so
+  // the reference's "transform 150ms ease" hover-lift rule is reproduced
+  // here as a `translate` transition, or the 1px lift on
+  // `.btn-primary:hover` would snap instead of animating.
+  //
+  // No `border-transparent` here on purpose: it used to live in `base`
+  // unconditionally, but `.border-transparent` and `.border-navy` set the
+  // same CSS property (border-color) at equal specificity — whichever rule
+  // Tailwind happens to emit later in the stylesheet wins the cascade,
+  // regardless of class order in the element's className. That made the
+  // secondary variant's visible navy border always lose to base's
+  // transparent one. Each variant now owns its own border-color instead.
+  "inline-flex items-center justify-center gap-2 rounded-md font-semibold font-sans leading-none whitespace-nowrap border-[1.5px] [transition:translate_150ms_ease,box-shadow_200ms_ease,background_200ms_ease,color_200ms_ease] focus-visible:outline-2 focus-visible:outline-saffron focus-visible:outline-offset-2";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-saffron text-navy shadow-[0_1px_0_rgba(11,31,77,0.08),0_4px_12px_rgba(232,147,14,0.25)] hover:bg-[#d8830a] hover:-translate-y-px",
+    "border-transparent bg-saffron text-navy shadow-[0_1px_0_rgba(11,31,77,0.08),0_4px_12px_rgba(232,147,14,0.25)] hover:bg-[#d8830a] hover:-translate-y-px hover:shadow-[0_1px_0_rgba(11,31,77,0.08),0_8px_20px_rgba(232,147,14,0.32)]",
   secondary: "bg-transparent text-navy border-navy hover:bg-navy hover:text-white",
-  ghost: "text-navy px-5 hover:text-saffron",
+  ghost: "border-transparent text-navy px-5 hover:text-saffron",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

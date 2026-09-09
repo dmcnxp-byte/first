@@ -237,6 +237,38 @@ export type DividerBlock = {
   style?: "line" | "space";
 };
 
+export type UniversityShortlistCard = {
+  _key: string;
+  university: University;
+  programLabel: string;
+  mode: "Online" | "Distance";
+  featured?: boolean;
+  featuredTag?: string;
+};
+
+export type HeroSplitBlock = SectionHead & {
+  _key: string;
+  _type: "heroSplitBlock";
+  subhead?: string;
+  trustStrip?: {
+    statValue: string;
+    statLabel: string;
+    badges: AccreditationBadge[];
+  };
+  stats?: StatItem[];
+  form: LeadFormConfig;
+};
+
+export type UniversityShortlistBlock = SectionHead & {
+  _key: string;
+  _type: "universityShortlistBlock";
+  intro?: string;
+  cardCtaLabel: string;
+  cardSecondaryCtaLabel?: string;
+  footnote?: string;
+  items: UniversityShortlistCard[];
+};
+
 export type PageBuilderBlock =
   | HeroBlock
   | TrustStripBlock
@@ -261,7 +293,9 @@ export type PageBuilderBlock =
   | StepsBlock
   | RelatedUniversitiesBlock
   | ImageContentBlock
-  | DividerBlock;
+  | DividerBlock
+  | UniversityShortlistBlock
+  | HeroSplitBlock;
 
 // Generic Page document — replaces the Phase 3 `homePage` singleton. The
 // Homepage is just the one Page with `isHomepage: true`, rendered at "/";

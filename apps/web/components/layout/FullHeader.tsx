@@ -20,17 +20,20 @@ export function FullHeader({
   universitiesLinks: NavLink[];
 }) {
   return (
-    <header className="border-hairline/50 bg-cream/92 sticky top-0 z-50 border-b backdrop-blur-md print:hidden">
+    <header className="border-hairline/50 bg-cream/92 sticky top-0 z-50 border-b backdrop-blur-md backdrop-saturate-[1.4] print:hidden">
       <Container className="flex h-[72px] items-center justify-between gap-6">
         <Logo />
 
-        <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
+        <nav
+          aria-label="Main"
+          className="hidden items-center gap-8 text-sm font-medium md:flex"
+        >
           <HeaderNavDropdown label="Programmes" links={programmesLinks} />
           <HeaderNavDropdown label="Universities" links={universitiesLinks} />
-          <Link href="/compare" className="text-navy hover:text-saffron font-medium">
+          <Link href="/compare" className="text-slate hover:text-navy">
             Compare
           </Link>
-          <Link href="/resources" className="text-navy hover:text-saffron font-medium">
+          <Link href="/resources" className="text-slate hover:text-navy">
             Resources
           </Link>
         </nav>
@@ -39,8 +42,11 @@ export function FullHeader({
           <PhoneLink
             phone={phone}
             pageType="homepage"
-            className="text-navy hover:text-saffron hidden font-medium lg:inline"
+            className="text-navy hover:text-saffron hidden items-center gap-2 text-sm font-semibold lg:inline-flex"
           >
+            <span aria-hidden="true" className="text-base opacity-70">
+              ☎
+            </span>
             {phone}
           </PhoneLink>
           <Button
