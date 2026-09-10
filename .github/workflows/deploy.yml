@@ -68,4 +68,4 @@ jobs:
           port: 21
           local-dir: ./deploy/
           server-dir: ./
-          dry-run: true
+          dry-run: false
