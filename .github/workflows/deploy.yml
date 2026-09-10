@@ -45,11 +45,12 @@ jobs:
           cp -R apps/web/.next/standalone/. deploy/
 
           if [ -d "apps/web/public" ]; then
-            cp -R apps/web/public deploy/public
+            mkdir -p deploy/apps/web
+            cp -R apps/web/public deploy/apps/web/public
           fi
-
-          mkdir -p deploy/.next
-          cp -R apps/web/.next/static deploy/.next/static
+        
+          mkdir -p deploy/apps/web/.next
+          cp -R apps/web/.next/static deploy/apps/web/.next/static
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
