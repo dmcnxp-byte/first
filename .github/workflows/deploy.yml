@@ -49,6 +49,9 @@ jobs:
       
           mkdir -p deploy/apps/web/.next/static
           cp -R apps/web/.next/static/. deploy/apps/web/.next/static/
+
+          mkdir -p deploy/.next/static
+          cp -R apps/web/.next/static/. deploy/.next/static/
       
           echo "=== STATIC FILES ==="
           find deploy/apps/web/.next/static -type f | head -20
