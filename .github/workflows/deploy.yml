@@ -82,7 +82,7 @@ jobs:
           path: deploy/
           retention-days: 7
           
-      - name: Test FTP deployment
+      - name: Deploy Next.js static assets to public_html
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -90,6 +90,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
-          local-dir: ./deploy/
-          server-dir: ./
+          local-dir: ./deploy/_next/
+          server-dir: ./public_html/_next/
           dry-run: false
