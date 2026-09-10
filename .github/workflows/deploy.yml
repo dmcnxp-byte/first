@@ -41,23 +41,39 @@ jobs:
         run: |
           rm -rf deploy
           mkdir -p deploy
-      
+
+          # Copy Next.js standalone server
           cp -R apps/web/.next/standalone/. deploy/
-      
+
+          # Copy public files
           mkdir -p deploy/apps/web/public
           cp -R apps/web/public/. deploy/apps/web/public/
-      
+
+          # Copy Next.js static files to apps/web/.next/static
           mkdir -p deploy/apps/web/.next/static
           cp -R apps/web/.next/static/. deploy/apps/web/.next/static/
-      
+
+          # Copy Next.js static files to root .next/static
           mkdir -p deploy/.next/static
           cp -R apps/web/.next/static/. deploy/.next/static/
-      
+
+          # Copy Next.js static files to root _next/static
           mkdir -p deploy/_next/static
           cp -R apps/web/.next/static/. deploy/_next/static/
-      
+
+          # Copy static files into public/_next/static
+          # This makes /_next/static/... directly accessible
+          mkdir -p deploy/apps/web/public/_next/static
+          cp -R apps/web/.next/static/. deploy/apps/web/public/_next/static/
+
           echo "=== STATIC FILES ==="
           find deploy/apps/web/.next/static -type f | head -20
+
+          echo "=== ROOT _next FILES ==="
+          find deploy/_next/static -type f | head -20
+
+          echo "=== PUBLIC _next FILES ==="
+          find deploy/apps/web/public/_next/static -type f | head -20
           
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
