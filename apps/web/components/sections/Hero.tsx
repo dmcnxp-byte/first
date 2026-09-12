@@ -35,13 +35,7 @@ export function Hero({
         {primaryCta || secondaryCta ? (
           <div className="mt-10 flex flex-wrap gap-3">
             {primaryCta ? (
-              <Button
-                href={primaryCta.href}
-                variant="primary"
-                size="lg"
-                withArrow
-                className="!bg-[#008000] hover:!bg-[#008000]"
-              >
+              <Button href={primaryCta.href} variant="primary" size="lg" withArrow>
                 {primaryCta.label}
               </Button>
             ) : null}
