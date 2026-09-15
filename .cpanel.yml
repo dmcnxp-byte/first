@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export APP="/home/dnyanalugh/nextjs-app"
+    - export APP="/home/dnyanalugh/nextjs-cpanel-test"
 
     - /bin/mkdir -p "$APP"
 
