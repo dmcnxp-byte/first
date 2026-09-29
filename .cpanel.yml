@@ -10,6 +10,7 @@ deployment:
 
     - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-app/22/bin/npm ci --ignore-scripts
 
+    - export NODE_OPTIONS="--disable-wasm-trap-handler"
     - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-app/22/bin/npm run build --workspace=apps/web
 
     - /bin/mkdir -p "$APP/tmp"
