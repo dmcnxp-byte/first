@@ -9,7 +9,7 @@ deployment:
     - /bin/cp package.json package-lock.json "$APP/"
 
     - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-cpanel-test/20/bin/npm ci --ignore-scripts
-
+    - export NODE_OPTIONS="--disable-wasm-trap-handler"
     - cd "$APP" && /home/dnyanalugh/nodevenv/nextjs-cpanel-test/20/bin/npm run build --workspace=apps/web
 
     - /bin/mkdir -p "$APP/tmp"
